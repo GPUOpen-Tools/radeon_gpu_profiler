@@ -4,10 +4,12 @@ The Radeon GPU Profiler (RGP) is a ground-breaking low-level optimization tool f
 
 This unique tool generates easy to understand visualizations of how your DirectX®12 and Vulkan® games interact with the GPU at the hardware level. Profiling a game is both a quick, and simple process using the Radeon Developer Panel and the public Crimson driver. 
 
+A Linux version will be made available when driver support is available.
+
 
 ## Getting Started
 
-1. Install the latest Crimson driver (17.7.2 or newer for Windows, 17.30 for Linux).
+1. Install the latest Crimson driver (17.7.2 or newer for Windows).
 2. Unzip/Untar the download file. The directory contains the following:
 * Radeon Developer Service (RDS)
 * Radeon Developer Panel (RDP)
