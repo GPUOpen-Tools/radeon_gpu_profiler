@@ -9,7 +9,11 @@ This unique tool generates easy to understand visualizations of how your DirectX
 
 1. Install the latest Crimson driver.
 2. Unzip/Untar the download file. The directory contains the following: - Radeon Developer Service (RDS) - Radeon Developer Panel (RDP) - Radeon GPU Profiler (RGP)
-3. To gather a profile from a game run the Radeon Developer Panel and follow the instructions in the Help - There are two help documents in the "docs" directory (**RadeonDeveloperPanel.pdf** and **RadeonGPUProfiler.pdf**) - Help web pages exist in the "docs" sub directory - Help web pages can be accessed from the Help button in the Developer Panel - Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the help menu
+3. To gather a profile from a game run the Radeon Developer Panel and follow the instructions in the Help - Help can be found in one of the following locations:
+* There are two help documents in the "docs" directory (**RadeonDeveloperPanel.pdf** and **RadeonGPUProfiler.pdf**)
+* Help web pages exist in the "docs" sub directory
+* Help web pages can be accessed from the Help button in the Developer Panel
+* Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the help menu
 
 ## Supported ASICs
 * AMD Radeon™ R9 Fury and Nano series  
