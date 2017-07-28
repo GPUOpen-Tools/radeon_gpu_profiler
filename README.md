@@ -9,7 +9,7 @@ A Linux version will be made available when driver support is available.
 
 ## Getting Started
 
-1. Install the latest Crimson driver (17.7.2 or newer for Windows).
+1. Install the latest Crimson driver (17.7.2 or newer for Windows, 17.30 for Linux).
 2. Unzip/Untar the download file. The directory contains the following:
 * Radeon Developer Service (RDS)
 * Radeon Developer Panel (RDP)
