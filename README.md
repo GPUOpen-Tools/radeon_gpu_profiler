@@ -22,6 +22,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 
 ## Supported ASICs
 * AMD RX Vega 64 and RX Vega 56
+* AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 * AMD Radeon™ R9 Fury and Nano series  
 * AMD Radeon™ RX 400, RX 500 series
 * AMD Tonga R9 285, R9 380
