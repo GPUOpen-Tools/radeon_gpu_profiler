@@ -1,7 +1,6 @@
 # Known Issues
 
-1)  Radeon Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs).
-    It will work with one AMD GPU and other competitor cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination.
+1)  Radeon Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other competitor cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
 2)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
 3)  Radeon Developer Panel cannot capture profiles from competitor GPUs.
 4)  Radeon Developer Panel will NOT capture profiles from Windows Insider Editions.
@@ -17,3 +16,4 @@
 14) D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events. This will be corrected in a future release after obtaining more information from the driver.
 15) The Radeon Overlay hotkey, Alt+R, conflicts with the Radeon GPU Profiler shortcut key used to select the Pipeline state pane.  The Radeon Overlay hotkey can be reconfigured by opening the Radeon Settings panel (from the system tray), selecting the Preferences tab then clicking the "Toggle Radeon Overlay Hotkey" button.
 16) When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will pop up an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
+17) If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc.  The menu option to create new RGP profiles will not be enabled otherwise.
