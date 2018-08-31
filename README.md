@@ -19,6 +19,9 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * Help web pages exist in the "docs" sub directory
 * Help web pages can be accessed from the Help button in the Developer Panel
 * Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the help menu
+* The documentation is hosted publicly at:
+  http://devdrivertools.readthedocs.io/en/latest/
+  http://radeon-gpuprofiler.readthedocs.io/en/latest/
 
 ## Supported ASICs
 * AMD RX Vega 64 and RX Vega 56
@@ -35,5 +38,6 @@ In order to use the latest features of RGP, it is strongly recommended that user
 ### Windows7  
 * Vulkan  - User must install latest VC 2015 redistributables from https://www.microsoft.com/en-us/download/details.aspx?id=53840
     
-### Ubuntu 16.04.3 LTS  
+### Ubuntu 16.04.3 LTS
+### Ubuntu 18.04 LTS
 * Vulkan
