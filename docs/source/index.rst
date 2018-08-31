@@ -1,4 +1,4 @@
-﻿The Radeon GPU Profiler
+The Radeon GPU Profiler
 =======================
 
 The Radeon GPU Profiler is a performance tool that can be used by
@@ -95,8 +95,8 @@ There are a few ways to load a profile into RGP.
 1) Use the “File/Open profile” pull down menu, or the “File/Recent
    profile” pull down menu item.
 
-.. image:: media_rgp/RGP_FileLoad.png 
-  :width: 1.37973in 
+.. image:: media_rgp/RGP_FileLoad.png
+  :width: 1.37973in
   :height: 1.61458in
 
 .. image:: media_rgp/RGP_FileRecent.png
@@ -155,7 +155,10 @@ the profile data are within the **Overview** and **Events** sections.
 
    d. **Context rolls** - Details of the hardware context register usage.
 
-   e. **Device Configuration** - Information about the GPU the profile
+   e. **Render/depth targets** - Overview of render targets used throughout
+      the graphics frame.
+
+   f. **Device Configuration** - Information about the GPU the profile
       was generated on.
 
 3. **Events**
@@ -186,8 +189,8 @@ Settings
 
 General
 -------
-**Units:** This tells profiler whether to work in clocks, nanoseconds, microseconds, 
-or milliseconds. Refer to the keyboard binding in the secion below to quickly 
+**Units:** This tells profiler whether to work in clocks, nanoseconds, microseconds,
+or milliseconds. Refer to the keyboard binding in the secion below to quickly
 toggle between these time units.
 
 **State buckets:** Specify how the profiler should generate its own state buckets.
@@ -201,8 +204,8 @@ panes in sync while browsing through different time ranges.
 RGP at which point to consider an application as being GPU bound or CPU bound.
 
 **Wavefront occupancy detail:** Increase the visual quality of wavefronts in
-the Wavefront Occupancy pane. This allows users to see a more accurate 
-representation of GPU occupancy at the expense of some profiler performance. 
+the Wavefront Occupancy pane. This allows users to see a more accurate
+representation of GPU occupancy at the expense of some profiler performance.
 
 
 Themes and colors
@@ -317,7 +320,7 @@ Along the top, we find a series of controls:
    -  **Sequential**: An alternate view which shows data linearly as
       opposed to stacked. The dark right-most portion of command buffers
       and submits indicates execution time on the GPU.
-	  
+
    -  **GPU only**: A flat view of the data which represents solely GPU
       work. This helps visualize parallelism among all GPU queues.
 
@@ -339,17 +342,17 @@ Along the top, we find a series of controls:
    Please note that the view is interactive, making it possible for users to
    select and highlight command buffers, sync objects, and submission
    points.
-   
+
    Starting with RGP 1.2 it is possible to correlate between command buffer
    timing data and SQTT data. Users may do this by right-clicking on a command
-   buffer within the "Detailed GPU events" region, which will bring up an event 
-   finder context menu. This menu shows three options for finding the first 
+   buffer within the "Detailed GPU events" region, which will bring up an event
+   finder context menu. This menu shows three options for finding the first
    event  within the selected command buffer. Selecting an option will
-   trigger the profiler to navigate to the appropriate pane and focus on the 
+   trigger the profiler to navigate to the appropriate pane and focus on the
    first event.
-   
-   Along the bottom, we find information about user selections:   
-   
+
+   Along the bottom, we find information about user selections:
+
 -  **Submit time:** Specifies when work was issued by the CPU
 
 -  **Submit duration:** Specifies the full duration of the submit
@@ -376,11 +379,12 @@ Along the top, we find a series of controls:
    based on duration and shader clock frequency used in other RGP panes
    such as Wavefront occupancy.
 
-   The **Command buffers** pie chart shows the number of command buffers
-   in the frame broken down by the Direct and Compute queues. Compute
-   submissions are colored in red and graphics submissions are colored
-   in light blue. The **Sync Primitives** section counts how many unique
-   signal and wait objects were detected throughout the profile.
+   The **Queue submissions** and **Command buffers** pie charts show the
+   number of queue submissions and command buffers in the frame broken down
+   by the Direct and Compute queues. Compute submissions are colored in yellow
+   and graphics submissions are colored in light blue. The **Sync Primitives**
+   section counts how many unique signal and wait objects were detected
+   throughout the profile.
 
 .. image:: media_rgp/RGP_FrameSummary_3.png
   :width: 8.73428in
@@ -471,7 +475,7 @@ The table shows the following information:
    In addition, the user can also see the parent command buffer in the Overview
    pane. If selected, the Overview pane will be opened and the parent command
    buffer will be selected.
-   
+
    Below is a screenshot of what the right-click context menu looks like:
 
 .. image:: media_rgp/RGP_Barriers_2.png
@@ -488,7 +492,7 @@ left of the graph and the most expensive to the right. A blue summary
 bar with an arrow points to the bucket that is the most costly by time.
 The events in this bucket are most in need of optimization. The double
 slider below the chart can be used to select different regions of the
-histogram. The summary and table below will update as the double 
+histogram. The summary and table below will update as the double
 slider’s position is changed. In the example below we can see that the
 most expensive 5% of events take 44% of the frame time.
 
@@ -591,6 +595,67 @@ looks like.
 right-click context menu to jump between panes, the option to "View in
 context rolls" will only be available if the selected event is currently
 present in the events table on the context rolls pane.
+
+Render/depth targets
+--------------------
+
+This UI provides an overview of all buffers that have been used as render
+targets in draw calls throughout the frame.
+
+.. image:: media_rgp/RGP_RendertargetsOverview_1.png
+  :width: 9.26223in
+
+The screen is split into two sections, a timeline view and a treeview listing:
+
+.. image:: media_rgp/RGP_RendertargetsOverview_2.png
+  :width: 9.26223in
+..
+
+  The graphical timeline view illustrates the usage of render targets over
+  the duration of the frame. Other events like copies, clears and barriers are shown
+  at the bottom of this view.
+
+Users can use the same selection and zooming facilities as in other views.
+Each solid block in this view represents a series of events that overlap and draw to the same
+render target within the same pass. A single click on on one of these highlights the corresponding
+entry in the treeview. Zooming in on a single item can be done by selecting it and clicking on
+“Zoom to selection”.
+
+.. image:: media_rgp/RGP_RendertargetsOverview_3.png
+  :width: 9.26223in
+..
+  The treeview shows a listing of all render targets and their properties found in the frame.
+
+This section lists all of the render targets found in the frame. Based on the active
+grouping mode it either shows a top-level listing of render targets or passes.
+The grouping can be configured in two ways:
+
+- **Group by target** The top level consists of all render targets found in the frame, plus
+  per-frame stats. Child entries show *per-pass* stats for each render target.
+- **Group by pass** The top level consists of all passes found in the frame. Child
+  entries show per-pass stats for each render target.
+
+Here are the currently available columns:
+
+- **Name** The name of the render target. Currently this is sequential and based on the
+  first occurrence of each render target in the frame.
+- **Format** The format of each render target.
+- **Width** Width of the render target.
+- **Height** Height of the render target.
+- **Draw calls** Number of draw calls that output to this render target.
+- **Compression** Indicates whether compression is enabled for this render target or not.
+- **Sample count** MSAA sample count of the render target.
+- **Out of order draw calls** Number of out of order draw calls issued to this render target.
+- **Duration** The total duration of all the events that rendered to the render target. For
+  example, if 3 events write to a depth buffer the duration will be the sum of these 3 event
+  durations.
+
+**NOTE:**
+
+- Selecting any item in either the timeline view or the treeview will select the corresponding
+  item in the other view.
+- Selecting any item in either the timeline view or the treeview will select the earliest event
+  represented by that item  in other sections of the tool.
 
 Device configuration
 --------------------
@@ -771,30 +836,46 @@ in the Events timeline the details panel will look like below:
 
 The Details panel for a single event contains the following data:
 
--  The event’s API call name
+*  The event’s API call name
 
--  The queue it was launched on
+*  The queue it was launched on
 
--  User event hierarchy (if present)
+*  User event hierarchy (if present)
 
--  Start, End, and Duration timings
+*  Start, End, and Duration timings
 
--  Hardware context and if it was rolled
+*  Hardware context and if it was rolled
 
--  Wavefront pie chart showing the distribution of wavefront counts per
-   stage
+*  List of GCN hardware stages and wavefront counts
 
--  List of GCN hardware stages and wavefront counts
+*  Colored bar showing wavefront distribution per GCN hardware stage
 
--  Total wavefront count
+*  Total wavefront count
 
--  Total threads
+*  Total threads
 
--  GCN shader timeline graphic showing active stages and duration
+*  GCN shader timeline graphic showing active stages and duration
 
--  Block diagram of active pipeline stages
+*  A table showing resource usage for each API shader stage:
 
--  Primitive, vertex, control point, and pixel counts
+   * The VGPR and SGPR columns refer to the vector and scalar general
+     purpose registers being used, and the number of registers that have
+     been allocated shown in parentheses.
+
+   * The LDS column refers to the amount of Local Data Store that each
+     shader stage is using, reported in bytes.
+
+   * The Occupancy column refers to the Theoretical wavefront occupancy
+     for the shader. This is reported 'A / B', where A is the number of
+     wavefronts that can be run and 'B' is the maximum number of wavefronts
+     supported by the hardware.
+
+   * Tooltips explaining the data are available by hovering the mouse over
+     the table header.
+
+*  Block diagram of active pipeline stages
+
+*  Primitive, vertex, control point, and pixel counts
 
 The ‘Duration’ shows the time from the start of the first shader to the
 end of the last shader, including any space between shaders where no
@@ -825,7 +906,7 @@ a user-inserted barrier is shown below:
 .. image:: media_rgp/RGP_DetailsPanel_3.png
   :width: 4.12758in
   :height: 4.71899in
-  
+
 If the driver needed to insert a barrier, a detailed reason why this barrier
 was inserted is also displayed, as shown below:
 
@@ -1001,9 +1082,9 @@ finished executing. This occurs when a draw call is doing depth-only rendering.
 The fixed function work shown is the primitive assembly and scan conversion
 of the vertices shaded by the vertex shader.
 
-Starting with RGP 1.2 users may also obtain information about an event's 
-parent command buffer. When right-clicking on an event, users are presented with 
-a context menu containing an option to find its parent command buffer. This 
+Starting with RGP 1.2 users may also obtain information about an event's
+parent command buffer. When right-clicking on an event, users are presented with
+a context menu containing an option to find its parent command buffer. This
 will trigger RGP to navigate to the Frame Summary and focus on said parent
 command buffer. Once here, users can obtain valuable system-level insight
 about the surrounding context for the event in question.
@@ -1352,6 +1433,23 @@ bring up a prompt to allow specification of a path to Radeon GPU Profiler. Once
 profiling is complete, RenderDoc will launch Radeon GPU Profiler and the new
 profile will be ready for analysis.
 
+**NOTE:**
+Be sure to close RGP if RenderDoc is restarted.  Otherwise, the restarted
+RenderDoc instance will be unable to open a connection to the AMD-Developer-Service
+API and will not be able to generate RGP Profiles.
+
+Also, when running on Linux, if RenderDoc does not shutdown cleanly, it may be
+necessary to wait a few minutes for the AMD-Developer-Service API connection to
+close before restarting RenderDoc.
+
+These are known issues that will be resolved in a future release.
+
+The following command can be executed from a terminal window to determine if the
+AMD-Developer-Service named pipe is still opened:
+
+netstat -p | grep "AMD"
+
+
 Navigating between events
 -------------------------
 
@@ -1441,5 +1539,13 @@ Known limitations
    calls as part of an optimization to Map/Unmap. These will be visible as
    tall spikes of compute work in the wavefront occupancy view.
 
+-  If an RGP profile opened by RenderDoc is left running and RenderDoc is restarted,
+   the InterOp connection between the two can't be re-established. In this case, the
+   "Create new RGP Profile" menu option will remain disabled after opening a new
+   RenderDoc trace. This is due to a named pipe left open.  To resolve the issue,
+   close RGP then restart RenderDoc.
+   For Linux only, a similar situation can occur if the RenderDoc process does not
+   shutdown cleanly. If this occurs, it may be necessary to wait a few minutes for
+   the connection to be removed before restarting RenderDoc.
 
 .. _Microsoft PIX tool: https://blogs.msdn.microsoft.com/pix/introduction/
