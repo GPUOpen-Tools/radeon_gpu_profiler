@@ -38,6 +38,18 @@ In order to use the latest features of RGP, it is strongly recommended that user
 ### Windows7  
 * Vulkan  - User must install latest VC 2015 redistributables from https://www.microsoft.com/en-us/download/details.aspx?id=53840
     
-### Ubuntu 16.04.3 LTS
 ### Ubuntu 18.04 LTS
 * Vulkan
+
+## Supported compute APIs, GCN hardware, and operating systems
+### Supported APIs
+* OpenCL
+
+### Supported GCN hardware for graphics APIs
+* AMD RX Vega 64 and RX Vega 56
+* AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
+
+### Supported Operating Systems
+* Windows 10
+* Windows 7
+* Ubuntu 18.04.1 LTS
