@@ -1,0 +1,107 @@
+
+Barriers
+--------
+
+The developer is now responsible for the use of barriers in their
+application to control when resources are ready for use in specific
+parts of the frame. Poor usage of barriers can lead to poor performance
+but the effects on the frame are not easily visible to the developer -
+until now. The Barriers UI gives the developer a list of barriers in use
+on the graphics queue, including the additional barriers inserted by the
+driver.
+
+Note that in older profiles or if the barrier origin isn't known, all
+barriers and layout transitions will be shown as 'N/A'.
+
+.. image:: media_rgp/RGP_Barriers_1.png
+  :width: 9.99535in
+  :height: 5.16960in
+
+The table gives a summary at the top left of the UI that quickly lets
+the developer know if there is an issue with barrier usage in the frame.
+In the case above the barrier usage is taking up 0% of the frame - below
+the recommended max value of 5%.
+
+The table shows the following information:
+
+1. **Event Numbers** - ID of the barrier - selecting and event in this
+   UI will select it on the other Events windows
+
+2. **Duration** - Lifetime of the barrier
+
+3. **Drain time** - This is the amount of time the barrier spends waiting
+   for the pipeline to drain, or work to finish. Once the pipeline is empty,
+   new wavefronts can be dispatched
+
+4. **Stalls** - The type of stalls associated with the barrier - where
+   in the graphics pipe we need the work to drain from
+
+5. **Layout transitions** - A blue check box indicates if the barrier is
+   associated with a layout transition. There are 6 columns indicating the
+   type of layout transition
+
+6. **Invalidated** - A list of invalidated caches
+
+7. **Flushed** - A list of flushed caches
+
+8. **Barrier type** - Whether the barrier originated from the application
+   or from the driver (or 'N/A' if unknown)
+
+9. **Reason for barrier** - In the case of driver-inserted barriers, a brief
+   description of why this barrier was inserted
+
+   **NOTE**: Selecting a barrier in this list will select the same event
+   in the other Event windows.
+
+   The user can also right-click on any of the rows and navigate to
+   Wavefront occupancy, Event timing or Pipeline state panes and view
+   the event represented by the selected row in these panes, as well as
+   in the side panels.
+
+   In addition, the user can also see the parent command buffer in the Overview
+   pane. If selected, the Overview pane will be opened and the parent command
+   buffer will be selected.
+
+   Below is a screenshot of what the right-click context menu looks like:
+
+.. image:: media_rgp/RGP_Barriers_2.png
+  :width: 9.50751in
+  :height: 2.09462in
+
+Barriers and OpenCL
+-------------------
+Barriers for OpenCL profiles provide visibility into how the driver scheduled
+dispatches to the GPU and dependencies between kernel dispatches. These barriers
+are the same synchronization primitives used by DirectX12 and Vulkan that are described above.
+
+The barriers shown in an OpenCL profile correspond to the barriers
+inserted by the OpenCL driver for one of the following reasons.
+
+1. **Queue Profiling** - The application has enabled profiling CL_QUEUE_PROFILING_ENABLE property
+   when creating a command queue. This causes barriers to be inserted so that timestamps can be recorded.
+
+2. **Data Dependencies** - There are data dependencies between subsequent dispatches. For
+   example, reading the results of a previous kernel dispatch. This causes barriers to be inserted
+   so that caches can be invalidated.
+
+OpenCL commmand queues process dispatches one after another and it is common for a
+subsequent kernel dispatch to use the results of a previous kernel dispatch. For this reason, it
+can be expected that a RGP profile will have a large number of barriers.
+
+A typical OpenCL profile's barriers are shown below.
+
+.. image:: media_rgp/RGP_BarriersOpenCL_1.png
+  :width: 9.99535in
+  :height: 5.16960in
+
+As we see, the time taken due to barriers is typically very small since inter-dispatch dependencies only cause cache invalidations.
+
+.. image:: media_rgp/RGP_BarriersOpenCL_2.png
+  :width: 9.99535in
+  :height: 5.16960in
+
+
+It should be noted that the meaning of barriers in RGP for OpenCL is different from OpenCL's synchronization
+APIs and is not related to the OpenCL synchronization APIs based on cl_event or cl_barrier.
+For this reason, the barriers seen in OpenCL profiles are known as cmdBarrier() which is not a part of the OpenCL API.
+For OpenCL profiles, RGP does not presently show OpenCL events or host synchronization. 

@@ -2,7 +2,7 @@ The Radeon GPU Profiler
 =======================
 
 The Radeon GPU Profiler is a performance tool that can be used by
-developers to optimize DirectX12© and Vulkan© applications for AMD GCN
+developers to optimize DirectX12©, Vulkan© and OpenCL© applications for AMD GCN
 hardware. It is part of a suite of tools comprised of the following
 software:
 
@@ -17,7 +17,7 @@ software:
 
 -  **Radeon Developer Panel (RDP)** - A GUI application that allows the
    developer to configure driver settings and generate profiler data
-   from DirectX12 and Vulkan applications.
+   from DirectX12, Vulkan and OpenCL applications.
 
 -  **Radeon GPU Profiler (RGP)** - A GUI tool used to visualize and
    analyze the profile data.
@@ -25,7 +25,7 @@ software:
    This document describes how to generate a profile using the Radeon
    Developer Panel and how the Radeon GPU Profiler can be used to
    examine the output profiles. The Radeon GPU Profiler is currently
-   designed to work with frame based graphics applications only. It is
+   designed to work with compute applications and frame based graphics applications. It is
    specifically designed to address the issues that developers are
    dealing with in the move from traditional graphics APIs to explicit
    APIs. It also provides the visualization of GCN hardware specific
@@ -33,13 +33,13 @@ software:
    full potential of the architecture. The tool provides unique
    visualizations of queue synchronization using fences and semaphores,
    asynchronous compute, and barrier timings. Currently, it supports the
-   explicit APIs (DirectX12 and Vulkan) and will NOT work with older
-   APIs such as DirectX11 or OpenGL.
+   explicit graphics APIs (DirectX12 and Vulkan), compute APIs (OpenCL)
+   and will NOT work with older graphics APIs such as DirectX11 or OpenGL.
 
 Supported graphics APIs, GCN hardware, and operating systems
 ------------------------------------------------------------
 
-**Supported graphics APIs**
+**Supported APIs**
 
 -  DirectX12
 
@@ -48,6 +48,8 @@ Supported graphics APIs, GCN hardware, and operating systems
 \ **Supported GCN hardware**
 
 -  AMD RX Vega 64 and RX Vega 56
+
+-  AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 
 -  AMD Radeon™ R9 Fury and Nano series
 
@@ -61,7 +63,28 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 -  Windows 7
 
--  Ubuntu 16.04.3
+-  Ubuntu 18.04.1 LTS
+
+Supported compute APIs, GCN hardware, and operating systems
+------------------------------------------------------------
+
+**Supported APIs**
+
+-  OpenCL
+
+\ **Supported GCN hardware for graphics APIs**
+
+-  AMD RX Vega 64 and RX Vega 56
+
+-  AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
+
+\ **Supported Operating Systems**
+
+-  Windows 10
+
+-  Windows 7
+
+-  Ubuntu 18.04.1 LTS
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -146,19 +169,22 @@ the profile data are within the **Overview** and **Events** sections.
 
 2. **Overview**
 
-   a. **Frame Summary** - Contains summaries of structure of the
-      graphics frame.
+   a. **Frame Summary** - Contains a summary of the structure of the
+      graphics frame. This overview section is not available for OpenCL profiles.
 
-   b. **Barriers** - Details of the barrier usage in the profiled frame.
+   b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
 
-   c. **Most expensive events** - List of the most expensive events.
+   c. **Barriers** - Details of the barrier usage in the profile.
 
-   d. **Context rolls** - Details of the hardware context register usage.
+   d. **Most expensive events** - List of the most expensive events.
 
-   e. **Render/depth targets** - Overview of render targets used throughout
-      the graphics frame.
+   e. **Context rolls** - Details of the hardware context register usage.
+      This overview section is not available for OpenCL profiles.
 
-   f. **Device Configuration** - Information about the GPU the profile
+   f. **Render/depth targets** - Overview of render targets used throughout
+      the graphics frame. This overview section is not available for OpenCL profiles.
+
+   g. **Device Configuration** - Information about the GPU the profile
       was generated on.
 
 3. **Events**
@@ -187,300 +213,16 @@ the profile data are within the **Overview** and **Events** sections.
 Settings
 ========
 
-General
--------
-**Units:** This tells profiler whether to work in clocks, nanoseconds, microseconds,
-or milliseconds. Refer to the keyboard binding in the secion below to quickly
-toggle between these time units.
-
-**State buckets:** Specify how the profiler should generate its own state buckets.
-This can be based off a combination of shader base address, depth buffer address,
-and render target address.
-
-**Sync event time windows:** Keep the Wavefront Occupancy and Event Timing
-panes in sync while browsing through different time ranges.
-
-**Processor boundness:** Specific to the Frame Summary, this value will tell
-RGP at which point to consider an application as being GPU bound or CPU bound.
-
-**Wavefront occupancy detail:** Increase the visual quality of wavefronts in
-the Wavefront Occupancy pane. This allows users to see a more accurate
-representation of GPU occupancy at the expense of some profiler performance.
-
-
-Themes and colors
------------------
-The profiler makes heavy use of coloring to display its information.
-This pane allows users to thoroughly customize those colors.
-
-.. image:: media_rgp/RGP_ThemesAndColors_Settings.png
-  :width: 5.07581in
-  :height: 7.60122in
-
-Keyboard shortcuts
-------------------
-
-Here users will find the **Keyboard shortcuts** pane:
-
-.. image:: media_rgp/RGP_KeyboardShortcuts_Settings.png
-  :width: 5.07581in
-  :height: 7.60122in
-
-The **System activity, Wavefront occupancy and Event timing** shortcuts
-are specific to zooming and panning operations that can be performed
-within the Frame Summary and Events subtabs (see below):
-
-.. image:: media_rgp/RGP_Tabs_1.png
-  :width: 3.49135in
-  :height: 0.55208in
-
-.. image:: media_rgp/RGP_Tabs_2.png
-  :width: 5.10170in
-  :height: 0.70833in
-
-The **Event timeline** section refers to panning and event selection
-operations for the bottom graph within the Wavefront occupancy view.
-
-The **Global navigation** section refers to keystrokes that aid user
-navigation, and are always detected regardless of which pane is visible.
-
-The **Global hotkeys** section refers to any hotkeys available anywhere
-in the product. Currently there is just one setting that allows you to
-cycle through the different time units from any pane, rather than having
-to go to the settings. This allows you to view a timeline in clock
-cycles, milliseconds, microseconds or nanoseconds very quickly.
-
-We encourage all users to adopt these keystrokes while using RGP.
-
-UI Navigation
--------------
-
-In an effort to improve workflow, RGP supports keyboard shortcuts and
-back and forward history to quickly navigate throughout the UI.
-
-Back and forward navigation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-RGP tracks navigation history, which allows users to navigate back and
-forward between all of RGP’s panes. This is achieved using global
-navigation **hotkeys** shown above, or the back and forward **buttons**
-shown below:
-
-.. image:: media_rgp/RGP_Navigation.png
-  :width: 1.45225in
-  :height: 1.00000in
-
-Currently, back and forward navigation is restricted to pane switches
-and moving between events within a pane, but further releases may
-support navigation history of more detailed user actions within panes.
+.. include:: Settings.rst
 
 Overview Windows
 ================
 
-Frame summary
--------------
+.. include:: FrameSummary.rst
 
-This window describes the structure of a profile from a number of
-different perspectives.
+.. include:: ProfileSummary.rst
 
-.. image:: media_rgp/RGP_FrameSummary_1.png
-  :width: 9.41799in
-  :height: 4.00025in
-
-The System activity section displays a system-level view of sync
-operations and when command buffers were submitted to the GPU. Speaking
-in general terms, all profiles contain two types of data: command buffer
-timing data and SQTT timing data. This pane displays the former, and the
-rest of RGP displays the latter.
-
-Along the top, we find a series of controls:
-
--  **GPU and CPU based frames:** Controls how to display frame
-   boundaries, which are also bracketed by black markers. The difference
-   in time between both modes can help to visualize latency between
-   workload submission and execution. The driver provides each command
-   buffer with a frame number, a CPU submit timestamp, a GPU start
-   timestamp, and a GPU end timestamp.
-
-   -  **GPU-based frames:** Interprets frame boundaries to begin when
-      a present finished on the GPU.
-
-   -  **CPU-based frames:** Interprets frame boundaries to begin when
-      a present was submitted on the CPU.
-
--  **Workload views:** Provide twelve different ways to view the same data:
-
-   -  **Command buffers:** Shows a list of all command buffers in a
-      submission. Disabling this will condense all command buffers into
-      a single submission block which also specifies the number of
-      contained command buffers.
-
-   -  **Sync objects**: Toggles whether to display signals and waits.
-
-   -  **Sequential**: An alternate view which shows data linearly as
-      opposed to stacked. The dark right-most portion of command buffers
-      and submits indicates execution time on the GPU.
-
-   -  **GPU only**: A flat view of the data which represents solely GPU
-      work. This helps visualize parallelism among all GPU queues.
-
--  **CPU submission markers:** Draw vertical lines to help visualize
-   when the CPU issued certain types of workloads to the GPU.
-
--  **Zoom controls:** Consistent with the rest of the tool, these allow
-   users to drill down into points of interest.
-
-   In the middle, we find the actual view. Each queue (Graphics,
-   Compute, Copy) gets its own section. The alternating grey and white
-   backgrounds indicate frame boundaries. The blue region indicates
-   which command buffers were profiled with SQTT data, for more detailed
-   event analysis in other sections of the tool. Note that command
-   buffers are visualized using two shades of the same color. The
-   lighter shade represents time spent prior to reaching the GPU, and
-   the darker shade represents actual execution.
-
-   Please note that the view is interactive, making it possible for users to
-   select and highlight command buffers, sync objects, and submission
-   points.
-
-   Starting with RGP 1.2 it is possible to correlate between command buffer
-   timing data and SQTT data. Users may do this by right-clicking on a command
-   buffer within the "Detailed GPU events" region, which will bring up an event
-   finder context menu. This menu shows three options for finding the first
-   event  within the selected command buffer. Selecting an option will
-   trigger the profiler to navigate to the appropriate pane and focus on the
-   first event.
-
-   Along the bottom, we find information about user selections:
-
--  **Submit time:** Specifies when work was issued by the CPU
-
--  **Submit duration:** Specifies the full duration of the submit
-
--  **Enqueue duration:** Specifies how long the work was queued before
-   beginning on the GPU
-
--  **GPU duration:** Specifies how long the GPU took to execute it.
-
-   Below the queue timings view we find the following summary:
-
-.. image:: media_rgp/RGP_FrameSummary_2.png
-  :width: 8.65468in
-  :height: 3.54555in
-..
-
-   This shows an interpretation of queue timings data to determine which
-   processor is the bottleneck. By default, if the GPU is idle more than
-   5% of the time then the profile is considered to be CPU-bound. This
-   percentage may be adjusted in RGP settings.
-
-   Please note that the values displayed under **Frame duration** and
-   **Frame rate** are sourced from SQTT data. In other words, they are
-   based on duration and shader clock frequency used in other RGP panes
-   such as Wavefront occupancy.
-
-   The **Queue submissions** and **Command buffers** pie charts show the
-   number of queue submissions and command buffers in the frame broken down
-   by the Direct and Compute queues. Compute submissions are colored in yellow
-   and graphics submissions are colored in light blue. The **Sync Primitives**
-   section counts how many unique signal and wait objects were detected
-   throughout the profile.
-
-.. image:: media_rgp/RGP_FrameSummary_3.png
-  :width: 8.73428in
-  :height: 4.44337in
-..
-
-   The **Event statistics** pie chart and table show the event counts
-   colored by type. In the above example there are 281 Dispatch and
-   1,633 DrawIndexedInstanced events. The **Instanced primitives**
-   histogram shows the number of events that drew N (1 to 16+)
-   instances. In the example above we see that most events drew just a
-   single instance, whereas a lesser number of events drew 2-9 and 16
-   instances.
-
-.. image:: media_rgp/RGP_FrameSummary_4.png
-  :width: 9.93224in
-  :height: 2.84491in
-..
-
-   **Geometry breakdown** gives a summary of the vertices,
-   shaded primitives, shaded pixels, and instanced primitives. In the
-   above example we can see that the GS is being used to expand the
-   number of shaded primitives. Also, looking at the **Rendered
-   Primitives** histogram we can see that one draw uses between 0 and 1K
-   primitives, and the other draw call uses 11k or more primitives. This
-   makes sense given that the profile is from the D3D12nBodyGravity SDK
-   sample.
-
-Barriers
---------
-
-The developer is now responsible for the use of barriers in their
-application to control when resources are ready for use in specific
-parts of the frame. Poor usage of barriers can lead to poor performance
-but the effects on the frame are not easily visible to the developer -
-until now. The Barriers UI gives the developer a list of barriers in use
-on the graphics queue, including the additional barriers inserted by the
-driver.
-
-Note that in older profiles or if the barrier origin isn't known, all
-barriers and layout transitions will be shown as 'N/A'.
-
-.. image:: media_rgp/RGP_Barriers_1.png
-  :width: 9.99535in
-  :height: 5.16960in
-
-The table gives a summary at the top left of the UI that quickly lets
-the developer know if there is an issue with barrier usage in the frame.
-In the case above the barrier usage is taking up 0% of the frame - below
-the recommended max value of 5%.
-
-The table shows the following information:
-
-1. **Event Numbers** - ID of the barrier - selecting and event in this
-   UI will select it on the other Events windows
-
-2. **Duration** - Lifetime of the barrier
-
-3. **Drain time** - This is the amount of time the barrier spends waiting
-   for the pipeline to drain, or work to finish. Once the pipeline is empty,
-   new wavefronts can be dispatched
-
-4. **Stalls** - The type of stalls associated with the barrier - where
-   in the graphics pipe we need the work to drain from
-
-5. **Layout transitions** - A blue check box indicates if the barrier is
-   associated with a layout transition. There are 6 columns indicating the
-   type of layout transition
-
-6. **Invalidated** - A list of invalidated caches
-
-7. **Flushed** - A list of flushed caches
-
-8. **Barrier type** - Whether the barrier originated from the application
-   or from the driver (or 'N/A' if unknown)
-
-9. **Reason for barrier** - In the case of driver-inserted barriers, a brief
-   description of why this barrier was inserted
-
-   **NOTE**: Selecting a barrier in this list will select the same event
-   in the other Event windows.
-
-   The user can also right-click on any of the rows and navigate to
-   Wavefront occupancy, Event timing or Pipeline state panes and view
-   the event represented by the selected row in these panes, as well as
-   in the side panels.
-
-   In addition, the user can also see the parent command buffer in the Overview
-   pane. If selected, the Overview pane will be opened and the parent command
-   buffer will be selected.
-
-   Below is a screenshot of what the right-click context menu looks like:
-
-.. image:: media_rgp/RGP_Barriers_2.png
-  :width: 9.50751in
-  :height: 2.09462in
+.. include:: Barriers.rst
 
 Most expensive events
 ---------------------
@@ -523,6 +265,8 @@ looks like.
 
 Context rolls
 -------------
+
+**NOTE**: This UI is only available for DirectX and Vulkan profiles.
 
 Context rolling is a hardware feature specific to the GCN graphics
 architecture and needs to be taken into consideration when optimizing
@@ -598,6 +342,8 @@ present in the events table on the context rolls pane.
 
 Render/depth targets
 --------------------
+
+**NOTE**: This UI is only available for DirectX and Vulkan profiles.
 
 This UI provides an overview of all buffers that have been used as render
 targets in draw calls throughout the frame.
@@ -754,6 +500,15 @@ Additionally, there are filters along the top intended to help visualize
 the occupancy of only certain GCN pipeline stages. Lastly, there are
 colored legends on the bottom which serve as color reminders. Note these
 colors can be customized within Settings.
+
+The RGP wavefront occupancy for OpenCL has only compute in the wavefront occupancy.
+This is because compute APIs such as OpenCL only dispatch compute shader waves.
+For this same reason, a number of the coloring options  such as hardware context
+and GCN stages are not applicable for OpenCL.
+
+.. image:: media_rgp/RGP_WavefrontOccupancy_OpenCL_1.png
+  :width: 9.43974in
+  :height: 3.37447in
 
 \ **Events timeline view**
 
@@ -1089,6 +844,15 @@ will trigger RGP to navigate to the Frame Summary and focus on said parent
 command buffer. Once here, users can obtain valuable system-level insight
 about the surrounding context for the event in question.
 
+Compute dispatches for both graphics APIs and OpenCL have a simpler structure
+A sample compute event is shown below. 
+
+.. image:: media_rgp/RGP_Compute_Event.png
+
+In a compute event, only compute shader waves are launched. 
+Also, compute dispatches do not have any fixed function work after the shader
+work is finished.
+
 Pipeline state
 --------------
 
@@ -1137,11 +901,14 @@ semantically the same if blending is enabled. A no-op indicates that no
 transform of the data is to be performed so the output is the same as
 the source.
 
+**Note:** For OpenCL applications, the pipeline state does not show the
+graphics specific stages since they are not active during compute dispatches.
+
 User Debug Markers
 ==================
 
 User markers can help application developers to correlate the data seen
-in RGP with their application behavior.
+in RGP with their application behavior. User Markers are presently not supported for OpenCL.
 
 DirectX12 User Markers
 ----------------------
@@ -1406,7 +1173,7 @@ RenderDoc & Radeon GPU Profiler interop BETA
 Prior to version 1.2, users were expected to generate profiles by pairing
 Radeon Developer Panel with their native application. This new feature
 empowers RenderDoc to also generate profiles, plus allowing users to correlate
-between events across both tools.
+between events across both tools. This feature is only supported for DirectX12 and Vulkan.
 
 Intended usage
 --------------
