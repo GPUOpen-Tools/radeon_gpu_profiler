@@ -18,3 +18,4 @@
 16) If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc.  The menu option to create new RGP profiles will not be enabled otherwise.
 17) Sync objects displayed in the Frame Summary are currently missing in Windows RS5. This issue is currently under investigation.
 18) OpenCL captures may include an extra DMA command buffer in the Profile Summary. This issue will be fixed in a future version.
+19) Launching the RadeonDeveloperPanel and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid thisfrom happening. The issue is currently being investigated.
