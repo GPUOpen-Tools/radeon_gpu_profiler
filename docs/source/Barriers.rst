@@ -14,13 +14,14 @@ Note that in older profiles or if the barrier origin isn't known, all
 barriers and layout transitions will be shown as 'N/A'.
 
 .. image:: media_rgp/RGP_Barriers_1.png
-  :width: 9.99535in
-  :height: 5.16960in
 
-The table gives a summary at the top left of the UI that quickly lets
+The summary at the top left of the UI quickly lets
 the developer know if there is an issue with barrier usage in the frame.
-In the case above the barrier usage is taking up 0% of the frame - below
-the recommended max value of 5%.
+In the case above the barrier usage is taking up 0% of the frame.
+
+This summary also displays the average number of barriers
+per draw or dispatch and the average number of
+events per barrier issue.
 
 The table shows the following information:
 
@@ -56,7 +57,7 @@ The table shows the following information:
    The user can also right-click on any of the rows and navigate to
    Wavefront occupancy, Event timing or Pipeline state panes and view
    the event represented by the selected row in these panes, as well as
-   in the side panels.
+   in the side panels. Each column in the table is sortable.
 
    In addition, the user can also see the parent command buffer in the Overview
    pane. If selected, the Overview pane will be opened and the parent command
@@ -65,8 +66,6 @@ The table shows the following information:
    Below is a screenshot of what the right-click context menu looks like:
 
 .. image:: media_rgp/RGP_Barriers_2.png
-  :width: 9.50751in
-  :height: 2.09462in
 
 Barriers and OpenCL
 -------------------
@@ -91,14 +90,10 @@ can be expected that a RGP profile will have a large number of barriers.
 A typical OpenCL profile's barriers are shown below.
 
 .. image:: media_rgp/RGP_BarriersOpenCL_1.png
-  :width: 9.99535in
-  :height: 5.16960in
 
 As we see, the time taken due to barriers is typically very small since inter-dispatch dependencies only cause cache invalidations.
 
 .. image:: media_rgp/RGP_BarriersOpenCL_2.png
-  :width: 9.99535in
-  :height: 5.16960in
 
 
 It should be noted that the meaning of barriers in RGP for OpenCL is different from OpenCL's synchronization

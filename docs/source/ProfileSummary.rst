@@ -6,8 +6,6 @@ This window describes the structure of a profile from a number of
 different perspectives.
 
 .. image:: media_rgp/RGP_ProfileSummary_1.png
-  :width: 9.41799in
-  :height: 4.00025in
 
 The System activity section displays a system-level view of when command buffers were submitted to the GPU.
 Speaking in general terms, all profiles contain two types of data: command buffer
@@ -56,8 +54,6 @@ Along the top, we find a series of controls:
    Below the queue timings view we find the following summary:
 
 .. image:: media_rgp/RGP_ProfileSummary_2.png
-  :width: 4.65468in
-  :height: 3.54555in
 ..
 
    This shows an interpretation of queue timings data to determine which
@@ -74,6 +70,4 @@ Along the top, we find a series of controls:
    and 7 clEnqueueFillBuffer calls. The meaning of CmdBarrier() is explained in the Barriers section.
 
 .. image:: media_rgp/RGP_ProfileSummary_3.png
-  :width: 2.53224in
-  :height: 1.84491in
 ..

@@ -6,7 +6,7 @@ toggle between these time units.
 
 **State buckets:** Specify how the profiler should generate its own state buckets.
 This can be based off a combination of shader base address, depth buffer address,
-and render target address.
+render target address and API PSO hash.
 
 **Sync event time windows:** Keep the Wavefront Occupancy and Event Timing
 panes in sync while browsing through different time ranges.
@@ -25,8 +25,6 @@ The profiler makes heavy use of coloring to display its information.
 This pane allows users to thoroughly customize those colors.
 
 .. image:: media_rgp/RGP_ThemesAndColors_Settings.png
-  :width: 5.07581in
-  :height: 7.60122in
 
 Keyboard shortcuts
 ------------------
@@ -34,23 +32,21 @@ Keyboard shortcuts
 Here users will find the **Keyboard shortcuts** pane:
 
 .. image:: media_rgp/RGP_KeyboardShortcuts_Settings.png
-  :width: 5.07581in
-  :height: 7.60122in
 
 The **System activity, Wavefront occupancy and Event timing** shortcuts
 are specific to zooming and panning operations that can be performed
 within the Frame Summary and Events subtabs (see below):
 
 .. image:: media_rgp/RGP_Tabs_1.png
-  :width: 3.49135in
-  :height: 0.55208in
 
 .. image:: media_rgp/RGP_Tabs_2.png
-  :width: 5.10170in
-  :height: 0.70833in
 
 The **Event timeline** section refers to panning and event selection
 operations for the bottom graph within the Wavefront occupancy view.
+
+The **Instruction timing** section refers to keystrokes to change
+API PSO and event selection, toggle line numbers, and jump
+to a specific instruction
 
 The **Global navigation** section refers to keystrokes that aid user
 navigation, and are always detected regardless of which pane is visible.
@@ -78,8 +74,6 @@ navigation **hotkeys** shown above, or the back and forward **buttons**
 shown below:
 
 .. image:: media_rgp/RGP_Navigation.png
-  :width: 1.45225in
-  :height: 1.00000in
 
 Currently, back and forward navigation is restricted to pane switches
 and moving between events within a pane, but further releases may

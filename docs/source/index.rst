@@ -47,6 +47,8 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 \ **Supported GCN hardware**
 
+-  AMD Radeon™ VII
+
 -  AMD RX Vega 64 and RX Vega 56
 
 -  AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
@@ -63,7 +65,7 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 -  Windows 7
 
--  Ubuntu 18.04.1 LTS
+-  Ubuntu 18.04.2 LTS
 
 Supported compute APIs, GCN hardware, and operating systems
 ------------------------------------------------------------
@@ -73,6 +75,8 @@ Supported compute APIs, GCN hardware, and operating systems
 -  OpenCL
 
 \ **Supported GCN hardware for graphics APIs**
+
+-  AMD Radeon™ VII
 
 -  AMD RX Vega 64 and RX Vega 56
 
@@ -84,7 +88,7 @@ Supported compute APIs, GCN hardware, and operating systems
 
 -  Windows 7
 
--  Ubuntu 18.04.1 LTS
+-  Ubuntu 18.04.2 LTS
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -104,8 +108,6 @@ Starting the Radeon GPU Profiler
 The following executables can be found in the download directory.
 
 .. image:: media_rgp/RGP_Executables.png
-  :width: 1.83569in
-  :height: 0.77416in
 
 Start **RadeonGPUProfiler.exe** (this is the tool used to view profile
 data).
@@ -119,12 +121,8 @@ There are a few ways to load a profile into RGP.
    profile” pull down menu item.
 
 .. image:: media_rgp/RGP_FileLoad.png
-  :width: 1.37973in
-  :height: 1.61458in
 
 .. image:: media_rgp/RGP_FileRecent.png
-  :width: 6.39203in
-  :height: 1.58205in
 
 2) Go to the “Welcome” view and click on the “Open a Radeon GPU
    Profile…”
@@ -133,21 +131,25 @@ There are a few ways to load a profile into RGP.
    previously loaded in the Recent list.
 
 .. image:: media_rgp/RGP_Welcome.png
-  :width: 10.55759in
-  :height: 5.09626in
 
-1) Go to the Recent profiles view to see a full list of all your recent
+4) Go to the Recent profiles view to see a full list of all your recent
    profiles.
 
-2) Load a profile into a new instance of the **Radeon GPU Profiler**
+   Notice that there is additional information provided for each profile when
+   viewed in this pane, such as the GPU the profile was taken on, the date when
+   the capture was performed and whether or not an API PSO was specified. This
+   is a useful reminder of how to find the events with the appropriate API PSO
+   hash in the tool.
+
+.. image:: media_rgp/RGP_RecentProfiles.png
+
+5) Load a profile into a new instance of the **Radeon GPU Profiler**
    from the **Radeon Developer Panel**. Select a profile in the list and
    click on “Open profile”.
 
 .. image:: media_rgp/RDP_OpenProfile.png
-  :width: 7.08333in
-  :height: 6.08568in
 
-3) Drag and drop a profile onto the **Radeon GPU Profiler** executable,
+6) Drag and drop a profile onto the **Radeon GPU Profiler** executable,
    or, onto an already open RGP instance.
 
 The Radeon GPU Profiler user interface
@@ -169,23 +171,23 @@ the profile data are within the **Overview** and **Events** sections.
 
 2. **Overview**
 
-   a. **Frame Summary** - Contains a summary of the structure of the
-      graphics frame. This overview section is not available for OpenCL profiles.
+     a. **Frame Summary** - Contains a summary of the structure of the
+        graphics frame. This overview section is not available for OpenCL profiles.
 
-   b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
+     b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
 
-   c. **Barriers** - Details of the barrier usage in the profile.
+     c. **Barriers** - Details of the barrier usage in the profile.
 
-   d. **Most expensive events** - List of the most expensive events.
+     d. **Most expensive events** - List of the most expensive events.
 
-   e. **Context rolls** - Details of the hardware context register usage.
-      This overview section is not available for OpenCL profiles.
+     e. **Context rolls** - Details of the hardware context register usage.
+        This overview section is not available for OpenCL profiles.
 
-   f. **Render/depth targets** - Overview of render targets used throughout
-      the graphics frame. This overview section is not available for OpenCL profiles.
+     f. **Render/depth targets** - Overview of render targets used throughout
+        the graphics frame. This overview section is not available for OpenCL profiles.
 
-   g. **Device Configuration** - Information about the GPU the profile
-      was generated on.
+     g. **Device Configuration** - Information about the GPU the profile
+        was generated on.
 
 3. **Events**
 
@@ -246,8 +248,6 @@ The table below the summary shows a list of the events in the selected
 region with the most expensive at the top of the list.
 
 .. image:: media_rgp/RGP_MostExpensiveEvents_1.png
-  :width: 9.50528in
-  :height: 5.57875in
 
 
 **NOTE**: Selecting an event in this list will select the same event in
@@ -260,8 +260,6 @@ side panels. Below is a screenshot of what the right-click context menu
 looks like.
 
 .. image:: media_rgp/RGP_MostExpensiveEvents_2.png
-  :width: 9.62053in
-  :height: 1.41990in
 
 Context rolls
 -------------
@@ -287,8 +285,6 @@ it can use the context registers. This causes a stall that can be
 measured and visualized by RGP.
 
 .. image:: media_rgp/RGP_ContextRolls_1.png
-  :width: 9.26223in
-  :height: 5.24325in
 
 In the example above, a DirectX 12 application, we can see that there
 are 223 context rolls in the frame and none of them are redundant.
@@ -311,16 +307,14 @@ not just the state). The final column shows the number of context rolls of
 this state where this was the only thing that changed in the event.
 
 .. image:: media_rgp/RGP_ContextRolls_2.png
-  :width: 9.26223in
-  :height: 5.24325in
 
 Selecting an API-state shows all the draw calls in the second table,
 called the Events table, that rolled context due to this state
 changing, with or without other states changing too.
 
-The search box in the top-right corner of the state table works
-similarly to the other search boxes in the application and filters
-API-state tree in real-time as you type.
+The search box in the top-right corner of the state table filters
+the state tree in real-time as you type. Only the state containing the
+search text string will be shown.
 
 **NOTE**: Selecting an event in this list will select the same event in
 the other Event windows.
@@ -332,8 +326,6 @@ side panels. Below is a screenshot of what the right-click context menu
 looks like.
 
 .. image:: media_rgp/RGP_ContextRolls_3.png
-  :width: 9.81021in
-  :height: 2.19095in
 
 **NOTE**: When selecting events on the event panes and using the
 right-click context menu to jump between panes, the option to "View in
@@ -349,12 +341,10 @@ This UI provides an overview of all buffers that have been used as render
 targets in draw calls throughout the frame.
 
 .. image:: media_rgp/RGP_RendertargetsOverview_1.png
-  :width: 9.26223in
 
 The screen is split into two sections, a timeline view and a treeview listing:
 
 .. image:: media_rgp/RGP_RendertargetsOverview_2.png
-  :width: 9.26223in
 ..
 
   The graphical timeline view illustrates the usage of render targets over
@@ -368,7 +358,6 @@ entry in the treeview. Zooming in on a single item can be done by selecting it a
 “Zoom to selection”.
 
 .. image:: media_rgp/RGP_RendertargetsOverview_3.png
-  :width: 9.26223in
 ..
   The treeview shows a listing of all render targets and their properties found in the frame.
 
@@ -415,8 +404,6 @@ parentheses represents the peak clock frequency the graphics hardware
 can run at.
 
 .. image:: media_rgp/RGP_DeviceConfiguration.png
-  :width: 6.38599in
-  :height: 6.16848in
 
 Events Windows
 ==============
@@ -425,484 +412,20 @@ This section of RGP is where users will perform most analysis at the
 event level. An RGP event is simply an API call within a command buffer
 that was issued by either the application or the driver.
 
-Wavefront occupancy
--------------------
+The event windows allow searching of the event string. The event string
+consists of the event index, the API call and parameters. Only events
+containing the search string will be displayed. This works for the whole
+event string, not just the event index. For example, if the search string
+is '8', event 31 may be displayed if any of its parameters contain '8'.
 
-This section presents users with an interactive timeline that shows GPU
-utilization and all events in the profile.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_1.png
-  :width: 9.73301in
-  :height: 5.47482in
+.. include:: WavefrontOccupancy.rst
 
-There are three components, the Wavefront timeline view, the Events
-timeline view, and the Details panel.
+.. include:: EventTiming.rst
 
-\ **Wavefront timeline view**
+.. include:: PipelineState.rst
 
-This section shows how many wavefronts were in flight. All wavefronts
-are grouped into buckets which are represented by vertical bars. The top
-half shows wavefronts on the graphics queue, and the bottom half shows
-wavefronts on the async compute queue.
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_2.png
-  :width: 9.88146in
-  :height: 2.47686in
-
-Users may examine regions by selecting ranges within the graph and using
-the zoom buttons on the top right. Users may also hover over this view
-and use mouse wheel to zoom and center in on a particular spot. A region
-of wavefronts can be selected by using either mouse button to drag over
-the desired region as shown below.
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_3.png
-  :width: 9.78732in
-  :height: 2.45327in
-
-You can zoom into the region by selecting Ctrl + Z, or by clicking on
-“Zoom to selection” (result shown below).
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_4.png
-  :width: 9.83002in
-  :height: 2.46397in
-
-You can also drag the graph if you are zoomed in. Hold down the space
-bar first, then hold the mouse button down. The graph will now move with
-the mouse.
-
-Users may use the combo-box on the top left to visualize wavefronts in
-different ways:
-
--  **Color by API stage.** Default, and shows which wavefronts
-   correspond to which Vulkan/DX12 pipeline stage.
-
--  **Color by GCN stage.** Shows which wavefronts correspond to which
-   GCN pipeline stage.
-
--  **Color by hardware context.** Shows which GCN context (0-7) the
-   wavefronts ran on. This can be useful to visualize the amount of
-   context rolls that occurred.
-
--  **Color by shader engine.** Shows which shader engine the wavefronts
-   ran on.
-
--  **Color by event.** Shows which wavefronts correspond to which event
-   of the profile. Each event is assigned a unique color.
-
--  **Color by pass.** Groups wavefronts into different passes depending
-   on which render target or attachment type (color, depth-only,
-   compute). These three types are assigned a base color, and each pass
-   within each type is assigned a different shade of the base color.
-   This can be useful to visualize when the application attempted to
-   render different portions of a scene.
-
-Additionally, there are filters along the top intended to help visualize
-the occupancy of only certain GCN pipeline stages. Lastly, there are
-colored legends on the bottom which serve as color reminders. Note these
-colors can be customized within Settings.
-
-The RGP wavefront occupancy for OpenCL has only compute in the wavefront occupancy.
-This is because compute APIs such as OpenCL only dispatch compute shader waves.
-For this same reason, a number of the coloring options  such as hardware context
-and GCN stages are not applicable for OpenCL.
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_OpenCL_1.png
-  :width: 9.43974in
-  :height: 3.37447in
-
-\ **Events timeline view**
-
-This section shows all events in your profile. This includes both
-application-issued and driver-issued submissions. Each event can consist
-of one or more active shader stages and these are shown with rectangular
-blocks. The longer the block, the longer the shader took to execute. If
-there is more than 1 shader active, then each shader stage is connected
-with a thin line to indicate they belong to the same event. This view
-just shows actual shader work; it doesn't show when the event was
-submitted.
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_5.png
-  :width: 9.43974in
-  :height: 3.37447in
-
-Users may single-click on individual events to see detailed information
-on the details pane described below. Zooming into this graph is done by
-selecting the desired region in the wavefront graph above. Additionally,
-zooming in on a single event can be done by selecting the event and
-clicking on ‘Zoom to selection’.
-
-Users may use the combo-box on the top left to visualize events in
-different ways:
-
--  **Color by queue.** Default, and shows which events were submitted to
-   graphics or async compute queues. In addition, the CP marker is shown
-   in a unique color, as well as the barriers and layout transitions so
-   they can be easily distinguished. Note that barrier and layout transitions
-   originating from the driver are colored differently to those from the
-   application, and this is shown in the legend below the timeline view.
-
--  **Color by hardware context.** Shows which events ran on which
-   context. This can be useful to visualize the amount of context rolls
-   that occurred.
-
--  **Color by event.** Will show each event in a unique color.
-
--  **Color by pass.** Groups events into different passes depending on
-   which render target or attachment type (color, depth-only, compute).
-   These three types are assigned a base color, and each pass within
-   each type is assigned a different shade of the base color. This can
-   be useful to visualize when the application attempted render
-   different portions of a scene.
-
--  **Color by command buffer.** Shows each event in a color associated
-   with its command buffer, so making it easy to see events are in the same
-   command buffer.
-
--  **Color by user events.** Will colorize each event depending on which
-   user event it is surrounded by.
-
-Additionally, there are also filters to help visualize only certain
-types of events. For example, users can select to see draws, dispatches,
-barriers, clears, copies and resolves. There is also an option to switch
-the CP marker on or off. Switching the CP marker off will just show the
-active shader blocks. The event duration percentile filter allows users
-to only see events whose durations fall within a certain percentile. For
-example, selecting the rightmost-region of the slider will highlight the
-most expensive events. One will also find a textbox to filter out by
-event name.
-
-The same zooming and dragging that is available on the wavefront
-timeline view is also available here.
-
-Lastly, there are colored legends on the bottom which serve as color
-reminders. Note these colors can be customized within Settings.
-
-
-\ **Details pane**
-
-Pressing \ **Show Details** on the top right will open a side panel with
-more in-depth information. The contents of this panel will change,
-depending on what the user last selected. If a single event was selected
-in the Events timeline the details panel will look like below:
-
-.. image:: media_rgp/RGP_DetailsPanel_1.png
-  :width: 2.45788in
-  :height: 6.17499in
-
-The Details panel for a single event contains the following data:
-
-*  The event’s API call name
-
-*  The queue it was launched on
-
-*  User event hierarchy (if present)
-
-*  Start, End, and Duration timings
-
-*  Hardware context and if it was rolled
-
-*  List of GCN hardware stages and wavefront counts
-
-*  Colored bar showing wavefront distribution per GCN hardware stage
-
-*  Total wavefront count
-
-*  Total threads
-
-*  GCN shader timeline graphic showing active stages and duration
-
-*  A table showing resource usage for each API shader stage:
-
-   * The VGPR and SGPR columns refer to the vector and scalar general
-     purpose registers being used, and the number of registers that have
-     been allocated shown in parentheses.
-
-   * The LDS column refers to the amount of Local Data Store that each
-     shader stage is using, reported in bytes.
-
-   * The Occupancy column refers to the Theoretical wavefront occupancy
-     for the shader. This is reported 'A / B', where A is the number of
-     wavefronts that can be run and 'B' is the maximum number of wavefronts
-     supported by the hardware.
-
-   * Tooltips explaining the data are available by hovering the mouse over
-     the table header.
-
-*  Block diagram of active pipeline stages
-
-*  Primitive, vertex, control point, and pixel counts
-
-The ‘Duration’ shows the time from the start of the first shader to the
-end of the last shader, including any space between shaders where no
-actual work is done (denoted by a line connecting the shader ‘blocks’).
-The ‘Work duration’ only shows the time when the shaders are actually
-doing work. This is the sum of all the shader blocks, ignoring the
-connecting lines where no work is being done. If there is overlap
-between shaders, the overlap time is only accounted for once. If all
-shaders are overlapping, then the duration will be the same as the work
-duration.
-
-If the user selects a range of wavefronts in the wavefront timeline the
-details panel contains a summary of all the wavefronts in the selected
-region as shown below:
-
-.. image:: media_rgp/RGP_DetailsPanel_2.png
-  :width: 3.36458in
-  :height: 5.87575in
-
-If the user selects a barrier, the details panel will show information
-relating to the barrier, such as the barrier flags and any layout
-transitions associated with this barrier. It will also show the barrier
-type (whether it came from the application or the driver). Note that the
-barrier type is dependent on whether the video driver has support for
-this feature. If not, then it will be indicated as 'N/A'. An example of
-a user-inserted barrier is shown below:
-
-.. image:: media_rgp/RGP_DetailsPanel_3.png
-  :width: 4.12758in
-  :height: 4.71899in
-
-If the driver needed to insert a barrier, a detailed reason why this barrier
-was inserted is also displayed, as shown below:
-
-.. image:: media_rgp/RGP_DetailsPanel_5.png
-  :width: 4.12758in
-  :height: 4.71899in
-
-If the user selects a layout transition, the details panel will show
-information relating to the layout transition as shown below:
-
-.. image:: media_rgp/RGP_DetailsPanel_4.png
-  :width: 3.74332in
-  :height: 5.04131in
-
-The user can also right-click on any of the events in the Events
-timeline view and navigate to Event timing or Pipeline state panes, as
-well as Barriers, Most expensive events and Context rolls panes within
-Overview tab, and view the selected event in these panes, as well as in
-the side panels.
-
-In addition, the user can zoom into an event using the “Zoom to
-selection” option from this context menu.
-
-Below is a screenshot of what the right-click context menu looks like.
-
-.. image:: media_rgp/RGP_WavefrontOccupancy_6.png
-  :width: 8.03391in
-  :height: 2.71875in
-
-Event timing
-------------
-
-The event timing window shows a list of events and their corresponding
-timings. The treeview in the left hand column shows each event name and
-its unique index, starting at 0, and are listed in sequential order.
-Events can be ordered into groups, and group categories are shown in
-bold text.
-
-.. image:: media_rgp/RGP_EventTiming_1.png
-  :width: 8.79520in
-  :height: 6.27399in
-
-The pane to the right of the treeview shows a graphical representation
-of the duration for each event. The darker blue span to the right of
-each tree node shows the duration of all the events in that node.
-
-In the graphic for each event (shown in light blue above) the first
-small block at the left is the CP marker, indicating when the event was
-issued. This is followed, some time later, by actual work done by the
-shaders. The delay between the CP marker and the start of actual work
-may indicate bottlenecks in the application. One of the shaders may be
-waiting for a resource which is currently being used by another wave in
-flight and cannot start until it obtains that resource. The time when
-the first shader started work and the last shader finished work is the
-number indicated in this column. Each shader stage is represented by a
-rectangular block. The longer the block, the longer the shader took to
-execute. Shaders are linked by a solid line to show that they are
-connected in the pipeline. For groups, a dark line spans all events
-within the group, showing the time taken for that group to complete
-work.
-
-Control on this pane is similar to the Wavefront occupancy pane. Zooming
-can be done by clicking on the zoom buttons or selecting a region with
-the mouse and clicking on ‘Zoom to selection’. ‘Zoom to selection’ will
-also zoom in on an event if the line for that event is selected in the
-table. If zoomed in, dragging is also possible using the same method
-described previously.
-
-\ **Grouping modes**
-
-The events can be grouped together. Normally these groups don't affect
-the event ordering but sometimes can (sort by state bucket).
-
--  **Group by pass** will show events depending on the render
-   target or attachment type (color, depth-only, compute).
-
--  **Group by hardware context** will group events by their hardware
-   context, making it easy to see which events caused the context to
-   change.
-
--  **Group by state bucket** **(unsorted)** will order the events by
-   state bucket but won't sort the state buckets by duration.
-   Theoretically, all events in a state bucket use the same shaders. The
-   duration of a state bucket is represented by the dark blue line
-   corresponding to the state bucket group text.
-
--  **Group by state bucket** **(serialized)** will take all the event
-   timings within the group and sum the total time that the shaders were
-   busy, ignoring all empty space between events. This has the effect of
-   serializing the shader work and doesn't take into account that some
-   shaders will be executing in parallel. This is used to highlight when
-   you have a lot of small shaders whose cumulative work can be
-   extensive. As an example, if you have 2 shaders which start at the
-   same time and one takes 2000 clks and another takes 10000 clks, the
-   total duration would be 12000 clks.
-
--  **Group by state bucket (overlapped)** takes into account the
-   parallelism of the shader execution so will highlight shaders which
-   take a long time to execute. Using the same example above, since both
-   shaders start together, the total duration in this case would be
-   10000 clks.
-
--  **Group by command buffer** will group events depending on which
-   command buffer they are on.
-
--  **Group by user events** will group the events depending on which
-   user event(s) they are surrounded by.
-
-The default grouping mode is by user event if user events are present in
-the profile. Otherwise the default will be to group by pass.
-
-Note that grouping by hardware context or command buffer will group
-events by queue first. Grouping by pass or user event will
-chronologically group events irrespective of which queue they originated
-from. Grouping by state bucket just shows events in the graphics queue.
-Grouping by hardware context is shown below:
-
-.. image:: media_rgp/RGP_EventTiming_2.png
-  :width: 9.60341in
-  :height: 6.86412in
-
-**Color modes**
-
-The events can be rendered using different color schemes in the same manor
-as in the Wavefront occupancy view.
-
-The user can also right-click on any of the events and navigate to
-Wavefront occupancy or Pipeline state panes, as well as Barriers, Most
-expensive events and Context rolls panes within Overview tab, and view
-the selected event in these panes, as well as in the side panels.
-
-In addition, the user can zoom into an event using the “Zoom to
-selection” option from this context menu.
-
-Below is a screenshot of what the right-click context menu looks like.
-
-.. image:: media_rgp/RGP_EventTiming_3.png
-  :width: 7.26627in
-  :height: 2.64543in
-
-**Wavefront occupancy and event timing window synchronization**
-
-Normally, adjusting the time window in one of these views (by zooming in
-and scrolling) doesn’t affect the other window. This can be useful in
-some cases when tracking more than one item. However, it is sometimes
-useful to lock both the event timing and wavefront occupancy views to
-the same visible time window. There is an option to control this in the
-‘General’ tab of the Settings section called **Sync event time
-windows**. With this enabled, any zooming and scrolling will in one
-window will be reflected in the other. If adjustments are made in the
-wavefront occupancy view, the vertical scroll bar in the event timing
-view will be automatically adjusted so that there are always events
-shown on screen if an event isn’t manually selected.
-
-The anatomy of an event
------------------------
-Two examples of typical draw call events are shown below:
-
-.. image:: media_rgp/RGP_Event1.png
-.. image:: media_rgp/RGP_Event2.png
-
-**A** shows the CP marker. This is the point the command processor in the
-GPU issues work to be done. It is then queued up until the GPU can process
-the workload.
-
-**B** shows the work being done by the various shader stages. The gap between
-the CP marker and the start of **B** indicates that the GPU didn't start on
-the workload straight away and was busy doing other things, for example, previous
-draw calls.
-
-**C** shows any fixed-function work that needs doing after the shaders have
-finished executing. This occurs when a draw call is doing depth-only rendering.
-The fixed function work shown is the primitive assembly and scan conversion
-of the vertices shaded by the vertex shader.
-
-Starting with RGP 1.2 users may also obtain information about an event's
-parent command buffer. When right-clicking on an event, users are presented with
-a context menu containing an option to find its parent command buffer. This
-will trigger RGP to navigate to the Frame Summary and focus on said parent
-command buffer. Once here, users can obtain valuable system-level insight
-about the surrounding context for the event in question.
-
-Compute dispatches for both graphics APIs and OpenCL have a simpler structure
-A sample compute event is shown below. 
-
-.. image:: media_rgp/RGP_Compute_Event.png
-
-In a compute event, only compute shader waves are launched. 
-Also, compute dispatches do not have any fixed function work after the shader
-work is finished.
-
-Pipeline state
---------------
-
-The pipeline state window shows the render state information for
-individual events by stage. In the example below the event is a
-DirectX12 DrawInstanced call using a VS, GS, and a PS. Active stages are
-rendered in black and can be selected, gray stages are inactive on this
-draw and cannot be selected.
-
-The user has selected the PS stage for viewing and it is rendered in
-blue to indicate this. Below the pipeline stage graphic is a summary of
-the wavefront activity for this draw and the per-wavefront register
-resources used by the shader.
-
-The register values indicate the number of registers that the shader is
-using. The value in parentheses is the number of registers that have
-been allocated for the shader.
-
-From this information and knowledge about the GCN architecture we can
-calculate the theoretical maximum wavefront occupancy for the pixel
-shader. In this case the maximum of 8 wavefronts per SIMD are
-theoretically possible, but may be limited by other factors.
-
-.. image:: media_rgp/RGP_PipelineState_1.png
-  :width: 7.98168in
-  :height: 4.48969in
-
-**Grouping modes**
-
-The grouping modes are the same is in the Event timing pane.
-
-The user can also right-click on any of the events and navigate to
-Wavefront occupancy or Event timing panes, as well as Barriers, Most
-expensive events and Context rolls panes within Overview tab, and view
-the selected event in these panes, as well as in the side panels. Below
-is a screenshot of what the right-click context menu looks like.
-
-.. image:: media_rgp/RGP_PipelineState_2.png
-  :width: 8.57800in
-  :height: 1.20282in
-
-**Note:** The Output Merger stage of a DirectX 12 application may report
-the LogicOp as D3D12\_LOGIC\_OP\_COPY, even though it is set in an
-application as D3D12\_LOGIC\_OP\_NOOP. These 2 operations are
-semantically the same if blending is enabled. A no-op indicates that no
-transform of the data is to be performed so the output is the same as
-the source.
-
-**Note:** For OpenCL applications, the pipeline state does not show the
-graphics specific stages since they are not active during compute dispatches.
+.. include:: InstructionTiming.rst
 
 User Debug Markers
 ==================
@@ -1124,14 +647,25 @@ Particles” user marker, followed by inserting a marker.
 Vulkan User Markers
 -------------------
 
-Vulkan has support for user debug markers please read the following
+Debug Marker Extension
+~~~~~~~~~~~~~~~~~~~~~~
+Vulkan has support for user debug markers using the ``VK_EXT_debug_marker`` extension. Please read the following
 article for details:
 
-https://www.saschawillems.de/?page_id=2017
+https://www.saschawillems.de/blog/2016/05/28/tutorial-on-using-vulkans-vk_ext_debug_marker-with-renderdoc/
 
 See code sample at:
 
 https://github.com/SaschaWillems/Vulkan/blob/master/examples/debugmarker/debugmarker.cpp
+
+Debug Utils Extension
+~~~~~~~~~~~~~~~~~~~~~
+The debug marker extension ``VK_EXT_debug_marker`` has been replaced with a new extension ``VK_EXT_debug_utils`` that provides additional support to narrow down the location of a debug message in complicated applications. The following document describes the capabilities of the new extension.
+
+https://www.lunarg.com/wp-content/uploads/2018/05/Vulkan-Debug-Utils_05_18_v1.pdf
+
+Both ``VK_EXT_debug_marker`` and ``VK_EXT_debug_utils`` extensions are supported in RGP.
+Inserting user markers via these extensions should generate user events in your RGP profile which you can visualize.
 
 Viewing User Markers
 --------------------
@@ -1142,27 +676,26 @@ user markers. The user markers can be seen in the “Event timing” and
 as shown below.
 
 .. image:: media_rgp/RGP_UserMarkers_1.png
-  :width: 9.58619in
-  :height: 5.39223in
 
 "Draw Particles" User marker with the draw calls enclosed in the User
 Marker
 
 User markers can also be seen in the wavefront occupancy view when you
-color by User Events. Coloring by user events is also possible in the
-event timing view. As seen below, the draw calls enclosed by the User
-marker change color to purple. The events not enclosed by User Markers
+color by user events. Coloring by user events is also possible in the
+event timing view. As seen below, the draw calls enclosed by the user
+marker change color to purple. The events not enclosed by user markers
 are shown in gray. The coloration is only affected by the Push/PopMarker
 combination; the SetMarker has no effect on the user event color since
 these markers simply mark a particular moment in time.
+
+Additionally, the user event names are displayed at the top of the event
+timeline view.
 
 The full user even hierarchy is also visible on the third line of the
 side pane when clicking on individual events. If the event does not
 contain a user event hierarchy, nothing will be shown.
 
 .. image:: media_rgp/RGP_UserMarkers_2.png
-  :width: 10.08435in
-  :height: 5.51488in
 
 Events enclosed by user markers are colored in the wavefront occupancy
 view. They are also visible in the side panel.
@@ -1191,8 +724,6 @@ First, load RenderDoc and obtain a trace as usual. Next, create a new profile
 for that trace as shown below:
 
 .. image:: media_rgp/RGP_RDC_Interop_1.png
-  :width: 4.0in
-  :height: 2.0in
 
 This will kick off the profiling process, which will embed a new profile into
 the RenderDoc trace file. If this is the first time doing this, RenderDoc will
@@ -1225,15 +756,11 @@ in Radeon GPU Profiler one would right click on an event and select
 "Select RenderDoc event" as shown below:
 
 .. image:: media_rgp/RGP_RDC_Interop_2.png
-  :width: 10.0in
-  :height: 5.0in
 
 This will cause both tools to communicate with and trigger selection of that
 same event in RenderDoc, as shown here:
 
 .. image:: media_rgp/RGP_RDC_Interop_3.png
-  :width: 4.0in
-  :height: 2.0in
 
 At this point, users may use RenderDoc’s frame debugging capabilities to
 inspect the event in question.
@@ -1243,15 +770,11 @@ by right clicking an event in the Event Browser and selecting "Select RGP Event"
 as show below:
 
 .. image:: media_rgp/RGP_RDC_Interop_4.png
-  :width: 4.0in
-  :height: 2.0in
 
 This will cause both tools to communicate and trigger selection of that same
 event in Radeon GPU Profiler, as shown here:
 
 .. image:: media_rgp/RGP_RDC_Interop_5.png
-  :width: 10.0in
-  :height: 5.0in
 
 Please be aware that both tools use different numbering schemes to label
 their events. It is therefore expected for the same event to have a different

@@ -5,8 +5,6 @@ This window describes the structure of a profile from a number of
 different perspectives.
 
 .. image:: media_rgp/RGP_FrameSummary_1.png
-  :width: 9.41799in
-  :height: 4.00025in
 
 The System activity section displays a system-level view of sync
 operations and when command buffers were submitted to the GPU. Speaking
@@ -86,8 +84,6 @@ Along the top, we find a series of controls:
    Below the queue timings view we find the following summary:
 
 .. image:: media_rgp/RGP_FrameSummary_2.png
-  :width: 8.65468in
-  :height: 3.54555in
 ..
 
    This shows an interpretation of queue timings data to determine which
@@ -108,8 +104,6 @@ Along the top, we find a series of controls:
    throughout the profile.
 
 .. image:: media_rgp/RGP_FrameSummary_3.png
-  :width: 8.73428in
-  :height: 4.44337in
 ..
 
    The **Event statistics** pie chart and table show the event counts
@@ -121,8 +115,6 @@ Along the top, we find a series of controls:
    instances.
 
 .. image:: media_rgp/RGP_FrameSummary_4.png
-  :width: 9.93224in
-  :height: 2.84491in
 ..
 
    **Geometry breakdown** gives a summary of the vertices,
