@@ -24,6 +24,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
   http://radeon-gpuprofiler.readthedocs.io/en/latest/
 
 ## Supported ASICs
+* AMD Radeon™ VII
 * AMD RX Vega 64 and RX Vega 56
 * AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 * AMD Radeon™ R9 Fury and Nano series  
@@ -38,7 +39,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 ### Windows7  
 * Vulkan  - User must install latest VC 2015 redistributables from https://www.microsoft.com/en-us/download/details.aspx?id=53840
     
-### Ubuntu 18.04 LTS
+### Ubuntu 18.04.2 LTS
 * Vulkan
 
 ## Supported compute APIs, GCN hardware, and operating systems
@@ -46,10 +47,11 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * OpenCL
 
 ### Supported GCN hardware for graphics APIs
+* AMD Radeon™ VII
 * AMD RX Vega 64 and RX Vega 56
 * AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 
 ### Supported Operating Systems
 * Windows 10
 * Windows 7
-* Ubuntu 18.04.1 LTS
+* Ubuntu 18.04.2 LTS
