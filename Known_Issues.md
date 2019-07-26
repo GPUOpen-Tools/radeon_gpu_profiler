@@ -28,7 +28,7 @@ Linux
 3)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the RemoveSharedMemory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
 4)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
 
-Navi
+RDNA
 ----
 1) Some shaders that write to the execute mask register may not have instruction timing data.
 2) The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
