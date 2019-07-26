@@ -24,6 +24,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
   http://radeon-gpuprofiler.readthedocs.io/en/latest/
 
 ## Supported ASICs
+* AMD Radeon™ RX 5700 and RX 5700 XT
 * AMD Radeon™ VII
 * AMD RX Vega 64 and RX Vega 56
 * AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
