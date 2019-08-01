@@ -86,6 +86,13 @@ This allows the developer to study the behavior of the shader for different even
 
 Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to directly using the (Ctrl + G) shortcut
 
+\ **Search and Go to Line**
+
+Instructions can be searched for and individual instruction lines can be navigated to using
+the controls displayed below
+
+.. image:: media_rgp/RGP_Instruction_Timing_Find.png
+
 \ **Instruction Timing Side Panel**
 
 The Instruction Timing side panel provides additional information about the shader shown. The main sections in the side panel are.

@@ -47,6 +47,8 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 \ **Supported GCN hardware**
 
+-  AMD Radeon™ RX 5700 and RX 5700 XT (Windows only)
+
 -  AMD Radeon™ VII
 
 -  AMD RX Vega 64 and RX Vega 56
@@ -293,18 +295,17 @@ changes to calculate if the context roll was redundant. Redundant context
 rolls can be caused by the application and the driver. Ineffective draw
 batching can be a cause on the application’s end.
 
-The chart to the right shows the number of times each context was
-rolled. The fact that contexts 2,3,4 and 6 were used ~120 times probably
-indicates that stalls were generated.
+The chart to the right shows the number of events in each context.
 
 The table underneath shows the state from the API's perspective, and
 which parts of the state were involved in context rolls. The first column
-indicates how many context rolls it was involved in, and the second column
-indicates how many of these changes were redundant (the state was written
-with the exact same value). The next column indicates the number of
-context rolls that were completely redundant (the whole context was redundant,
-not just the state). The final column shows the number of context rolls of
-this state where this was the only thing that changed in the event.
+indicates how many context rolls it was involved in. The second column
+indicates how many of these changes were redundant with respect to the state
+(the state was written with the exact same value or another piece of state
+was changed). The next column indicates the number of context rolls that were
+completely redundant (the whole context was redundant, not just the state).
+The final column shows the number of context rolls of this state where this
+was the only thing that changed in the event.
 
 .. image:: media_rgp/RGP_ContextRolls_2.png
 
