@@ -31,13 +31,14 @@ used and allocated and the various hash values for this event.
 
 **Grouping modes**
 
-The grouping modes are the same is in the Event timing pane.
+The grouping modes are the same as in the Event timing pane.
 
-The user can also right-click on any of the events and navigate to
-Wavefront occupancy or Event timing panes, as well as Barriers, Most
-expensive events and Context rolls panes within Overview tab, and view
-the selected event in these panes, as well as in the side panels. Below
-is a screenshot of what the right-click context menu looks like.
+The user can also right-click on any of the events and navigate to the
+Wavefront occupancy or Event timing panes, as well as the Barriers, Most
+expensive events, Context rolls, Render/depth targets, and Pipelines panes
+within the Overview tab.  The user can view the selected event in these panes,
+as well as in the side panels.  Below is a screenshot of what the right-click
+context menu looks like.
 
 .. image:: media_rgp/RGP_PipelineState_2.png
 

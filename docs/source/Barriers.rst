@@ -25,50 +25,78 @@ events per barrier issue.
 
 The table shows the following information:
 
-1. **Event Numbers** - ID of the barrier - selecting and event in this
+#. **Event Numbers** - ID of the barrier - selecting an event in this
    UI will select it on the other Events windows
 
-2. **Duration** - Lifetime of the barrier
+#. **Duration** - Lifetime of the barrier
 
-3. **Drain time** - This is the amount of time the barrier spends waiting
+#. **Drain time** - This is the amount of time the barrier spends waiting
    for the pipeline to drain, or work to finish. Once the pipeline is empty,
    new wavefronts can be dispatched
 
-4. **Stalls** - The type of stalls associated with the barrier - where
+#. **Stalls** - The type of stalls associated with the barrier - where
    in the graphics pipe we need the work to drain from
 
-5. **Layout transitions** - A blue check box indicates if the barrier is
+#. **Layout transitions** - A blue check box indicates if the barrier is
    associated with a layout transition. There are 6 columns indicating the
    type of layout transition
 
-6. **Invalidated** - A list of invalidated caches
+#. **Invalidated** - A list of invalidated caches
 
-7. **Flushed** - A list of flushed caches
+#. **Flushed** - A list of flushed caches
 
-8. **Barrier type** - Whether the barrier originated from the application
+#. **Barrier type** - Whether the barrier originated from the application
    or from the driver (or 'N/A' if unknown)
 
-9. **Reason for barrier** - In the case of driver-inserted barriers, a brief
+#. **Reason for barrier** - In the case of driver-inserted barriers, a brief
    description of why this barrier was inserted
+
+   The rows in the table can be sorted by clicking on a column header.
 
    **NOTE**: Selecting a barrier in this list will select the same event
    in the other Event windows.
 
    The user can also right-click on any of the rows and navigate to
-   Wavefront occupancy, Event timing or Pipeline state panes and view
-   the event represented by the selected row in these panes, as well as
-   in the side panels. Each column in the table is sortable.
-
-   In addition, the user can also see the parent command buffer in the Overview
-   pane. If selected, the Overview pane will be opened and the parent command
-   buffer will be selected.
+   the Wavefront occupancy, Event timing, Instruction timing or Pipeline
+   state panes and view the event represented by the selected row in these
+   panes, as well as in the side panels. The user can also see the parent
+   command buffer in the Frame Summary pane or navigate to the Render/depth
+   targets view and view the event in the timeline.
 
    Below is a screenshot of what the right-click context menu looks like:
 
 .. image:: media_rgp/RGP_Barriers_2.png
 
+Layout Transitions
+~~~~~~~~~~~~~~~~~~
+
+The following Layout Transition columns are shown in the Barriers table:
+
+#. **Depth/Stencil Decompress**: This barrier is emitted when a depth/stencil
+   surface is decompressed. Depth/stencil surfaces are often stored compressed
+   to reduce bandwidth to and from the color and depth hardware units.
+#. **HiZ Range Resummarize**: This barrier is emitted when a depth/stencil buffer,
+   which has corresponding hierarchical Z-buffer data, is modified. This barrier
+   ensures that the modified data is reflected into the hiZ-buffer, allowing for
+   correct culling and depth testing.
+#. **DCC Decompress**: This barrier is emitted when `Delta Color Compression` compressed
+   color data needs to be decompressed.
+#. **FMask Decompress**: This barrier is emitted when FMask data is decompressed.
+   FMask is used to compress MSAA surfaces. These surfaces must be decompressed
+   before they can be read by texture hardware units.
+#. **Fast Clear Eliminate**: This barrier is emitted when the driver performs a fast clear.
+   For fast clears, a barrier is needed to read the clear color before filling the
+   render target. Clearing to specific values (typically 0.0 or 1.0) may allow the GPU to
+   skip the eliminate operation.
+#. **Init Mask RAM**: This barrier is emitted when the driver uses a shader to initialize
+   memory used for compression.
+
+See `https://gpuopen.com/dcc-overview/ <https://gpuopen.com/dcc-overview/>`_ for more information
+on what may cause a **DCC Decompress** or what "clear" values can be used to skip **Fast Clear Eliminates**.
+
 Barriers and OpenCL
--------------------
+~~~~~~~~~~~~~~~~~~~
+
 Barriers for OpenCL profiles provide visibility into how the driver scheduled
 dispatches to the GPU and dependencies between kernel dispatches. These barriers
 are the same synchronization primitives used by DirectX12 and Vulkan that are described above.
@@ -76,16 +104,16 @@ are the same synchronization primitives used by DirectX12 and Vulkan that are de
 The barriers shown in an OpenCL profile correspond to the barriers
 inserted by the OpenCL driver for one of the following reasons.
 
-1. **Queue Profiling** - The application has enabled profiling CL_QUEUE_PROFILING_ENABLE property
+#. **Queue Profiling** - The application has enabled profiling CL_QUEUE_PROFILING_ENABLE property
    when creating a command queue. This causes barriers to be inserted so that timestamps can be recorded.
 
-2. **Data Dependencies** - There are data dependencies between subsequent dispatches. For
+#. **Data Dependencies** - There are data dependencies between subsequent dispatches. For
    example, reading the results of a previous kernel dispatch. This causes barriers to be inserted
    so that caches can be invalidated.
 
 OpenCL commmand queues process dispatches one after another and it is common for a
 subsequent kernel dispatch to use the results of a previous kernel dispatch. For this reason, it
-can be expected that a RGP profile will have a large number of barriers.
+can be expected that an RGP profile will have a large number of barriers.
 
 A typical OpenCL profile's barriers are shown below.
 
@@ -99,4 +127,4 @@ As we see, the time taken due to barriers is typically very small since inter-di
 It should be noted that the meaning of barriers in RGP for OpenCL is different from OpenCL's synchronization
 APIs and is not related to the OpenCL synchronization APIs based on cl_event or cl_barrier.
 For this reason, the barriers seen in OpenCL profiles are known as cmdBarrier() which is not a part of the OpenCL API.
-For OpenCL profiles, RGP does not presently show OpenCL events or host synchronization. 
+For OpenCL profiles, RGP does not presently show OpenCL events or host synchronization.

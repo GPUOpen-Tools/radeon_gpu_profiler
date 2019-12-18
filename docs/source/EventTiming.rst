@@ -29,12 +29,9 @@ connected in the pipeline. For groups, a dark line spans all events
 within the group, showing the time taken for that group to complete
 work.
 
-Control on this pane is similar to the Wavefront occupancy pane. Zooming
-can be done by clicking on the zoom buttons or selecting a region with
-the mouse and clicking on ‘Zoom to selection’. ‘Zoom to selection’ will
-also zoom in on an event if the line for that event is selected in the
-table. If zoomed in, dragging is also possible using the same method
-described previously.
+Zoom settings on this pane are similar to the Wavefront occupancy pane.
+More information can be found under the :ref:`Zoom Controls<zoom_controls>`
+section.
 
 \ **Grouping modes**
 
@@ -99,26 +96,12 @@ Wavefront occupancy or Pipeline state panes, as well as Barriers, Most
 expensive events and Context rolls panes within Overview tab, and view
 the selected event in these panes, as well as in the side panels.
 
-In addition, the user can zoom into an event using the “Zoom to
-selection” option from this context menu.
-
-Below is a screenshot of what the right-click context menu looks like.
-
-.. image:: media_rgp/RGP_EventTiming_3.png
-
 **Wavefront occupancy and event timing window synchronization**
 
-Normally, adjusting the time window in one of these views (by zooming in
-and scrolling) doesn’t affect the other window. This can be useful in
-some cases when tracking more than one item. However, it is sometimes
-useful to lock both the event timing and wavefront occupancy views to
-the same visible time window. There is an option to control this in the
-‘General’ tab of the Settings section called **Sync event time
-windows**. With this enabled, any zooming and scrolling will in one
-window will be reflected in the other. If adjustments are made in the
-wavefront occupancy view, the vertical scroll bar in the event timing
-view will be automatically adjusted so that there are always events
-shown on screen if an event isn’t manually selected.
+Zooming of the time scale and horizontal panning of the Wavefront occupancy
+view and Event timing view can be synchronized or adjusted independently. More
+information on synchronization can be found under the
+:ref:`Zoom Synchronization heading <zoom_synchronization>`
 
 The anatomy of an event
 -----------------------
@@ -141,18 +124,18 @@ finished executing. This occurs when a draw call is doing depth-only rendering.
 The fixed function work shown is the primitive assembly and scan conversion
 of the vertices shaded by the vertex shader.
 
-Starting with RGP 1.2 users may also obtain information about an event's
-parent command buffer. When right-clicking on an event, users are presented with
-a context menu containing an option to find its parent command buffer. This
-will trigger RGP to navigate to the Frame Summary and focus on said parent
-command buffer. Once here, users can obtain valuable system-level insight
-about the surrounding context for the event in question.
+Users may also obtain information about an event's parent command buffer
+by right-clicking on an event. This will bring up a context menu which
+contains a menu item to find the event's parent command buffer. Selecting
+this menu item will navigate to the Frame Summary and set focus on the selected
+event's parent command buffer. Once here, users can obtain valuable system-level
+insight about the surrounding context for the event in question.
 
-Compute dispatches for both graphics APIs and OpenCL have a simpler structure
-A sample compute event is shown below. 
+Compute dispatches for both graphics APIs and OpenCL have a simpler structure.
+A sample compute event is shown below.
 
 .. image:: media_rgp/RGP_Compute_Event.png
 
-In a compute event, only compute shader waves are launched. 
+In a compute event, only compute shader waves are launched.
 Also, compute dispatches do not have any fixed function work after the shader
 work is finished.

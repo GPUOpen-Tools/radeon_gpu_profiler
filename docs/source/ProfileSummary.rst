@@ -29,18 +29,19 @@ Along the top, we find a series of controls:
    when the CPU issued certain types of workloads to the GPU.
 
 -  **Zoom controls:** Consistent with the rest of the tool, these allow
-   users to drill down into points of interest.
+   users to drill down into points of interest.  See the section entitled
+   :ref:`Zoom Controls<zoom_controls>` for more information.
 
-   In the middle, we find the actual view. Each queue applicable to OpenCL (Compute, Copy)
-   gets its own section. Note that command buffers are visualized using two shades of the
-   same color. The lighter shade represents time spent prior to reaching the GPU, and
-   the darker shade represents actual execution.
+In the middle, we find the actual view. Each queue applicable to OpenCL (Compute, Copy)
+gets its own section. Note that command buffers are visualized using two shades of the
+same color. The lighter shade represents time spent prior to reaching the GPU, and
+the darker shade represents actual execution.
 
-   Please note that the view is interactive, making it possible for users to
-   select and highlight command buffers, sync objects, and submission
-   points.
+Please note that the view is interactive, making it possible for users to
+select and highlight command buffers, sync objects, and submission
+points.
 
-   Along the bottom, we find information about user selections:
+Along the bottom, we find information about user selections:
 
 -  **Submit time:** Specifies when work was issued by the CPU
 
@@ -56,18 +57,24 @@ Along the top, we find a series of controls:
 .. image:: media_rgp/RGP_ProfileSummary_2.png
 ..
 
-   This shows an interpretation of queue timings data to determine which
-   processor is the bottleneck. By default, if the GPU is idle more than
-   5% of the time then the profile is considered to be CPU-bound. This
-   percentage may be adjusted in RGP settings.
+This shows an interpretation of queue timings data to determine which
+processor is the bottleneck. By default, if the GPU is idle more than
+5% of the time then the profile is considered to be CPU-bound. This
+percentage may be adjusted in RGP settings.
 
-   Please note that the values displayed under **Profile duration** are sourced from SQTT data. In 
-   other words, they are based on duration and shader clock frequency used in other RGP panes
-   such as Wavefront occupancy.
+Please note that the value displayed for **Profile duration** is sourced
+from SQTT data. In other words, it is based on duration and shader clock
+frequency used in other RGP panes such as Wavefront occupancy.
 
-   The **Event statistics** pie chart and table show the event counts
-   colored by different OpenCL APIs. In the above example there are 89 clEnqueueNDRangeKernel calls
-   and 7 clEnqueueFillBuffer calls. The meaning of CmdBarrier() is explained in the Barriers section.
+The **Profiling overhead** shows the amount of SQTT data that was written
+to video memory by the hardware while gathering the RGP profile. The
+profiling overhead is also expressed in terms of memory bandwidth used
+to write the SQTT data.
+
+The **Event statistics** pie chart and table show the event counts
+colored by different OpenCL APIs. In the example below, there are 89
+clEnqueueNDRangeKernel calls and 7 clEnqueueFillBuffer calls. The meaning
+of CmdBarrier() is explained in the Barriers section.
 
 .. image:: media_rgp/RGP_ProfileSummary_3.png
 ..

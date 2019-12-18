@@ -20,6 +20,7 @@ Windows
 1)  Queue synchronization data will be missing from DirectX12 apps running on Windows 10 Home.
 2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events. This will be corrected in a future release after obtaining more information from the driver.
 3)  The Radeon Overlay hotkey, Alt+R, conflicts with the Radeon GPU Profiler shortcut key used to select the Pipeline state pane.  The Radeon Overlay hotkey can be reconfigured by opening the Radeon Settings panel (from the system tray), selecting the Preferences tab then clicking the "Toggle Radeon Overlay Hotkey" button.
+4)  Radeon Developer Panel is unable to capture on Windows 7. If running on Windows 7, please use Radeon Developer Panel from the RGP 1.6 release.
 
 Linux
 -----
@@ -27,8 +28,10 @@ Linux
 2)  The Radeon Developer Service and Panel are only officially supported using the standard desktop managers (GDM and Unity). Other desktop managers should work but a dialog box indicating that the service is running in headless mode may pop up. However, it should still be possible to capture profiles.
 3)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the RemoveSharedMemory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
 4)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
+5)  Capture on Radeon RX 5500 and Radeon RX 5300 series graphics cards may cause crashes or hangs on Linux. This is expected to be fixed in a future driver release.
 
 RDNA
 ----
-1) Some shaders that write to the execute mask register may not have instruction timing data.
-2) The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
+1)  Some shaders that write to the execute mask register may not have instruction timing data.
+2)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
+3)  OpenCL is not yet supported for RX 5500 and RX 5300 series graphics cards. This support will be added in a future driver release.

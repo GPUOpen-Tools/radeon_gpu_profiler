@@ -1,9 +1,9 @@
-The Radeon GPU Profiler
-=======================
+The Radeon™ GPU Profiler
+========================
 
 The Radeon GPU Profiler is a performance tool that can be used by
-developers to optimize DirectX12©, Vulkan© and OpenCL© applications for AMD GCN
-hardware. It is part of a suite of tools comprised of the following
+developers to optimize DirectX12©, Vulkan© and OpenCL© applications for AMD RDNA
+and GCN hardware. It is part of a suite of tools comprised of the following
 software:
 
 -  **Radeon Developer Mode Driver** - This is shipped as part of the AMD
@@ -25,19 +25,20 @@ software:
    This document describes how to generate a profile using the Radeon
    Developer Panel and how the Radeon GPU Profiler can be used to
    examine the output profiles. The Radeon GPU Profiler is currently
-   designed to work with compute applications and frame based graphics applications. It is
-   specifically designed to address the issues that developers are
-   dealing with in the move from traditional graphics APIs to explicit
-   APIs. It also provides the visualization of GCN hardware specific
-   information allowing the developer to tune their application to the
-   full potential of the architecture. The tool provides unique
-   visualizations of queue synchronization using fences and semaphores,
-   asynchronous compute, and barrier timings. Currently, it supports the
-   explicit graphics APIs (DirectX12 and Vulkan), compute APIs (OpenCL)
-   and will NOT work with older graphics APIs such as DirectX11 or OpenGL.
+   designed to work with compute applications and frame based graphics
+   applications. It is specifically designed to address the issues that
+   developers are dealing with in the move from traditional graphics
+   APIs to explicit APIs. It also provides the visualization of GCN
+   hardware specific information allowing the developer to tune an
+   application to the full potential of the architecture. The tool
+   provides unique visualizations of queue synchronization using fences
+   and semaphores, asynchronous compute, and barrier timings. Currently,
+   it supports the explicit graphics APIs (DirectX12 and Vulkan), compute
+   APIs (OpenCL) and will NOT work with older graphics APIs such as
+   DirectX11 or OpenGL.
 
-Supported graphics APIs, GCN hardware, and operating systems
-------------------------------------------------------------
+Supported graphics APIs, RDNA and GCN hardware, and operating systems
+---------------------------------------------------------------------
 
 **Supported APIs**
 
@@ -45,19 +46,21 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 -  Vulkan
 
-\ **Supported GCN hardware**
+\ **Supported RDNA and GCN hardware**
 
--  AMD Radeon™ RX 5700 and RX 5700 XT (Windows only)
+-  AMD Radeon RX 5500 series
 
--  AMD Radeon™ VII
+-  AMD Radeon RX 5700 and RX 5700 XT
+
+-  AMD Radeon VII
 
 -  AMD RX Vega 64 and RX Vega 56
 
--  AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
+-  AMD Ryzen™ Processors with Radeon Vega Graphics
 
--  AMD Radeon™ R9 Fury and Nano series
+-  AMD Radeon R9 Fury and Nano series
 
--  AMD Radeon™ RX 400 and RX 500 series
+-  AMD Radeon RX 400 and RX 500 series
 
 -  AMD Tonga R9 285, R9 380
 
@@ -67,7 +70,7 @@ Supported graphics APIs, GCN hardware, and operating systems
 
 -  Windows 7
 
--  Ubuntu 18.04.2 LTS
+-  Ubuntu 18.04.3 LTS
 
 Supported compute APIs, GCN hardware, and operating systems
 ------------------------------------------------------------
@@ -76,13 +79,13 @@ Supported compute APIs, GCN hardware, and operating systems
 
 -  OpenCL
 
-\ **Supported GCN hardware for graphics APIs**
+\ **Supported GCN hardware**
 
--  AMD Radeon™ VII
+-  AMD Radeon VII
 
 -  AMD RX Vega 64 and RX Vega 56
 
--  AMD Ryzen 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
+-  AMD Ryzen Processors with Radeon Vega Graphics
 
 \ **Supported Operating Systems**
 
@@ -90,7 +93,7 @@ Supported compute APIs, GCN hardware, and operating systems
 
 -  Windows 7
 
--  Ubuntu 18.04.2 LTS
+-  Ubuntu 18.04.3 LTS
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -173,23 +176,25 @@ the profile data are within the **Overview** and **Events** sections.
 
 2. **Overview**
 
-     a. **Frame Summary** - Contains a summary of the structure of the
-        graphics frame. This overview section is not available for OpenCL profiles.
+   a. **Frame Summary** - Contains a summary of the structure of the
+      graphics frame. This overview section is not available for OpenCL profiles.
 
-     b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
+   b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
 
-     c. **Barriers** - Details of the barrier usage in the profile.
+   c. **Pipelines** - Details of the pipeline usage in the profile.
 
-     d. **Most expensive events** - List of the most expensive events.
+   d. **Barriers** - Details of the barrier usage in the profile.
 
-     e. **Context rolls** - Details of the hardware context register usage.
-        This overview section is not available for OpenCL profiles.
+   e. **Most expensive events** - List of the most expensive events.
 
-     f. **Render/depth targets** - Overview of render targets used throughout
-        the graphics frame. This overview section is not available for OpenCL profiles.
+   f. **Context rolls** - Details of the hardware context register usage.
+      This overview section is not available for OpenCL profiles.
 
-     g. **Device Configuration** - Information about the GPU the profile
-        was generated on.
+   g. **Render/depth targets** - Overview of render targets used throughout
+      the graphics frame. This overview section is not available for OpenCL profiles.
+
+   h. **Device Configuration** - Information about the GPU the profile
+      was generated on.
 
 3. **Events**
 
@@ -228,41 +233,6 @@ Overview Windows
 
 .. include:: Barriers.rst
 
-Most expensive events
----------------------
-
-The Most Expensive events UI allows the developer to quickly locate the
-most expensive events by duration. At the top of the window is a
-histogram of the event durations. The least expensive events are to the
-left of the graph and the most expensive to the right. A blue summary
-bar with an arrow points to the bucket that is the most costly by time.
-The events in this bucket are most in need of optimization. The double
-slider below the chart can be used to select different regions of the
-histogram. The summary and table below will update as the double
-slider’s position is changed. In the example below we can see that the
-most expensive 5% of events take 44% of the frame time.
-
-Below the histogram is a summary of the frame. In this case, the top 10%
-of events take 70% of the frame time, with 56% of the selected region
-consisting of graphics events and 44% async compute events.
-
-The table below the summary shows a list of the events in the selected
-region with the most expensive at the top of the list.
-
-.. image:: media_rgp/RGP_MostExpensiveEvents_1.png
-
-
-**NOTE**: Selecting an event in this list will select the same event in
-the other Event windows.
-
-The user can also right-click on any of the rows and navigate to
-Wavefront occupancy, Event timing or Pipeline state panes and view the
-event represented by the selected row in these panes, as well as in the
-side panels. Below is a screenshot of what the right-click context menu
-looks like.
-
-.. image:: media_rgp/RGP_MostExpensiveEvents_2.png
-
 Context rolls
 -------------
 
@@ -281,7 +251,7 @@ registers is free to be used by the next incoming draw.
 
 On GCN hardware there are 8 logical banks of context registers, of which
 only seven are available for draws. The worst-case scenario is that 8
-subsequent draws each require a unique set of context register. In this
+subsequent draws each require a unique set of context registers. In this
 scenario the last draw has to wait for the first draw to finish before
 it can use the context registers. This causes a stall that can be
 measured and visualized by RGP.
@@ -294,6 +264,12 @@ The Radeon GPU Profiler compares the context register values across state
 changes to calculate if the context roll was redundant. Redundant context
 rolls can be caused by the application and the driver. Ineffective draw
 batching can be a cause on the application’s end.
+
+In addition, the meter shows the number of context rolls as a percentage
+of the number of draw calls, giving a visual indication of how efficient
+the frame is with regards to changing state. A lower percentage indicates
+that, on average, more draw calls are sharing state across the frame.
+This meter also shows a breakdown of Active vs. Redundant context rolls.
 
 The chart to the right shows the number of events in each context.
 
@@ -333,6 +309,41 @@ right-click context menu to jump between panes, the option to "View in
 context rolls" will only be available if the selected event is currently
 present in the events table on the context rolls pane.
 
+Most expensive events
+---------------------
+
+The Most Expensive events UI allows the developer to quickly locate the
+most expensive events by duration. At the top of the window is a
+histogram of the event durations. The least expensive events are to the
+left of the graph and the most expensive to the right. A blue summary
+bar with an arrow points to the bucket that is the most costly by time.
+The events in this bucket are most in need of optimization. The double
+slider below the chart can be used to select different regions of the
+histogram. The summary and table below will update as the double
+slider’s position is changed. In the example below we can see that the
+most expensive 5% of events take 44% of the frame time.
+
+Below the histogram is a summary of the frame. In this case, the top 10%
+of events take 70% of the frame time, with 56% of the selected region
+consisting of graphics events and 44% async compute events.
+
+The table below the summary shows a list of the events in the selected
+region with the most expensive at the top of the list.
+
+.. image:: media_rgp/RGP_MostExpensiveEvents_1.png
+
+
+**NOTE**: Selecting an event in this list will select the same event in
+the other Event windows.
+
+The user can also right-click on any of the rows and navigate to
+Wavefront occupancy, Event timing or Pipeline state panes and view the
+event represented by the selected row in these panes, as well as in the
+side panels. Below is a screenshot of what the right-click context menu
+looks like.
+
+.. image:: media_rgp/RGP_MostExpensiveEvents_2.png
+
 Render/depth targets
 --------------------
 
@@ -352,11 +363,12 @@ The screen is split into two sections, a timeline view and a treeview listing:
   the duration of the frame. Other events like copies, clears and barriers are shown
   at the bottom of this view.
 
-Users can use the same selection and zooming facilities as in other views.
-Each solid block in this view represents a series of events that overlap and draw to the same
-render target within the same pass. A single click on on one of these highlights the corresponding
-entry in the treeview. Zooming in on a single item can be done by selecting it and clicking on
-“Zoom to selection”.
+Zoom controls can be used to focus in on a section of the timeline. More
+information on zoom controls can be found under the
+:ref:`Zoom Controls <zoom_controls>` section. Each solid block in this
+view represents a series of events that overlap and draw to the same
+render target within the same pass. A single click on one of these
+highlights the corresponding entry in the treeview.
 
 .. image:: media_rgp/RGP_RendertargetsOverview_3.png
 ..
@@ -382,9 +394,12 @@ Here are the currently available columns:
 - **Compression** Indicates whether compression is enabled for this render target or not.
 - **Sample count** MSAA sample count of the render target.
 - **Out of order draw calls** Number of out of order draw calls issued to this render target.
+  This column is not shown for traces taken on RDNA GPUs.
 - **Duration** The total duration of all the events that rendered to the render target. For
   example, if 3 events write to a depth buffer the duration will be the sum of these 3 event
   durations.
+
+The rows in the table can be sorted by clicking on a column header.
 
 **NOTE:**
 
@@ -392,6 +407,8 @@ Here are the currently available columns:
   item in the other view.
 - Selecting any item in either the timeline view or the treeview will select the earliest event
   represented by that item  in other sections of the tool.
+
+.. include:: Pipelines.rst
 
 Device configuration
 --------------------
@@ -427,6 +444,85 @@ is '8', event 31 may be displayed if any of its parameters contain '8'.
 .. include:: PipelineState.rst
 
 .. include:: InstructionTiming.rst
+
+.. _zoom_controls:
+
+Zoom Controls
+=============
+
+Time based graphs in RGP provide Zoom controls for adjusting the time scale that is
+viewable on screen. The following set of zoom icons are displayed above each graph that
+supports zooming:
+
+.. |ZoomSelectionRef| image:: media_rgp/RGP_zoom_to_selection.png
+.. |ZoomResetRef| image:: media_rgp/RGP_zoom_reset.png
+.. |ZoomInRef| image:: media_rgp/RGP_zoom_in.png
+.. |ZoomOutRef| image:: media_rgp/RGP_zoom_out.png
+
+|ZoomSelectionRef| **Zoom to selection**
+----------------------------------------
+When **Zoom to selection** is clicked, the zoom level is increased to a selected
+region or selected event. A selection region is set by holding down the
+left mouse button while the mouse is on the graph and dragging the mouse
+either left or right.  A colored overlay will highlight the selected region
+on the graph.  For graphs that support it, an event may be selected by
+clicking on it with the mouse (either the left or right button).
+**Zoom to selection** can also be activated by right clicking on a selection on the
+graph and choosing the **Zoom to selection** context menu option.  Zooming
+to a selected event can be accomplished by simply double clicking the event.
+Pressing the **Z** shortcut key while holding down the **CTRL** key activates
+**Zoom to selection** as well.
+
+|ZoomResetRef| **Zoom reset**
+-----------------------------
+When **Zoom reset** is clicked, the zoom level is returned to the original level
+to reveal the entire time span on the graph. The zoom level can also be reset
+using the **H** shortcut key.
+
+|ZoomInRef| **Zoom in**
+-----------------------
+Increases the zoom level incrementally to display a shorter time span on the
+graph. The zoom level is increased each time this icon is clicked until the
+maximum zoom level is reached. Alternatively, holding down the **CTRL** key
+and scrolling the mouse wheel up while the mouse pointer is over the graph
+will also zoom in for a more detailed view. Zooming in can be activated with
+the **A** shortcut key. To zoom in quickly at a 10x rate, press the **S**
+shortcut key.
+
+|ZoomOutRef| **Zoom out**
+-------------------------
+Decreases the zoom level incrementally to display a longer time span on the
+graph. The zoom level is decreased each time this icon is clicked until the
+minimum zoom level is reached (i.e. the full available time region).
+Alternatively, holding down the **CTRL** key and scrolling the mouse wheel down
+while the mouse pointer is over the graph will also zoom in for more detailed
+view. Zooming out can be activated with the **Z** shortcut key. To zoom out
+quickly at a 10x rate, press the **X** shortcut key.
+
+Zoom Panning
+------------
+
+When zoomed in on a graph region, the view can be shifted left or right by using
+the horizontal scroll bar.  The view can also be scrolled by dragging the mouse
+left or right while holding down the **spacebar** and the left mouse button.
+Left and right arrow keys can be used to scroll as well.
+
+.. _zoom_synchronization:
+
+Synchronized Zoom
+-----------------
+
+Normally, adjusting the view of a time based graph (by zooming in and
+scrolling) doesn’t affect graphs on other panes. This can be useful in
+some cases when tracking more than one item. However, it is sometimes
+useful to lock both the event timing and wavefront occupancy views to
+the same visible time window. There is an option to control this in the
+‘General’ tab of the Settings section called **Sync event time windows**.
+With this enabled, any zooming and scrolling in one window will be reflected
+in the other. If adjustments are made in the wavefront occupancy view, the
+vertical scroll bar in the event timing view will be automatically adjusted
+so that there are always events shown on screen if an event isn’t manually
+selected.
 
 User Debug Markers
 ==================
@@ -692,7 +788,7 @@ these markers simply mark a particular moment in time.
 Additionally, the user event names are displayed at the top of the event
 timeline view.
 
-The full user even hierarchy is also visible on the third line of the
+The full user event hierarchy is also visible on the third line of the
 side pane when clicking on individual events. If the event does not
 contain a user event hierarchy, nothing will be shown.
 
@@ -704,10 +800,11 @@ view. They are also visible in the side panel.
 RenderDoc & Radeon GPU Profiler interop BETA
 ============================================
 
-Prior to version 1.2, users were expected to generate profiles by pairing
-Radeon Developer Panel with their native application. This new feature
-empowers RenderDoc to also generate profiles, plus allowing users to correlate
-between events across both tools. This feature is only supported for DirectX12 and Vulkan.
+In addition to the typical use case where RGP profiles are generated
+using Radeon Developer Panel, profiles can also be generated using
+`RenderDoc <https://renderdoc.org/>`_. When an RGP profile is generated
+by RenderDoc, events can be correlated across both tools.
+This feature is only supported for DirectX12 and Vulkan.
 
 Intended usage
 --------------
@@ -731,23 +828,6 @@ the RenderDoc trace file. If this is the first time doing this, RenderDoc will
 bring up a prompt to allow specification of a path to Radeon GPU Profiler. Once
 profiling is complete, RenderDoc will launch Radeon GPU Profiler and the new
 profile will be ready for analysis.
-
-**NOTE:**
-Be sure to close RGP if RenderDoc is restarted.  Otherwise, the restarted
-RenderDoc instance will be unable to open a connection to the AMD-Developer-Service
-API and will not be able to generate RGP Profiles.
-
-Also, when running on Linux, if RenderDoc does not shutdown cleanly, it may be
-necessary to wait a few minutes for the AMD-Developer-Service API connection to
-close before restarting RenderDoc.
-
-These are known issues that will be resolved in a future release.
-
-The following command can be executed from a terminal window to determine if the
-AMD-Developer-Service named pipe is still opened:
-
-netstat -p | grep "AMD"
-
 
 Navigating between events
 -------------------------
@@ -831,12 +911,16 @@ Known limitations
    tall spikes of compute work in the wavefront occupancy view.
 
 -  If an RGP profile opened by RenderDoc is left running and RenderDoc is restarted,
-   the InterOp connection between the two can't be re-established. In this case, the
+   the interop connection between the two can't be re-established. In this case, the
    "Create new RGP Profile" menu option will remain disabled after opening a new
-   RenderDoc trace. This is due to a named pipe left open.  To resolve the issue,
-   close RGP then restart RenderDoc.
-   For Linux only, a similar situation can occur if the RenderDoc process does not
+   RenderDoc trace. This is caused by a named pipe having been left open.  To resolve
+   the issue, close RGP, and then restart RenderDoc.
+   On Linux, a similar situation can occur if the RenderDoc process does not
    shutdown cleanly. If this occurs, it may be necessary to wait a few minutes for
    the connection to be removed before restarting RenderDoc.
+   The following command can be executed from a terminal window to determine if the
+   named pipe is still opened:
+
+   - netstat -p | grep "AMD"
 
 .. _Microsoft PIX tool: https://blogs.msdn.microsoft.com/pix/introduction/

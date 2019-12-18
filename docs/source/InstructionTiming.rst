@@ -1,116 +1,173 @@
 Instruction Timing
 ------------------
 
-The Instruction Timing pane shows the average issue latency of each instruction of a single shader. The Instruction Timing information is generated using hardware support on AMD GCN GPUs. Generating Instruction Timing does not require recompilation of shaders or insert any instrumentation into shaders.
+The Instruction Timing pane shows the average issue latency of each instruction of a single shader.
+The Instruction Timing information is generated using hardware support on AMD GCN GPUs. Generating
+Instruction Timing does not require recompilation of shaders or insert any instrumentation into
+shaders.
 
-The Instruction Timing pane presently shows GCN ISA. For a description of GCN ISA, refer to the shader programming guide at `GPUOpen <https://gpuopen.com/amd-vega-instruction-set-architecture-documentation/>`_. The Instruction Timing view for a GCN shader is shown below.
+The Instruction Timing pane shows GCN ISA. For a description of GCN ISA, refer to the shader
+programming guide at
+`GPUOpen <https://gpuopen.com/amd-vega-instruction-set-architecture-documentation/>`_.
+The Instruction Timing view for a GCN shader is shown below.
 
 .. image:: media_rgp/RGP_Instruction_Timing_1.png
 
 \ **Average Latency**
 
-Each shader line in the  Instruction Timing view shows the time taken between the issue of an instruction and the one after that. To provide intuition on what Average Latency means some sample ISA statements are shown below.
+Each shader line in the Instruction Timing view shows the time taken between the issue of an
+instruction and the one after that. To provide information on what Average Latency means some
+sample ISA statements are shown below.
 
-**Best Case Instruction Issue:** In the below image, we see three instructions. The *4 clocks* denotes the latency  between the issue of the *s_mov_b32* instruction and the issue of the following *v_lshlrev_b32_e32* instruction. Similarly, the interval between the issue of *v_lshlrev_b32_e32* and *s_lshr_b32* instruction is 6 clocks. This example shows the best performance case where each instruction is issued at an interval of 4 clocks.
+**Best Case Instruction Issue:** In the below image, we see three instructions. The *4 clocks*
+denotes the latency between the issue of the *s_mov_b32* instruction and the issue of the following
+*v_lshlrev_b32_e32* instruction. Similarly, the interval between the issue of *v_lshlrev_b32_e32*
+and *s_lshr_b32* instruction is 6 clocks. This example shows the best performance case where each
+instruction is issued at an interval of 4 clocks.
 
 .. image:: media_rgp/RGP_Instruction_Timing_Example_1.png
 
-**Delays in Instruction Issue:** In the below image, we see three export instructions. The *exp pos0* has a rather long interval of 11,121 clocks.  This can be expected since  the *exp pos0* instruction's issue can be delayed for reasons such as unavailable memory resources which may be in use by other wavefronts. As a result, there is a long duration in the instruction. Since the latency waiting for memory resources was seen for the first export instruction, subsequent exports have much shorter duration.
+**Delays in Instruction Issue:** In the below image, we see three export instructions. The
+*exp pos0* has a rather long interval of 11,121 clocks.  This can be expected since  the
+*exp pos0* instruction's issue can be delayed for reasons such as unavailable memory resources
+which may be in use by other wavefronts. As a result, there is a long duration in the instruction.
+Since the latency waiting for memory resources was seen for the first export instruction,
+subsequent exports have much shorter duration.
 
 .. image:: media_rgp/RGP_Instruction_Timing_Example_2.png
 
-**Waitcounts and Instruction Issue:** In the below image, we see seven instructions. The *v_mov_b32_e32*  and the *v_perm_b32* instructions issue in 4 clocks as expected. We then see a *tbuffer_load* followed by a *s_waitcnt*. The *s_waitcnt* has a longer issue interval of 721 clocks. The *tbuffer_load* instruction also has a relatively short latency of only 19 cycles which may seen counter intuitive since its a memory load instruction. However, this is expected as  *s_waitcnt* is a shader instruction used for synchronization to wait for previous instructions such as thee previous buffer load to finish. The *s_waitcnt* instruction will issue and then wait (in this case 721 clocks) until the next instruction instruction which is the *ds_write2_b32* can be issued.
+**Waitcounts and Instruction Issue:** In the below image, we see seven instructions. The
+*v_mov_b32_e32*  and the *v_perm_b32* instructions issue in 4 clocks as expected. We then see a
+*tbuffer_load* followed by a *s_waitcnt*. The *s_waitcnt* has a longer issue interval of 721
+clocks. The *tbuffer_load* instruction also has a relatively short latency of only 19 cycles which
+may seen counter intuitive since its a memory load instruction. However, this is expected as
+*s_waitcnt* is a shader instruction used for synchronization to wait for previous instructions such
+as the previous buffer load to finish. The *s_waitcnt* instruction will issue and then wait (in this
+case 721 clocks) until the next instruction instruction which is the *ds_write2_b32* can be issued.
 
 .. image:: media_rgp/RGP_Instruction_Timing_Example_3.png
 
-The Average Latency between any two instructions shown is an average of the latency (between those instructions) measured for all the wavefronts analyzed.
+The Average Latency between any two instructions shown is an average of the latency (between those
+instructions) measured for all the wavefronts analyzed.
 
 \ **Instruction Cost Percent**
 
-The *Instruction Cost* for each ISA instruction shows the percentage of the Total Issue Time of the whole shader. For shaders with branches where consecutive instructions can have varying hit counts, the Total Issue Interval Percent incorporates the extra hit counts for that instruction. This allows us to find the hot-spot in the shader.
+The *Instruction Cost* for each ISA instruction shows the percentage of the Total Issue Latency of
+the whole shader. For shaders with branches where consecutive instructions can have varying hit
+counts, the Instruction Cost incorporates the extra hit counts for that instruction. This allows us
+to find the hot-spot in the shader.
 
-The formula for Total Issue Interval Percent for an ISA instruction can be described as below.
+The Instruction Cost for an ISA instruction is calculated as follows:
 
-Instruction Cost = 100 * (Sum of All Latencies for ISA Instruction) / (Sum of All Latencies for the shader)
+*Instruction Cost = 100 * (Sum of All Latencies for ISA Instruction) / (Sum of All Latencies for
+the shader)*
 
 \ **Instruction Timing Capture Granularity**
 
-Instruction Timing information is generated for a part of the RGP profile rather than for the whole RGP profile. The
-granularity is configured using the API PSO hash. Instruction Timing information is generated by providing an API PSO
-hash to Radeon Developer Panel. The API PSO hash can be copied from RGP and pasted into Radeon Developer Panel. Please
-see the Radeon Developer Panel for more information on how to capture instruction information.
+Instruction Timing information is generated for a part of the RGP profile rather than for the whole
+RGP profile. The granularity is configured using the API PSO hash. Instruction Timing information
+is generated by providing an API PSO hash to Radeon Developer Panel. The API PSO hash can be copied
+from RGP and pasted into Radeon Developer Panel. Please see the Radeon Developer Panel for more
+information on how to capture instruction information.
 
-It is important to note that the instruction trace information can also be present for events that use a different PSO
-than the one that was provided to RDP. The main reasons for this behavior are:
+It is important to note that the instruction trace information can also be present for events that
+use a different PSO than the one that was provided to RDP. The main reasons for this behavior are:
 
-- Using the Radeon Developer Panel, instruction tracing will be enabled till the end of the command buffer. So when an event using the selected PSO starts execution, detailed tracing should be visible for events till the end of the command buffer.
+- Using the Radeon Developer Panel, instruction tracing will be enabled until the end of the
+  command buffer. So when an event using the selected PSO starts execution, detailed tracing should
+  be visible for events until the end of the command buffer.
 
-- The ability to capture Instruction Trace is enabled globally for all the events executing on the GPU once it has been enabled.
+- The ability to capture Instruction Trace is enabled globally for all the events executing on the
+  GPU once it has been enabled.
 
-Due to these reasons, it is very likely that Instruction Timing information will be available for events that have a
-different API PSO from the one that was provided to the Radeon Developer Panel. To view all the events that have
-Instruction Timing information, the developer can choose the "Color by Instruction Timing" option in the Wavefront
-Occupancy or the Event Timing views.
+Due to these reasons, it is very likely that Instruction Timing information will be available for
+events that have a different API PSO from the one that was provided to the Radeon Developer Panel.
+To view all the events that have Instruction Timing information, the developer can choose the
+"Color by Instruction Timing" option in the Wavefront Occupancy or the Event Timing views.
 
 \ **Availability of Instruction Timing**
 
-The Instruction Timing will be available for the draws / dispatches that used the PSO that was chosen. However, in
-certain cases it is possible that the Instruction Timing information may not be there for the selected PSO. The main
-reasons why Instruction Timing information may not be present for a selected API PSO  are described below.
+The Instruction Timing will be available for the draws / dispatches that used the PSO that was
+chosen. However, in certain cases it is possible that the Instruction Timing information may not be
+there for the selected PSO. The main reasons why Instruction Timing information may not be present
+for a selected API PSO are described below.
 
-\ **Hardware Architecture and Draw Scheduling**: Instruction Timing information is only sampled from some of the
-compute units of the GPU. As a result, it is possible for events with very few waves to not have instruction data even
-if the API PSO hash was selected. This can happen if the GPU schedules the waves on a compute unit that doesn't have
-instruction trace enabled.
+\ **Hardware Architecture and Draw Scheduling**: Instruction Timing information is only sampled
+from some of the compute units of the GPU. As a result, it is possible for events with very few
+waves to not have instruction data even if the API PSO hash was selected. This can happen if the
+GPU schedules the waves on a compute unit that doesn't have instruction trace enabled.
 
-\ **Pipeline Used in Captured Frame**:  The developer should pass  the API PSO hash to the Radeon Developer Panel before starting the application and taking a new profile. The developer should ensure that the API PSO intended to be captured is used in a command buffer that is actually executed in the frame.
+\ **Pipeline Used in Captured Frame**:  The developer should pass the API PSO hash to the Radeon
+Developer Panel before starting the application and taking a new profile. The developer should
+ensure that the API PSO intended to be captured is used in a command buffer that is actually
+executed in the frame.
 
-\ **Changes in API PSO Hash**: If any state within API PSO has been changed, it is important to note that the API PSO
-hash will also likely have changed. This can occur if the shaders within the API PSO were edited. If that is the case,
-the user should gather a RGP trace without Instruction Trace first to get the updated API PSO hash and then capture a
-new profile with Instruction Trace.
+\ **Changes in API PSO Hash**: If any state within API PSO has been changed, it is important to
+note that the API PSO hash will also likely have changed. This can occur if the shaders within
+the API PSO were edited. If that is the case, the user should gather an RGP trace without
+Instruction Trace first to get the updated API PSO hash and then capture a new profile with
+Instruction Trace.
 
-\ **Internal Events**: It should be noted that it is not possible to view Instruction Timing information for internal events such as Clear().
+\ **Internal Events**: It should be noted that it is not possible to view Instruction Timing
+information for internal events such as Clear().
 
 \ **Navigation**
 
-The Instruction Timing for an event can be accessed by by right clicking on that event and choosing the "View In Instruction Timing" option. Since
-it is common to use the same shader in multiple events, RGP provides an easy way to toggle between multiple events that
-use the same shader using the event drop down shown below.
+The Instruction Timing for an event can be accessed by by right clicking on that event and choosing
+the "View In Instruction Timing" option. Since it is common to use the same shader in multiple
+events, RGP provides an easy way to toggle between multiple events that use the same shader using
+the event drop down shown below.
 
 .. image:: media_rgp/RGP_Instruction_Timing_2.png
 
-This allows the developer to study the behavior of the shader for different events. It is recommended to use the keyboard shortcuts,
-(Shift + Up and Shift + Down) to change API PSO selection and
-(Shift + Left and Shift + Right) to move across different events using the same shader.
+This allows the developer to study the behavior of the shader for different events. It is
+recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to change API PSO
+selection and (Shift + Left and Shift + Right) to move across different events using the same
+shader.
 
-Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to directly using the (Ctrl + G) shortcut
+Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to
+directly using the (Ctrl + G) shortcut
 
 \ **Search and Go to Line**
 
-Instructions can be searched for and individual instruction lines can be navigated to using
-the controls displayed below
+Individual instructions can be searched for and the developer can navigate directly to a specific
+line using the controls displayed below.
 
 .. image:: media_rgp/RGP_Instruction_Timing_Find.png
 
 \ **Instruction Timing Side Panel**
 
-The Instruction Timing side panel provides additional information about the shader shown. The main sections in the side panel are.
+The Instruction Timing side panel provides additional information about the shader shown.
 
 .. image:: media_rgp/RGP_Instruction_Side_Panel.png
 
-\ **Identifiers**: This section includes multiple hashes that can be used to identify the shaders used and the pipeline that they are a part of.
+The main sections in the side panel are:
 
-\ **Hardware Utilization**: The Hardware Utilization bar charts show the utilization of each functional unit of the GPU on a per-shader basis.
+\ **Identifiers**: This section includes multiple hashes that can be used to identify the shaders
+used and the pipeline that they are a part of.
 
-It should be note that utilization shown is only for the shader being viewed. For example, in the image shown, the VALU utilization of the shader is 55.3%. This means that the Compute Shader shown used  55.3% of the VALU capacity of the GPU. Other shader's  may be concurrently executing on the GPU. Their usage of the VALU is not considered when showing the bar charts.
+\ **Hardware Utilization**: The Hardware Utilization bar charts show the utilization of each
+functional unit of the GPU on a per-shader basis.
 
-A functional unit's utilization is calculated as follows.
-Utilization % = 100 * (Hit Count of all instructions executed on the functional unit) / (Duration of analyzed wavefronts)
+It should be noted that utilization shown is only for the shader being viewed. For example, in the
+image shown, the VALU utilization of the shader is 55.3%. This means that the Compute Shader shown
+used 55.3% of the VALU capacity of the GPU. Other shaders may be concurrently executing on the GPU.
+Their usage of the VALU is not considered when showing the bar charts.
 
-\ **Instruction Types**: This section provides information about the dynamic instruction mix of the shader's execution. The columns denote the different types of instructions supported by GCN. The counts denote the number of instructions of each category.
+A functional unit's utilization is calculated as follows:
 
-Each category's counts denote the instruction count for that shader's invocation in the event. Different executions of the same shader could have different Instruction statistics based on factor's such as the number of wavefronts launched for the shader and loop parameters. The instruction categories are briefly described below. Please see the GCN Shader Programming Guide for more details.
+*Utilization % = 100 * (Hit Count of all instructions executed on the functional unit) / (Duration
+of analyzed wavefronts)*
+
+\ **Instruction Types**: This section provides information about the dynamic instruction mix of the
+shader's execution. The columns denote the different types of instructions supported by GCN. The
+counts denote the number of instructions of each category.
+
+Each category's count denote the instruction count for that shader's invocation in the event.
+Different executions of the same shader could have different Instruction statistics based on
+factors such as the number of wavefronts launched for the shader and loop parameters. The
+instruction categories are briefly described below. Please see the GCN Shader Programming Guide for
+more details.
 
 - VALU: Includes vector ALU instructions
 
@@ -128,20 +185,40 @@ Each category's counts denote the instruction count for that shader's invocation
 
 - MISC: Includes other miscellaneous instructions such as s_endpgm
 
-The instruction types table provides a useful summary of the shader's structure especially for very long shaders.
+The instruction types table provides a useful summary of the shader's structure especially for very
+long shaders.
 
 \ **Shader Statistics**: The shader statistics section provides useful information about the shader
 
-- Shader Duration: This denotes the execution duration of the whole shader. It can be correlated with the timings seen for the same shader in other RGP views such as the Wavefront Occupancy and the Event Timing views.
+- Shader Duration: This denotes the execution duration of the whole shader. It can be correlated
+  with the timings seen for the same shader in other RGP views such as the Wavefront Occupancy and
+  the Event Timing views.
 
-- Wavefronts: It denotes the total number of wavefronts in the shader and the number of wavefronts analyzed as part of building the Instruction Trace visualizations. It is expected that not all waves in the shader will be analyzed. This is for the same reasons described above when discussing the availability of Instruction Timing.
+- Wavefronts: This denotes the total number of wavefronts in the shader and the number of
+  wavefronts analyzed as part of building the Instruction Trace visualizations. It is expected that
+  not all waves in the shader will be analyzed. This is for the same reasons described above when
+  discussing the availability of Instruction Timing.
 
-- Branches: It denotes the number of branch instructions in the shader and the number of branches that were taken by the shader out of  the total.
+- Branches: This denotes the number of branch instructions in the shader and the percentage of
+  the total number of branches that were taken by the shader.
 
-- Vector and Scalar Registers: The register values indicate the number of registers that the shader is using. The value in parentheses is the number of registers that have been allocated for the shader.
+- Vector and Scalar Registers: The register values indicate the number of registers that the shader
+  is using. The value in parentheses is the number of registers that have been allocated for the
+  shader.
 
-- Theoretical Occupancy: From the register information and knowledge about the GCN architecture we can calculate the theoretical maximum wavefront occupancy for the shader.
+- Theoretical Occupancy: From the register information and knowledge about the GCN architecture we
+  can calculate the theoretical maximum wavefront occupancy for the shader.
 
+
+\ **Instruction Timing for RNDA**
+
+On RDNA GPUs, Instruction Timing can include certain instructions with a hit count of 0. Usually
+this will be an instruction called *s_code_end* and may also be present after the shader's
+*s_endpgm* instruction. This is expected since this is an instruction added by the compiler to
+allow for instruction prefetching or for padding purposes. The hardware does not execute this
+instruction.
+
+Such instructions may also be present in the ISA view in the Pipeline Summary.
 
 \ **Note**
 

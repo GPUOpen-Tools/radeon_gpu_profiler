@@ -1,6 +1,6 @@
 General
 -------
-**Units:** This tells profiler whether to work in clocks, nanoseconds, microseconds,
+**Units:** This tells the profiler whether to work in clocks, nanoseconds, microseconds,
 or milliseconds. Refer to the keyboard binding in the secion below to quickly
 toggle between these time units.
 
@@ -35,7 +35,8 @@ Here users will find the **Keyboard shortcuts** pane:
 
 The **System activity, Wavefront occupancy and Event timing** shortcuts
 are specific to zooming and panning operations that can be performed
-within the Frame Summary and Events subtabs (see below):
+within the Frame Summary and Events subtabs.  See the section entitled
+:ref:`Zoom Controls <zoom_controls>` for more information.
 
 .. image:: media_rgp/RGP_Tabs_1.png
 
@@ -52,10 +53,11 @@ The **Global navigation** section refers to keystrokes that aid user
 navigation, and are always detected regardless of which pane is visible.
 
 The **Global hotkeys** section refers to any hotkeys available anywhere
-in the product. Currently there is just one setting that allows you to
-cycle through the different time units from any pane, rather than having
-to go to the settings. This allows you to view a timeline in clock
-cycles, milliseconds, microseconds or nanoseconds very quickly.
+in the product. Pressing *CTRL* + *T* allows the user to quickly cycle
+through the different time units (cycles, milliseconds, microseconds
+or nanoseconds) from any pane, rather than having to go to the settings.
+The user can also open or close a profile from any pane using the
+Global hotkeys.
 
 We encourage all users to adopt these keystrokes while using RGP.
 

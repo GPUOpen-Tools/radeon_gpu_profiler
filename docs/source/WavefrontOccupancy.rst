@@ -38,7 +38,7 @@ the mouse.
 Users may use the combo-box on the top left to visualize wavefronts in
 different ways:
 
--  **Color by API stage.** Default, and shows which wavefronts
+-  **Color by API stage.** Default. Shows which wavefronts
    correspond to which Vulkan/DX12 pipeline stage.
 
 -  **Color by GCN stage.** Shows which wavefronts correspond to which
@@ -96,12 +96,13 @@ Users may single-click on individual events to see detailed information
 on the details pane described below. Zooming into this graph is done by
 selecting the desired region in the wavefront graph above. Additionally,
 zooming in on a single event can be done by selecting the event and
-clicking on ‘Zoom to selection’.
+clicking on ‘Zoom to selection’.  More information can be found under
+the :ref:`Zoom Controls<zoom_controls>` section.
 
-Users may use the combo-box on the top left to visualize events in
-different ways:
+Users may use the **Color by** combo-box on the top left to visualize
+events in different ways:
 
--  **Color by queue.** Default, and shows which events were submitted to
+-  **Color by queue.** Default. Shows which events were submitted to
    graphics or async compute queues. In addition, the CP marker is shown
    in a unique color, as well as the barriers and layout transitions so
    they can be easily distinguished. Note that barrier and layout transitions
@@ -118,7 +119,7 @@ different ways:
    which render target or attachment type (color, depth-only, compute).
    These three types are assigned a base color, and each pass within
    each type is assigned a different shade of the base color. This can
-   be useful to visualize when the application attempted render
+   be useful to visualize when the application attempted to render
    different portions of a scene.
 
 -  **Color by command buffer.** Shows each event in a color associated
@@ -128,24 +129,46 @@ different ways:
 -  **Color by user events.** Will colorize each event depending on which
    user event it is surrounded by.
 
-Additionally, there are also filters to help visualize only certain
-types of events. For example, users can select to see draws, dispatches,
-barriers, clears, copies, resolves user markers and events containing
-instruction trace data. There is also an option to switch the CP marker
-on or off. Switching the CP marker off will just show the active shader
-blocks.
+Next to the **Color by** combo-box is the **Event filter** combo-box.
+This allows the user to visualize only certain types of events on the timeline.
+For example, the user can select to see draws, dispatches, clears, barriers,
+layout transitions, copies, resolves, and events containing instruction trace
+data. There is also an option to switch the CP marker on or off. Switching the
+CP marker off will just show the active shader blocks.
+
+Next to the **Event filter** combo-box is the **Overlay** combo-box. This allows
+the user to select which fixed "Overlays" to show in the timeline. Overlays are
+shown in one or more rows at the top of the timeline. They are useful to
+visualize the various states for each event. More than one Overlay can be
+enabled. The following Overlays are supported:
+
+-  **All.** All available overlays will be shown
+
+-  **User events.** Default. Displays all user events, if the captured frame
+   contains any such events. The user events are stacked according to the
+   nesting level, and a cross pattern indicates multiple overlapping user
+   event regions. Moving the mouse cursor over one of the user events will
+   show a tool-tip listing all user events under the cursor including timing
+   information for each user event interval.
+
+-  **Hardware context.** Displays all hardware contexts. Each hardware
+   context has its own row. This allows the user to visualize the lifetime
+   of each context.
+
+-  **Command buffer.** Displays all command buffers. The command buffers are
+   stacked according to the time of submission, so that if one command
+   buffer is submitted before a previous command buffer has completed, the
+   new command buffer will be stacked below the previous command buffer.
+
+-  **Render targets.** Displays all render targets. If more than one render
+   target is active for a given time period, then the active render targets
+   will be stacked. This allows the user to visualize the usage of render
+   targets over the duration of the frame.
 
 The event duration percentile filter allows users to only see events
 whose durations fall within a certain percentile. For example, selecting
 the rightmost-region of the slider will highlight the most expensive
 events. One will also find a textbox to filter out by event name.
-
-In the case that user events are available, they will be drawn above
-all other events. The user events are stacked according to the nesting
-level, and a cross pattern indicates multiple overlapping user event
-regions. Moving the mouse cursor over one of the user events will show a
-tool-tip listing all user events under the cursor including timing
-information for each user event interval.
 
 .. image:: media_rgp/RGP_WavefrontOccupancy_7.png
 
