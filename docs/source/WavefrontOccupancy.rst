@@ -61,12 +61,6 @@ different ways:
    This can be useful to visualize when the application attempted to
    render different portions of a scene.
 
--  **Color by API PSO** will color events by their API PSO hash values.
-
--  **Color by instruction timing** will only colorize events which contain
-   detailed instruction timing information. All other events will be grayed
-   out.
-
 Additionally, there are filters along the top intended to help visualize
 the occupancy of only certain GCN pipeline stages. Lastly, there are
 colored legends on the bottom which serve as color reminders. Note these
@@ -129,6 +123,12 @@ events in different ways:
 -  **Color by user events.** Will colorize each event depending on which
    user event it is surrounded by.
 
+-  **Color by API PSO** will color events by their API PSO hash values.
+
+-  **Color by instruction timing** will only colorize events which contain
+   detailed instruction timing information. All other events will be grayed
+   out.
+
 Next to the **Color by** combo-box is the **Event filter** combo-box.
 This allows the user to visualize only certain types of events on the timeline.
 For example, the user can select to see draws, dispatches, clears, barriers,
@@ -160,7 +160,7 @@ enabled. The following Overlays are supported:
    buffer is submitted before a previous command buffer has completed, the
    new command buffer will be stacked below the previous command buffer.
 
--  **Render targets.** Displays all render targets. If more than one render
+-  **Render target.** Displays all render targets. If more than one render
    target is active for a given time period, then the active render targets
    will be stacked. This allows the user to visualize the usage of render
    targets over the duration of the frame.
@@ -267,11 +267,10 @@ information relating to the layout transition as shown below:
 
 .. image:: media_rgp/RGP_DetailsPanel_4.png
 
-The user can also right-click on any of the events in the Events
-timeline view and navigate to Event timing or Pipeline state panes, as
-well as Barriers, Most expensive events and Context rolls panes within
-Overview tab, and view the selected event in these panes, as well as in
-the side panels.
+The user can also right-click on any event or overlay in the Events
+timeline view and navigate to the Event timing, Pipeline state,
+or Instruction timing pane, or to one of the panes in the Overview tab.
+The selected event or overlay will be shown in the chosen view.
 
 In addition, the user can zoom into an event using the “Zoom to
 selection” option from this context menu.

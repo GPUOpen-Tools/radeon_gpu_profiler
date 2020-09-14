@@ -1,7 +1,10 @@
 General
 -------
+**Check for updates on startup:** Radeon GPU Profiler will check for an available update
+during startup. If an update is available, a notification will appear on the Welcome page
+
 **Units:** This tells the profiler whether to work in clocks, nanoseconds, microseconds,
-or milliseconds. Refer to the keyboard binding in the secion below to quickly
+or milliseconds. Refer to the keyboard binding in the section below to quickly
 toggle between these time units.
 
 **State buckets:** Specify how the profiler should generate its own state buckets.

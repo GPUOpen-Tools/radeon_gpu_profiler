@@ -17,7 +17,13 @@ barriers and layout transitions will be shown as 'N/A'.
 
 The summary at the top left of the UI quickly lets
 the developer know if there is an issue with barrier usage in the frame.
-In the case above the barrier usage is taking up 0% of the frame.
+When calculating the percentage, only portions of a barrier's duration
+which are not overlapped by one or more events from any queue are taken
+into consideration. For instance, if a barrier has a duration of 100 ns,
+but 80 ns of that barrier's duration are overlapped by other events (on
+the same queue or on a different queue), then only 20 ns of that
+particular barrier contributes to the percentage calculation.
+In the case shown above, the barrier usage is taking up 0% of the frame.
 
 This summary also displays the average number of barriers
 per draw or dispatch and the average number of
@@ -38,8 +44,9 @@ The table shows the following information:
    in the graphics pipe we need the work to drain from
 
 #. **Layout transitions** - A blue check box indicates if the barrier is
-   associated with a layout transition. There are 6 columns indicating the
-   type of layout transition
+   associated with a layout transition. There are six columns indicating the
+   type of layout transition.  These are described in the Layout transition
+   section below.
 
 #. **Invalidated** - A list of invalidated caches
 

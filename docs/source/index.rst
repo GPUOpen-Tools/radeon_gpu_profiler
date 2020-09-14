@@ -68,18 +68,22 @@ Supported graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Windows 10
 
--  Windows 7
-
 -  Ubuntu 18.04.3 LTS
 
-Supported compute APIs, GCN hardware, and operating systems
-------------------------------------------------------------
+-  Ubuntu 20.04.1 LTS
+
+Supported compute APIs, RDNA and GCN hardware, and operating systems
+--------------------------------------------------------------------
 
 **Supported APIs**
 
 -  OpenCL
 
-\ **Supported GCN hardware**
+\ **Supported RDNA and GCN hardware**
+
+-  AMD Radeon RX 5500 series
+
+-  AMD Radeon RX 5700 and RX 5700 XT
 
 -  AMD Radeon VII
 
@@ -91,9 +95,9 @@ Supported compute APIs, GCN hardware, and operating systems
 
 -  Windows 10
 
--  Windows 7
-
 -  Ubuntu 18.04.3 LTS
+
+-  Ubuntu 20.04.1 LTS
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -142,9 +146,7 @@ There are a few ways to load a profile into RGP.
 
    Notice that there is additional information provided for each profile when
    viewed in this pane, such as the GPU the profile was taken on, the date when
-   the capture was performed and whether or not an API PSO was specified. This
-   is a useful reminder of how to find the events with the appropriate API PSO
-   hash in the tool.
+   the capture was performed and the number of events contained in the profile.
 
 .. image:: media_rgp/RGP_RecentProfiles.png
 
@@ -181,17 +183,17 @@ the profile data are within the **Overview** and **Events** sections.
 
    b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
 
-   c. **Pipelines** - Details of the pipeline usage in the profile.
+   c. **Barriers** - Details of the barrier usage in the profile.
 
-   d. **Barriers** - Details of the barrier usage in the profile.
+   d. **Context rolls** - Details of the hardware context register usage.
+      This overview section is not available for OpenCL profiles.
 
    e. **Most expensive events** - List of the most expensive events.
 
-   f. **Context rolls** - Details of the hardware context register usage.
-      This overview section is not available for OpenCL profiles.
-
-   g. **Render/depth targets** - Overview of render targets used throughout
+   f. **Render/depth targets** - Overview of render targets used throughout
       the graphics frame. This overview section is not available for OpenCL profiles.
+
+   g. **Pipelines** - Details of the pipeline usage in the profile.
 
    h. **Device Configuration** - Information about the GPU the profile
       was generated on.
@@ -206,6 +208,9 @@ the profile data are within the **Overview** and **Events** sections.
 
    c. **Pipeline state** - Tree view of profile events and their
       graphics/compute pipeline state.
+
+   d. **Instruction timing** - Shows detailed instruction timing
+      information for each instruction of a single shader.
 
 4. **Settings**
 
@@ -385,6 +390,7 @@ The grouping can be configured in two ways:
 
 Here are the currently available columns:
 
+- **Legend** The color of the render target in the timeline.
 - **Name** The name of the render target. Currently this is sequential and based on the
   first occurrence of each render target in the frame.
 - **Format** The format of each render target.
@@ -406,7 +412,7 @@ The rows in the table can be sorted by clicking on a column header.
 - Selecting any item in either the timeline view or the treeview will select the corresponding
   item in the other view.
 - Selecting any item in either the timeline view or the treeview will select the earliest event
-  represented by that item  in other sections of the tool.
+  represented by that item in other sections of the tool.
 
 .. include:: Pipelines.rst
 
@@ -544,9 +550,10 @@ Using PIX3 event instrumentation for DirectX12 user debug markers
 
 If your application has been instrumented with PIX3 user markers, then
 to view the markers within RGP is a simple matter of recompiling the source code
-of the application with a slightly modified PIX header file to include AMD header files.
+of the application with a slightly modified PIX header file. The steps described here
+require a WinPixEventRuntime version of at least 1.0.200127001.
 
-The currently supported PIX3 event instrumentation for RGP are:
+The PIX3 event instrumentation functions supported by RGP are:
 ::
 
   void PIXBeginEvent(ID3D12GraphicsCommandList* commandList, ...)
@@ -556,20 +563,50 @@ The currently supported PIX3 event instrumentation for RGP are:
 The steps to update the PIX header file are:
 
 1. Copy the entire ``samples\AMDDxExt`` folder provided in the RGP package to the location where the PIX header
-files (``pix3.h``, ``pix3_win.h``) resides (typically at ``WinPixEventRuntime.[x.x]\Include\WinPixEventRuntime``).
+files (``pix3.h``, ``pix3_win.h``) reside (typically at ``WinPixEventRuntime.[x.x]\Include\WinPixEventRuntime``).
 
-2. Update the content of ``pix3.h`` file to replace the inclusion of ``pix3_win.h`` with ``AMDDxExt\AmdPix3.h`` file.
-For example:
+2. Add ``#include "AmdDxExt\AmdPix3.h"`` to the top of ``PIXEvents.h``:
 ::
 
+  #include "PIXEventsCommon.h"
+
   #if defined(XBOX) || defined(_XBOX_ONE) || defined(_DURANGO)
-  #include "pix3_xbox.h"
+  # define PIX_XBOX
   #else
-  //#include "pix3_win.h"
-  #include "AMDDxExt\AmdPix3.h"
+  #include "AmdDxExt\AmdPix3.h"
   #endif
 
-3. Recompile the application.  Note that the RGP user markers are only enabled when the corresponding
+3. Update the ``PIXEvents.h`` file to add an ``Rgp`` prefix to the the existing calls to PIXBeginEventOnContextCpu,
+PIXEndEventOnContextCpu and PIXSetMarkerOnContextCpu:
+::
+
+  #if PIX_XBOX
+    PIXBeginEvent(color, formatString, args...);
+  #else
+    // PIXBeginEventOnContextCpu(context, color, formatString, args...);
+    RgpPIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #endif
+
+::
+
+  #if PIX_XBOX
+    PIXEndEvent();
+  #else
+     // PIXEndEventOnContextCpu(context);
+     RgpPIXEndEventOnContextCpu(context);
+  #endif
+
+::
+
+  #if PIX_XBOX
+    PIXSetMarker(color, formatString, args...);
+  #else
+    // PIXSetMarkerOnContextCpu(context, color, formatString, args...);
+    RgpPIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #endif
+
+
+4. Recompile the application.  Note that the RGP user markers are only enabled when the corresponding
 PIX event instrumentation is also enabled with one of the preprocessor symbols:
 **USE_PIX**, **DBG**, **_DEBUG**, **PROFILE**, or **PROFILE_BUILD**.
 

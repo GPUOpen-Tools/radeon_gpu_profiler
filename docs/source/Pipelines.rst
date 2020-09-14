@@ -43,8 +43,11 @@ Each entry in the table displays the following information:
 1. **Bucket ID** - ID to match pipeline to event state bucket used
    for grouping in other panes.
 2. **Hash** - 128-bit pipeline hash and API shader hash.
-3. **Duration** - Total time and percentage of total frame time that the pipeline or
-   shader was active.
+3. **Duration** - The pipeline duration is the sum of the durations of
+   all events which use this pipeline (overlapped areas only counted once).
+   The shader stage duration displayed for child items in the table is the
+   sum of the stage-specific shader durations for all events which use this
+   pipeline (overlapped areas are only counted once).
 4. **Event count** - Number of events which use the pipeline and
    percentage out of total number of events in profile.
 5. **Avg event duration** - Average duration of events using
@@ -68,7 +71,7 @@ Pipeline State view for the first event associated with the pipeline.
 Events
 ~~~~~~
 
-.. image:: media_rgp/RGP_PipelineSummary_6.png
+.. image:: media_rgp/RGP_PipelineSummary_4.png
 
 The Events table displays all events which use the currently-selected
 pipeline in the **Pipelines** table.
@@ -84,5 +87,5 @@ The Events table can be sorted by clicking on a column header.
 As with all event lists in RGP, the user can right-click
 to quickly navigate to the event in other panes.
 
-.. image:: media_rgp/RGP_PipelineSummary_7.png
+.. image:: media_rgp/RGP_PipelineSummary_5.png
 
