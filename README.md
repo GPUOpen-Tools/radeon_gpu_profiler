@@ -24,7 +24,8 @@ In order to use the latest features of RGP, it is strongly recommended that user
     * http://radeon-gpuprofiler.readthedocs.io/en/latest/
 
 ## Supported ASICs
-* AMD Radeon RX 5500 and 5300 series
+* AMD Radeon RX 5500 and RX 5300 series
+* AMD Radeon RX 5600 series
 * AMD Radeon RX 5700 series
 * AMD Radeon VII
 * AMD RX Vega 64 and RX Vega 56
@@ -34,7 +35,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * AMD Tonga R9 285, R9 380
 
 ## Supported OS's and API's
-### Windows10
+### Windows® 10
 * DirectX12
 * Vulkan
 
@@ -44,9 +45,11 @@ In order to use the latest features of RGP, it is strongly recommended that user
 
 ## Supported compute APIs, ASICs, and operating systems
 ### Supported APIs
-* OpenCL®
+* OpenCL™
 
 ### Supported ASICs
+* AMD Radeon RX 5500 and RX 5300 series
+* AMD Radeon RX 5600 series
 * AMD Radeon RX 5700 series
 * AMD Radeon VII
 * AMD RX Vega 64 and RX Vega 56

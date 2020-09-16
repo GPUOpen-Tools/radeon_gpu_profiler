@@ -2,7 +2,7 @@ The Radeon™ GPU Profiler
 ========================
 
 The Radeon GPU Profiler is a performance tool that can be used by
-developers to optimize DirectX12©, Vulkan© and OpenCL© applications for AMD RDNA
+developers to optimize DirectX®12, Vulkan® and OpenCL™ applications for AMD RDNA
 and GCN hardware. It is part of a suite of tools comprised of the following
 software:
 
@@ -48,7 +48,9 @@ Supported graphics APIs, RDNA and GCN hardware, and operating systems
 
 \ **Supported RDNA and GCN hardware**
 
--  AMD Radeon RX 5500 series
+-  AMD Radeon RX 5500 series and RX 5300 series
+
+-  AMD Radeon RX 5600 series
 
 -  AMD Radeon RX 5700 and RX 5700 XT
 
@@ -66,7 +68,7 @@ Supported graphics APIs, RDNA and GCN hardware, and operating systems
 
 \ **Supported Operating Systems**
 
--  Windows 10
+-  Windows® 10
 
 -  Ubuntu 18.04.3 LTS
 
@@ -81,7 +83,9 @@ Supported compute APIs, RDNA and GCN hardware, and operating systems
 
 \ **Supported RDNA and GCN hardware**
 
--  AMD Radeon RX 5500 series
+-  AMD Radeon RX 5500 series and RX 5300 series
+
+-  AMD Radeon RX 5600 series
 
 -  AMD Radeon RX 5700 and RX 5700 XT
 
@@ -107,9 +111,11 @@ How to generate a profile
 
 The first thing you will need to do is generate a profile. Currently,
 this is done via the Radeon Developer Panel. Read the documentation
-provided with this distribution for information on how to create a profile.
+provided with this distribution for information on how to capture a profile.
 This can be obtained from within the Radeon Developer Panel or from the
-link on the Radeon GPU Profiler "Welcome" view.
+link on the Radeon GPU Profiler "Welcome" view. The Radeon Developer Panel
+documentation can also be viewed online at:
+https://radeon-developer-panel.readthedocs.io/en/latest/
 
 Starting the Radeon GPU Profiler
 --------------------------------
@@ -952,7 +958,7 @@ Known limitations
    "Create new RGP Profile" menu option will remain disabled after opening a new
    RenderDoc trace. This is caused by a named pipe having been left open.  To resolve
    the issue, close RGP, and then restart RenderDoc.
-   On Linux, a similar situation can occur if the RenderDoc process does not
+   On Linux®, a similar situation can occur if the RenderDoc process does not
    shutdown cleanly. If this occurs, it may be necessary to wait a few minutes for
    the connection to be removed before restarting RenderDoc.
    The following command can be executed from a terminal window to determine if the
