@@ -96,17 +96,21 @@ Please note that the values displayed for **Frame duration** and
 based on duration and shader clock frequency used in other RGP panes
 such as Wavefront occupancy.
 
-The **Profiling overhead** shows the amount of SQTT data that was written
-to video memory by the hardware while gathering the RGP profile. The
-profiling overhead is also expressed in terms of memory bandwidth used
-to write the SQTT data.
+The **Profiling overhead** shows the amount of profiling data that was
+written to video memory by the hardware while gathering the RGP profile.
+The profiling overhead is also expressed in terms of memory bandwidth used
+to write the data. The profiling overhead is comprised of the SQTT data
+collected while profiling.
 
 The **Queue submissions** and **Command buffers** pie charts show the
 number of queue submissions and command buffers in the frame broken down
 by the Direct and Compute queues. Compute submissions are colored in yellow
 and graphics submissions are colored in light blue. The **Sync Primitives**
 section counts how many unique signal and wait objects were detected
-throughout the profile.
+throughout the profile. Please note that only signals and waits from queue
+operations are included in the profile data. For instance, any Vulkan
+signals originating from vkAcquireNextImageKHR will not appear since that is
+not a queue operation.
 
 .. image:: media_rgp/RGP_FrameSummary_3.png
 ..

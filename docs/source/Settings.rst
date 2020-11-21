@@ -49,8 +49,8 @@ The **Event timeline** section refers to panning and event selection
 operations for the bottom graph within the Wavefront occupancy view.
 
 The **Instruction timing** section refers to keystrokes to change
-API PSO and event selection, toggle line numbers, and jump
-to a specific instruction
+API PSO, event and export selection, toggle line numbers, and jump
+to a specific instruction.
 
 The **Global navigation** section refers to keystrokes that aid user
 navigation, and are always detected regardless of which pane is visible.
@@ -81,5 +81,4 @@ shown below:
 .. image:: media_rgp/RGP_Navigation.png
 
 Currently, back and forward navigation is restricted to pane switches
-and moving between events within a pane, but further releases may
-support navigation history of more detailed user actions within panes.
+and moving between events within a pane.

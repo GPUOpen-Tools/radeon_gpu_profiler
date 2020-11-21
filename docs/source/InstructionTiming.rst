@@ -2,14 +2,14 @@ Instruction Timing
 ------------------
 
 The Instruction Timing pane shows the average issue latency of each instruction of a single shader.
-The Instruction Timing information is generated using hardware support on AMD GCN GPUs. Generating
-Instruction Timing does not require recompilation of shaders or insertion of any instrumentation
-into shaders.
+The Instruction Timing information is generated using hardware support on AMD RDNA and GCN GPUs.
+Generating Instruction Timing does not require recompilation of shaders or insertion of any
+instrumentation into shaders.
 
-The Instruction Timing pane shows GCN ISA. For a description of GCN ISA, refer to the shader
-programming guide at
-`GPUOpen <https://gpuopen.com/amd-vega-instruction-set-architecture-documentation/>`_.
-The Instruction Timing view for a GCN shader is shown below.
+The Instruction Timing pane shows RDNA or GCN ISA. For a description of ISA, refer to the shader
+programming guides at
+`GPUOpen <https://gpuopen.com/documentation/amd-isa-documentation/>`_.
+The Instruction Timing view for a shader is shown below.
 
 .. image:: media_rgp/RGP_Instruction_Timing_1.png
 
@@ -49,6 +49,14 @@ case 721 clocks) until the next instruction which is the *ds_write2_b32* can be 
 
 The Average Latency between any two instructions shown is an average of the latency (between those
 instructions) measured for all the wavefronts analyzed.
+
+\ **Hit Count**
+
+The *Hit count* for each instruction shows the number of times the instruction was executed for the
+selected event. Any basic blocks that have zero hit counts will be displayed as disabled in the
+Instruction timing view, as shown below.
+
+.. image:: media_rgp/RGP_Instruction_Timing_DisabledBlock.png
 
 \ **Instruction Cost Percent**
 
@@ -100,6 +108,37 @@ recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to chan
 selection and (Shift + Left and Shift + Right) to move across different events using the same
 shader.
 
+\ **Navigation of Raytracing events**
+
+For certain Raytracing events, an additional **Export name** drop down will be available. Whether
+or not this drop down is shown depends on the compilation mode chosen by the AMD driver and compiler
+for the selected event. There are two possible compilation modes: **Unified** and **Indirect**. The
+compilation mode chosen for a particular event will be evident in the event name: events which use
+the Unified mode will have a **<Unified>** suffix, while events which use the Indirect mode will have
+an **<Indirect>** suffix. In the case of DirectX Raytracing, the full event names are
+**DispatchRays<Unified>** and **DispatchRays<Indirect>**. The main difference between these two
+compilation modes has to do with how the individual shaders in the raytracing pipeline are compiled.
+In Unified mode, the individual shaders are inlined into a single shader, resulting in a single set
+of ISA. In Indirect mode, the individual shaders are compiled separately, and the functions in each
+shader end up as their own set of ISA instructions. Function call instructions are generated in the
+ISA to allow one function to call another.
+
+The way the ISA code is presented in the Instruction timing UI follows the way the driver and compiler
+handle the shaders. For Unified mode, there is a single stream of ISA and the Instruction timing view
+treats it as a single shader. For Indirect mode, there are multiple streams of instructions, one for
+each shader in the raytracing pipeline. The instruction streams and their associated costs are displayed
+per-shader and appear one after the other in the Instruction timing view. Only shader functions with
+non-zero cost are displayed in the Instruction timing view. Shaders with zero cost can still be viewed
+in the Pipeline state pane.
+
+To help with navigation among the various shader functions, the **Export name** drop down is available
+for any events that use the indirect compilation mode. This drop down allows the developer to toggle
+between the multiple shaders. The drop down contains the list of exports along with their Instruction
+cost. The exports will be sorted by the Instruction cost. Ctrl + Shift + Up and Ctrl + Shift + Down
+can be used to move among the list of Export names. This **Export name** drop down is shown below.
+
+.. image:: media_rgp/RGP_Instruction_Timing_Exports.png
+
 Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to
 directly using the (Ctrl + G) shortcut
 
@@ -135,13 +174,13 @@ A functional unit's utilization is calculated as follows:
 of analyzed wavefronts)*
 
 \ **Instruction Types**: This section provides information about the dynamic instruction mix of the
-shader's execution. The columns denote the different types of instructions supported by GCN. The
-counts denote the number of instructions of each category.
+shader's execution. The columns denote the different types of instructions supported by RDNA and GCN.
+The counts denote the number of instructions of each category.
 
 Each category's count denote the instruction count for that shader's invocation in the event.
 Different executions of the same shader could have different Instruction statistics based on
 factors such as the number of wavefronts launched for the shader and loop parameters. The
-instruction categories are briefly described below. Please see the GCN Shader Programming Guide for
+instruction categories are briefly described below. Please see the Shader Programming Guides for
 more details.
 
 - VALU: Includes vector ALU instructions
@@ -159,6 +198,8 @@ more details.
 - EXPORT: Includes export instructions
 
 - MISC: Includes other miscellaneous instructions such as s_endpgm
+
+- RAYTRACE: Includes the BVH instructions used during raytracing.
 
 The instruction types table provides a useful summary of the shader's structure especially for very
 long shaders.
@@ -195,7 +236,7 @@ this will be an instruction called *s_code_end* and may also be present after th
 allow for instruction prefetching or for padding purposes. The hardware does not execute this
 instruction.
 
-Such instructions may also be present in the ISA view in the Pipeline Summary.
+Such instructions may also be present in the ISA view in the Pipeline state pane.
 
 \ **Note**
 

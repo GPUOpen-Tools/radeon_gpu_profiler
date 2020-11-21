@@ -39,7 +39,7 @@ The events can be grouped together. Normally these groups don't affect
 the event ordering but sometimes can (sort by state bucket).
 
 -  **Group by pass** will show events depending on the render
-   target or attachment type (color, depth-only, compute).
+   target or attachment type (color, depth-only, compute, raytrace).
 
 -  **Group by hardware context** will group events by their hardware
    context, making it easy to see which events caused the context to

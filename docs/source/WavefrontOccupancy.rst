@@ -6,8 +6,8 @@ utilization and all events in the profile.
 
 .. image:: media_rgp/RGP_WavefrontOccupancy_1.png
 
-There are three components, the Wavefront timeline view, the Events
-timeline view, and the Details panel.
+There are three components: the Wavefront timeline view, the Events timeline view,
+and the Details panel.
 
 \ **Wavefront timeline view**
 
@@ -21,8 +21,8 @@ wavefronts on the async compute queue.
 Users may examine regions by selecting ranges within the graph and using
 the zoom buttons on the top right. Users may also hover over this view
 and use mouse wheel to zoom and center in on a particular spot. A region
-of wavefronts can be selected by using either mouse button to drag over
-the desired region as shown below.
+of wavefronts can be selected by using the mouse button to drag over the
+desired region as shown below.
 
 .. image:: media_rgp/RGP_WavefrontOccupancy_3.png
 
@@ -56,10 +56,10 @@ different ways:
 
 -  **Color by pass.** Groups wavefronts into different passes depending
    on which render target or attachment type (color, depth-only,
-   compute). These three types are assigned a base color, and each pass
-   within each type is assigned a different shade of the base color.
-   This can be useful to visualize when the application attempted to
-   render different portions of a scene.
+   compute, raytrace). These four types are assigned a base color, and
+   each pass within each type is assigned a different shade of the
+   base color. This can be useful to visualize when the application
+   attempted to render different portions of a scene.
 
 Additionally, there are filters along the top intended to help visualize
 the occupancy of only certain GCN pipeline stages. Lastly, there are
@@ -68,7 +68,7 @@ colors can be customized within Settings.
 
 The RGP wavefront occupancy for OpenCL has only compute in the wavefront occupancy.
 This is because compute APIs such as OpenCL only dispatch compute shader waves.
-For this same reason, a number of the coloring options  such as hardware context
+For this same reason, a number of the coloring options such as hardware context
 and GCN stages are not applicable for OpenCL.
 
 .. image:: media_rgp/RGP_WavefrontOccupancy_OpenCL_1.png
@@ -129,12 +129,15 @@ events in different ways:
    detailed instruction timing information. All other events will be grayed
    out.
 
+-  **Color by ray tracing** will only colorize raytracing events. All other
+   events will be grayed out.
+
 Next to the **Color by** combo-box is the **Event filter** combo-box.
 This allows the user to visualize only certain types of events on the timeline.
 For example, the user can select to see draws, dispatches, clears, barriers,
-layout transitions, copies, resolves, and events containing instruction trace
-data. There is also an option to switch the CP marker on or off. Switching the
-CP marker off will just show the active shader blocks.
+layout transitions, copies, resolves, events containing instruction trace data,
+and raytracing events. There is also an option to switch the CP marker on or off.
+Switching the CP marker off will just show the active shader blocks.
 
 Next to the **Event filter** combo-box is the **Overlay** combo-box. This allows
 the user to select which fixed "Overlays" to show in the timeline. Overlays are
@@ -241,9 +244,9 @@ between shaders, the overlap time is only accounted for once. If all
 shaders are overlapping, then the duration will be the same as the work
 duration.
 
-If the user selects a range of wavefronts in the wavefront timeline the
-details panel contains a summary of all the wavefronts in the selected
-region as shown below:
+If the user selects a range by clicking and dragging the mouse, the
+details panel shows a summary of all the wavefronts contained in the
+selected region as shown below:
 
 .. image:: media_rgp/RGP_DetailsPanel_2.png
 

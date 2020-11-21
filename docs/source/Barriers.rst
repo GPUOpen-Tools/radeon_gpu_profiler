@@ -11,7 +11,8 @@ on the graphics queue, including the additional barriers inserted by the
 driver.
 
 Note that in older profiles or if the barrier origin isn't known, all
-barriers and layout transitions will be shown as 'N/A'.
+barriers and layout transitions will be shown as 'N/A'. Using an up-to-date
+display driver will ensure that this information is available.
 
 .. image:: media_rgp/RGP_Barriers_1.png
 

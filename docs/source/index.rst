@@ -2,7 +2,7 @@ The Radeon™ GPU Profiler
 ========================
 
 The Radeon GPU Profiler is a performance tool that can be used by
-developers to optimize DirectX®12, Vulkan® and OpenCL™ applications for AMD RDNA
+developers to optimize DirectX®12, Vulkan® and OpenCL™ applications for AMD RDNA™
 and GCN hardware. It is part of a suite of tools comprised of the following
 software:
 
@@ -37,8 +37,8 @@ software:
    APIs (OpenCL) and will NOT work with older graphics APIs such as
    DirectX11 or OpenGL.
 
-Supported graphics APIs, RDNA and GCN hardware, and operating systems
----------------------------------------------------------------------
+Graphics APIs, RDNA and GCN hardware, and operating systems
+-----------------------------------------------------------
 
 **Supported APIs**
 
@@ -48,11 +48,9 @@ Supported graphics APIs, RDNA and GCN hardware, and operating systems
 
 \ **Supported RDNA and GCN hardware**
 
--  AMD Radeon RX 5500 series and RX 5300 series
+-  AMD Radeon RX 6000 series
 
--  AMD Radeon RX 5600 series
-
--  AMD Radeon RX 5700 and RX 5700 XT
+-  AMD Radeon RX 5000 series
 
 -  AMD Radeon VII
 
@@ -70,12 +68,12 @@ Supported graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Windows® 10
 
--  Ubuntu 18.04.3 LTS
+-  Ubuntu 18.04.3 LTS (Vulkan only)
 
--  Ubuntu 20.04.1 LTS
+-  Ubuntu 20.04.1 LTS (Vulkan only)
 
-Supported compute APIs, RDNA and GCN hardware, and operating systems
---------------------------------------------------------------------
+Compute APIs, RDNA and GCN hardware, and operating systems
+----------------------------------------------------------
 
 **Supported APIs**
 
@@ -83,11 +81,7 @@ Supported compute APIs, RDNA and GCN hardware, and operating systems
 
 \ **Supported RDNA and GCN hardware**
 
--  AMD Radeon RX 5500 series and RX 5300 series
-
--  AMD Radeon RX 5600 series
-
--  AMD Radeon RX 5700 and RX 5700 XT
+-  AMD Radeon RX 5000 series
 
 -  AMD Radeon VII
 
@@ -98,10 +92,6 @@ Supported compute APIs, RDNA and GCN hardware, and operating systems
 \ **Supported Operating Systems**
 
 -  Windows 10
-
--  Ubuntu 18.04.3 LTS
-
--  Ubuntu 20.04.1 LTS
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -226,8 +216,7 @@ the profile data are within the **Overview** and **Events** sections.
    b. **Themes and colors** - Customize colors for graphics API and
       hardware data.
 
-   c. **Keyboard shortcuts** - Shortcuts for navigating the wavefront
-      occupancy UI.
+   c. **Keyboard shortcuts** - Shortcuts for navigating various parts of the UI.
 
 
 Settings
@@ -249,7 +238,7 @@ Context rolls
 
 **NOTE**: This UI is only available for DirectX and Vulkan profiles.
 
-Context rolling is a hardware feature specific to the GCN graphics
+Context rolling is a hardware feature specific to the RDNA and GCN graphics
 architecture and needs to be taken into consideration when optimizing
 draws for AMD GPUs. Each draw requires a set of hardware context
 registers that describe the rendering state for that specific draw. When
@@ -260,12 +249,15 @@ context registers follows the draw through the graphics pipeline until
 it is completed. On completion of the draw, that associated set of
 registers is free to be used by the next incoming draw.
 
-On GCN hardware there are 8 logical banks of context registers, of which
-only seven are available for draws. The worst-case scenario is that 8
-subsequent draws each require a unique set of context registers. In this
-scenario the last draw has to wait for the first draw to finish before
-it can use the context registers. This causes a stall that can be
-measured and visualized by RGP.
+On RDNA and GCN hardware there are 8 logical banks of context registers,
+of which only seven are available for draws. The worst-case scenario is
+that 8 subsequent draws each require a unique set of context registers.
+In this scenario the last draw has to wait for the first draw to finish
+before it can use the context registers. This causes a stall that can be
+measured and visualized by RGP. On RDNA2 hardware, while there are still
+8 banks of context registers, one entire bank, typically bank 2, is
+reserved by the hardware and will typically appear completely empty in the
+Context rolls pane.
 
 .. image:: media_rgp/RGP_ContextRolls_1.png
 
@@ -368,11 +360,10 @@ targets in draw calls throughout the frame.
 The screen is split into two sections, a timeline view and a treeview listing:
 
 .. image:: media_rgp/RGP_RendertargetsOverview_2.png
-..
 
-  The graphical timeline view illustrates the usage of render targets over
-  the duration of the frame. Other events like copies, clears and barriers are shown
-  at the bottom of this view.
+The graphical timeline view illustrates the usage of render targets over
+the duration of the frame. Other events like copies, clears and barriers are shown
+at the bottom of this view.
 
 Zoom controls can be used to focus in on a section of the timeline. More
 information on zoom controls can be found under the
@@ -382,12 +373,10 @@ render target within the same pass. A single click on one of these
 highlights the corresponding entry in the treeview.
 
 .. image:: media_rgp/RGP_RendertargetsOverview_3.png
-..
-  The treeview shows a listing of all render targets and their properties found in the frame.
 
-This section lists all of the render targets found in the frame. Based on the active
-grouping mode it either shows a top-level listing of render targets or passes.
-The grouping can be configured in two ways:
+This section lists all of the render targets and their properties found in the frame.
+Based on the active grouping mode it either shows a top-level listing of render targets
+or passes. The grouping can be configured in two ways:
 
 - **Group by target** The top level consists of all render targets found in the frame, plus
   per-frame stats. Child entries show *per-pass* stats for each render target.
@@ -631,7 +620,7 @@ The AMD GPU Services (AGS) library provides software developers
 with the ability to query AMD GPU software and hardware state
 information that is not normally available through standard operating
 systems or graphic APIs. AGS includes support for querying graphics
-driver version info, GPU performance, Crossfire™ (AMD’s multi-GPU
+driver version info, GPU performance, CrossFire™ (AMD’s multi-GPU
 rendering technology) configuration info, and Eyefinity (AMD’s
 multi-display rendering technology) configuration info. AGS also exposes
 the explicit Crossfire API extension, GCN shader extensions, and
@@ -828,8 +817,8 @@ are shown in gray. The coloration is only affected by the Push/PopMarker
 combination; the SetMarker has no effect on the user event color since
 these markers simply mark a particular moment in time.
 
-Additionally, the user event names are displayed at the top of the event
-timeline view.
+Additionally, the user event names are displayed in an Overlay at the top
+of the event timeline view.
 
 The full user event hierarchy is also visible on the third line of the
 side pane when clicking on individual events. If the event does not
@@ -967,3 +956,31 @@ Known limitations
    - netstat -p | grep "AMD"
 
 .. _Microsoft PIX tool: https://blogs.msdn.microsoft.com/pix/introduction/
+
+Disclaimer
+----------
+
+The information contained herein is for informational purposes only, and is subject to change without notice. While every
+precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical
+errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no
+representations or warranties with respect to the accuracy or completeness of the contents of this document, and assumes no
+liability of any kind, including the implied warranties of noninfringement, merchantability or fitness for particular purposes, with
+respect to the operation or use of AMD hardware, software or other products described herein. No license, including implied or
+arising by estoppel, to any intellectual property rights is granted by this document. Terms and limitations applicable to the purchase
+or use of AMD’s products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions
+of Sale.
+
+AMD, the AMD Arrow logo, Radeon, Ryzen, CrossFire, RDNA and combinations thereof are trademarks of Advanced Micro Devices, Inc.
+Other product names used in this publication are for identification purposes only and may be trademarks of their respective companies.
+
+DirectX is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
+
+Vulkan and the Vulkan logo are registered trademarks of the Khronos Group Inc.
+
+OpenCL is a trademark of Apple Inc. used by permission by Khronos Group, Inc.
+
+Microsoft is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
+
+Windows is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
+
+© 2016-2020 Advanced Micro Devices, Inc. All rights reserved.
