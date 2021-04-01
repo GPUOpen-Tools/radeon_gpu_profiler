@@ -1,49 +1,55 @@
-Radeon™ GPU Profiler V1.9 11-24-2020
-------------------------------------
+Radeonâ„¢ GPU Profiler V1.10 04-01-2021
+-------------------------------------
 
-V1.9 Changes
-------------------------------------
+V1.10 Changes
+-------------------------------------
 
 * Radeon GPU Profiler
 
-1) Support for AMD RDNA™ 2 hardware (AMD Radeon RX 6000 Series)
-2) DirectX® Raytracing (DXR) support
-  - DXR support is fully integrated throughout the RGP user interface
-  - Support for viewing the individual shader functions that make up the raytracing pipeline
-  - Support for instruction timing of individual shader functions
-3) Improved Instruction tracing
-  - Lower overhead during collection
-  - Improved performance when loading Instruction timing data
-  - Basic blocks with zero hit counts are greyed out
-4) Bug/stability fixes
+1) Support for additional AMD RDNAâ„¢ 2 hardware
+2) Vulkan Raytracing support: features are on par with the DirectXÂ® Raytracing (DXR) support that was added in the previous release
+3) Cache counter visualization in the Wavefront Occupancy pane
+4) Performance improvements when navigating through the RGP UI with large DXR profiles
+5) Improved copy to clipboard support in various RGP UI elements
+6) Most Expensive Events pane now has an additional "Work duration" column
+7) PIX3 marker support updated for latest version of WinPIXEventRuntime
+8) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) New "Collect cache counters" checkbox on Profiling tab to enable cache counter collection with an RGP profile.
 
 Known Issues
-------------------------------------
+-------------------------------------
 
 * All platforms
 
-1)  Radeon™ Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other non-AMD cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
+1)  Radeonâ„¢ Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other non-AMD cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
 2)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
 3)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
-4)  Radeon Developer Panel will NOT capture profiles from Windows® Insider Editions.
+4)  Radeon Developer Panel will NOT capture profiles from WindowsÂ® Insider Editions.
 5)  Anti-virus may impede key-based capture (Ctrl+Shift+C)
 6)  Applications that call Present() from the async compute queue are not supported.
 7)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
 8)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-9)  OpenCL™ captures may include an extra DMA command buffer in the Profile Summary.
-10) Launching the RadeonDeveloperPanel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
+9)  OpenCLâ„¢ captures may include an extra DMA command buffer in the Profile Summary.
+10) Launching the Radeon Developer Panel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
 11) Detailed instruction timing is not supported on OpenCL.
-12) Capturing profiles on RDNA 2 hardware is not currently supported on OpenCL.
+12) Cache counter data collection is not currently supported on OpenCL.
+13) Cache counter data collection is not currently supported on AMD RDNA 2 hardware on Linux.
+14) In some rare cases on RDNA 2 hardware, all cache counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
+15) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
 
-* Windows®
+* WindowsÂ®
 
-1)  Queue synchronization data will be missing from DirectX12 apps running on Windows 10 Home.
+1)  Queue synchronization data will be missing from DirectX 12 apps running on Windows 10 Home.
 2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
 3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
+4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame Summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile.
 
-* Linux®
+* LinuxÂ®
 
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
+1)  Installations of Ubuntu 20.04 or newer may have the RADV open source VulkanÂ® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
 2)  After launching RGP from the Developer Panel to view a captured profile, the panel may fail to connect the next time it is launched. The workaround is to close RGP before relaunching the panel.
 3)  If the Developer Panel or the Developer Service crash while running with the root account, it may be necessary to restart/exit them again with the root account in order to cleanup shared memory.
 4)  When running with the root account, the Developer Panel may output error or warning messages to the terminal. These should not prevent the panel from functioning properly.
@@ -57,10 +63,26 @@ Known Issues
 
 
 Release Notes History
-------------------------------------
+-------------------------------------
+
+V1.9 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for AMD RDNA 2 hardware (AMD Radeon RX 6000 Series)
+2) DirectX Raytracing (DXR) support
+  - DXR support is fully integrated throughout the RGP user interface
+  - Support for viewing the individual shader functions that make up the raytracing pipeline
+  - Support for instruction timing of individual shader functions
+3) Improved Instruction tracing
+  - Lower overhead during collection
+  - Improved performance when loading Instruction timing data
+  - Basic blocks with zero hit counts are greyed out
+4) Bug/stability fixes
 
 V1.8 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -80,7 +102,7 @@ V1.8 Changes
 6) Navigation is now supported from Overlays in the Event timeline in the Wavefront Occupancy pane
 7) Improved performance in the Pipeline State view when loading ISA for large shaders
 8) Improved column sorting support in Pipelines Overview pane
-9) Support for viewing the location (for example in Windows® Explorer) of an .rgp file (both the currently-loaded or a recently-loaded file)
+9) Support for viewing the location (for example in WindowsÂ® Explorer) of an .rgp file (both the currently-loaded or a recently-loaded file)
 10) Support running on Ubuntu 20.04
 11) Bug/stability fixes
 
@@ -90,7 +112,7 @@ V1.8 Changes
 2) Customizable workflows to better support Profiling and Memory Tracing
 
 V1.7 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -112,11 +134,11 @@ V1.7 Changes
 * Radeon Developer Panel
 
 1) Support for Radeon RX 5500 and Radeon RX 5300 hardware
-2) Support capturing OpenCL™ profiles on Radeon RX 5700 hardware
+2) Support capturing OpenCLâ„¢ profiles on Radeon RX 5700 hardware
 
 
 V1.6 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -133,7 +155,7 @@ V1.6 Changes
 
 
 V1.5.1 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -157,7 +179,7 @@ V1.5.1 Changes
 
 
 V1.4 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -176,16 +198,16 @@ V1.4 Changes
 * Radeon Developer Panel
 
 1) Support to capture profiles from OpenCL applications. OpenCL capture is only supported on
-AMD RX Vega 64, AMD RX Vega 56, AMD Ryzen™ 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
+AMD RX Vega 64, AMD RX Vega 56, AMD Ryzenâ„¢ 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 2) Improved ability to capture profiles from applications with multiple devices and APIs
 3) Coloring of alert messages changed so that warnings are colored with a yellow background
-4) Alert the user if peak clocks isn't enabled (Linux® only)
+4) Alert the user if peak clocks isn't enabled (LinuxÂ® only)
 5) Display 'localhost' if connected via a pipe locally, rather than the pipename
 6) Bug/stability fixes & UI clean ups
 
 
 V1.3.1 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon Developer Panel
 
@@ -193,7 +215,7 @@ V1.3.1 Changes
 
 
 V1.3 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -213,7 +235,7 @@ V1.3 Changes
 
 
 V1.2 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -227,8 +249,8 @@ V1.2 Changes
    version of RenderDoc)
 
 
-V1.11 Changes
-------------------------------------
+V1.1.1 Changes
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -236,12 +258,12 @@ V1.11 Changes
 2) Fixed duplicate events for small profiles seen in the most expensive events view
 3) Show all events sequentially in the barriers pane if multiple queues are used
 4) Fixed-function clipping issue fixed in the event timeline view of the wavefront occupancy
-5) User event nesting fixed for certain profiles in the event timeline treeview
+5) User event nesting fixed for certain profiles in the event timeline tree view
 6) Display LDS allocated by compute shader in CS pipeline stage if applicable
 
 
-V1.10 Changes
-------------------------------------
+V1.1.0 Changes
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -268,7 +290,7 @@ V1.10 Changes
 
 
 V1.03 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -295,7 +317,7 @@ V1.03 Changes
 
 
 V1.02 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 
@@ -323,7 +345,7 @@ V1.02 Changes
 
 
 V1.01 Changes
-------------------------------------
+-------------------------------------
 
 * Radeon GPU Profiler
 

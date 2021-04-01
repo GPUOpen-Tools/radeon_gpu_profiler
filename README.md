@@ -1,8 +1,8 @@
-# Radeon™ GPU Profiler
+# Radeonâ„¢ GPU Profiler
 
 The Radeon GPU Profiler (RGP) is a ground-breaking low-level optimization tool from AMD. It provides detailed timing information on Radeon Graphics using custom, built-in, hardware thread-tracing, allowing the developer deep inspection of GPU workloads.
 
-This unique tool generates easy to understand visualizations of how your DirectX®12 and Vulkan® games interact with the GPU at the hardware level. Profiling a game is both a quick, and simple process using the Radeon Developer Panel and the public display driver.
+This unique tool generates easy to understand visualizations of how your DirectXÂ®12 and VulkanÂ® games interact with the GPU at the hardware level. Profiling a game is both a quick, and simple process using the Radeon Developer Panel and the public display driver.
 
 In order to use the latest features of RGP, it is strongly recommended that users update to the latest driver.
 
@@ -23,7 +23,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
     * https://radeon-developer-panel.readthedocs.io/en/latest/
     * https://radeon-gpuprofiler.readthedocs.io/en/latest/
 
-## Graphics APIs, RDNA™ and GCN hardware, and operating systems
+## Graphics APIs, RDNAâ„¢ and GCN hardware, and operating systems
 ### Supported APIs
  * DirectX12
  * Vulkan
@@ -33,22 +33,23 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * AMD Radeon RX 5000 series
 * AMD Radeon VII
 * AMD RX Vega 64 and RX Vega 56
-* AMD Ryzen™ Processors with Radeon Vega Graphics
+* AMD Ryzenâ„¢ Processors with Radeon Vega Graphics
 * AMD Radeon R9 Fury and Nano series
 * AMD Radeon RX 400, RX 500 series
 * AMD Tonga R9 285, R9 380
 
 ### Supported Operating Systems
-* Windows® 10
-* Ubuntu 18.04.3 LTS (Vulkan only)
-* Ubuntu 20.04.1 LTS (Vulkan only)
+* WindowsÂ® 10
+* Ubuntu 18.04 LTS (Vulkan only)
+* Ubuntu 20.04 LTS (Vulkan only)
 
 
 ## Compute APIs, RDNA and GCN hardware, and operating systems
 ### Supported APIs
-* OpenCL™
+* OpenCLâ„¢
 
 ### Supported RDNA and GCN hardware
+* AMD Radeon RX 6000 series
 * AMD Radeon RX 5000 series
 * AMD Radeon VII
 * AMD RX Vega 64 and RX Vega 56
