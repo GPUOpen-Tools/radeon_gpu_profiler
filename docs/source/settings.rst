@@ -27,23 +27,23 @@ Themes and colors
 The profiler makes heavy use of coloring to display its information.
 This pane allows users to thoroughly customize those colors.
 
-.. image:: media_rgp/RGP_ThemesAndColors_Settings.png
+.. image:: media_rgp/rgp_themes_and_colors_settings.png
 
 Keyboard shortcuts
 ------------------
 
 Here users will find the **Keyboard shortcuts** pane:
 
-.. image:: media_rgp/RGP_KeyboardShortcuts_Settings.png
+.. image:: media_rgp/rgp_keyboard_shortcuts_settings.png
 
 The **System activity, Wavefront occupancy and Event timing** shortcuts
 are specific to zooming and panning operations that can be performed
-within the Frame Summary and Events subtabs.  See the section entitled
+within the Frame Summary and Events subtabs. See the section entitled
 :ref:`Zoom Controls <zoom_controls>` for more information.
 
-.. image:: media_rgp/RGP_Tabs_1.png
+.. image:: media_rgp/rgp_tabs_1.png
 
-.. image:: media_rgp/RGP_Tabs_2.png
+.. image:: media_rgp/rgp_tabs_2.png
 
 The **Event timeline** section refers to panning and event selection
 operations for the bottom graph within the Wavefront occupancy view.
@@ -78,7 +78,7 @@ forward between all of RGP’s panes. This is achieved using global
 navigation **hotkeys** shown above, or the back and forward **buttons**
 shown below:
 
-.. image:: media_rgp/RGP_Navigation.png
+.. image:: media_rgp/rgp_navigation.png
 
 Currently, back and forward navigation is restricted to pane switches
 and moving between events within a pane.

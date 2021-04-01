@@ -14,7 +14,7 @@ Note that in older profiles or if the barrier origin isn't known, all
 barriers and layout transitions will be shown as 'N/A'. Using an up-to-date
 display driver will ensure that this information is available.
 
-.. image:: media_rgp/RGP_Barriers_1.png
+.. image:: media_rgp/rgp_barriers_1.png
 
 The summary at the top left of the UI quickly lets
 the developer know if there is an issue with barrier usage in the frame.
@@ -46,7 +46,7 @@ The table shows the following information:
 
 #. **Layout transitions** - A blue check box indicates if the barrier is
    associated with a layout transition. There are six columns indicating the
-   type of layout transition.  These are described in the Layout transition
+   type of layout transition. These are described in the Layout transition
    section below.
 
 #. **Invalidated** - A list of invalidated caches
@@ -73,7 +73,7 @@ The table shows the following information:
 
    Below is a screenshot of what the right-click context menu looks like:
 
-.. image:: media_rgp/RGP_Barriers_2.png
+.. image:: media_rgp/rgp_barriers_2.png
 
 Layout Transitions
 ~~~~~~~~~~~~~~~~~~
@@ -119,17 +119,17 @@ inserted by the OpenCL driver for one of the following reasons.
    example, reading the results of a previous kernel dispatch. This causes barriers to be inserted
    so that caches can be invalidated.
 
-OpenCL commmand queues process dispatches one after another and it is common for a
+OpenCL command queues process dispatches one after another and it is common for a
 subsequent kernel dispatch to use the results of a previous kernel dispatch. For this reason, it
 can be expected that an RGP profile will have a large number of barriers.
 
 A typical OpenCL profile's barriers are shown below.
 
-.. image:: media_rgp/RGP_BarriersOpenCL_1.png
+.. image:: media_rgp/rgp_barriers_opencl_1.png
 
 As we see, the time taken due to barriers is typically very small since inter-dispatch dependencies only cause cache invalidations.
 
-.. image:: media_rgp/RGP_BarriersOpenCL_2.png
+.. image:: media_rgp/rgp_barriers_opencl_2.png
 
 
 It should be noted that the meaning of barriers in RGP for OpenCL is different from OpenCL's synchronization

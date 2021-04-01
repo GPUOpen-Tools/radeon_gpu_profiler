@@ -3,14 +3,14 @@ Event timing
 ------------
 
 The event timing window shows a list of events and their corresponding
-timings. The treeview in the left hand column shows each event name and
+timings. The tree view in the left-hand column shows each event name and
 its unique index, starting at 0, and are listed in sequential order.
 Events can be ordered into groups, and group categories are shown in
 bold text.
 
-.. image:: media_rgp/RGP_EventTiming_1.png
+.. image:: media_rgp/rgp_event_timing_1.png
 
-The pane to the right of the treeview shows a graphical representation
+The pane to the right of the tree view shows a graphical representation
 of the duration for each event. The darker blue span to the right of
 each tree node shows the duration of all the events in that node.
 
@@ -84,11 +84,11 @@ chronologically group events irrespective of which queue they originated
 from. Grouping by state bucket just shows events in the graphics queue.
 Grouping by hardware context is shown below:
 
-.. image:: media_rgp/RGP_EventTiming_2.png
+.. image:: media_rgp/rgp_event_timing_2.png
 
 **Color modes**
 
-The events can be rendered using different color schemes in the same manor
+The events can be rendered using different color schemes in the same manner
 as in the Wavefront occupancy view.
 
 The user can also right-click on any of the events and navigate to
@@ -107,8 +107,8 @@ The anatomy of an event
 -----------------------
 Two examples of typical draw call events are shown below:
 
-.. image:: media_rgp/RGP_Event1.png
-.. image:: media_rgp/RGP_Event2.png
+.. image:: media_rgp/rgp_event_1.png
+.. image:: media_rgp/rgp_event_2.png
 
 **A** shows the CP marker. This is the point the command processor in the
 GPU issues work to be done. It is then queued up until the GPU can process
@@ -134,7 +134,7 @@ insight about the surrounding context for the event in question.
 Compute dispatches for both graphics APIs and OpenCL have a simpler structure.
 A sample compute event is shown below.
 
-.. image:: media_rgp/RGP_Compute_Event.png
+.. image:: media_rgp/rgp_compute_event.png
 
 In a compute event, only compute shader waves are launched.
 Also, compute dispatches do not have any fixed function work after the shader

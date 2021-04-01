@@ -2,12 +2,12 @@ Wavefront occupancy
 -------------------
 
 This section presents users with an interactive timeline that shows GPU
-utilization and all events in the profile.
+utilization, GPU cache counter data, and all events in the profile.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_1.png
+.. image:: media_rgp/rgp_wavefront_occupancy_1.png
 
-There are three components: the Wavefront timeline view, the Events timeline view,
-and the Details panel.
+There are four components, the Wavefront timeline view, the Cache counter
+view, the Events timeline view, and the Details panel.
 
 \ **Wavefront timeline view**
 
@@ -16,7 +16,7 @@ are grouped into buckets which are represented by vertical bars. The top
 half shows wavefronts on the graphics queue, and the bottom half shows
 wavefronts on the async compute queue.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_2.png
+.. image:: media_rgp/rgp_wavefront_occupancy_2.png
 
 Users may examine regions by selecting ranges within the graph and using
 the zoom buttons on the top right. Users may also hover over this view
@@ -24,12 +24,12 @@ and use mouse wheel to zoom and center in on a particular spot. A region
 of wavefronts can be selected by using the mouse button to drag over the
 desired region as shown below.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_3.png
+.. image:: media_rgp/rgp_wavefront_occupancy_3.png
 
 You can zoom into the region by selecting Ctrl + Z, or by clicking on
 “Zoom to selection” (result shown below).
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_4.png
+.. image:: media_rgp/rgp_wavefront_occupancy_4.png
 
 You can also drag the graph if you are zoomed in. Hold down the space
 bar first, then hold the mouse button down. The graph will now move with
@@ -71,7 +71,82 @@ This is because compute APIs such as OpenCL only dispatch compute shader waves.
 For this same reason, a number of the coloring options such as hardware context
 and GCN stages are not applicable for OpenCL.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_OpenCL_1.png
+.. image:: media_rgp/rgp_wavefront_occupancy_opencl.png
+
+\ **Cache counters**
+
+This section visualizes the cache counter data collected while profiling.
+Cache counter data is only available on Radeon RX 5000 series and Radeon
+RX 6000 series GPUs. While profiling, counter data is sampled at a fixed
+rate, roughly one sample every 4096 clock cycles.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_1.png
+
+Each counter is presented as a line graph that shows how the value of that
+particular counter varies through the frame. By correlating the counter data
+with both wavefront occupancy and the events in the frame, you can get a better
+understanding of how well different parts of the frame utilize the various GPU
+caches.
+
+There are currently five cache counters collected while profiling. Each cache
+counter reports a hit percentage, which is the percentage of requests that hit
+data already in the cache.
+
+-  **Instruction cache hit** The percentage of read requests made that hit the data
+   in the Instruction cache. The Instruction cache supplies shader code to an
+   executing shader. Each request is 64 bytes in size.
+
+- **Scalar cache hit** The percentage of read requests made from executing shader
+  code that hit the data in the Scalar cache. The Scalar cache contains data that
+  does not vary in each thread across the wavefront. Each request is 64 bytes in
+  size.
+
+- **L0 cache hit** The percentage of read requests that hit the data in the L0
+  cache. The L0 cache contains vector data, which is data that may vary in each
+  thread across the wavefront. Each request is 128 bytes in size.
+
+- **L1 cache hit** The percentage of read or write requests that hit the data in
+  the L1 cache. The L1 cache is shared across all WGPs in a single shader engine.
+  Each request is 128 bytes in size.
+
+- **L2 cache hit** The percentage of read or write requests that hit the data in
+  the L2 cache. The L2 cache is shared by many blocks across the GPU, including the
+  Command Processor, Geometry Engine, all WGPs, all Render Backends, and others.
+  Each request is 128 bytes in size.
+
+The description of each counter can be viewed by hovering the mouse over the
+counter name in the legend below the counter graphs.
+
+The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
+reported in the Device Configuration Overview pane.
+
+Users may use the **Counters** combo box on the top left to choose which counters to
+include in the graph.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_2.png
+
+A tooltip will be shown when the mouse hovers over the counter graphs. This tooltip
+shows the counter value of the closest point to the cursor, as well as the number
+of **Requests**, **Hits**, and **Misses** associated with that point. Pressing the
+Ctrl key on the keyboard will temporarily hide the tooltip.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_3.png
+
+Additionally, users may click a color box in the legend. This will cause the area
+under the line for the selected counter to be filled in. This can be done for one
+or more counters simultaneously. In this image, the user has clicked the color boxes
+for both the L1 and L1 cache hit counters.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_4.png
+
+Collection of cache counters can be disabled when capturing a profile in the
+Radeon Developer Panel. In this case, the cache counter graphs will not be visible.
+
+For a better understanding of the cache memory hierarchy for RDNA hardware, please
+refer to the following visual representation. This is taken from the RDNA architecture
+presentation found on gpuopen.com.
+
+.. image:: media_rgp/rgp_rdna_cache_hierarchy.png
 
 \ **Events timeline view**
 
@@ -84,13 +159,13 @@ with a thin line to indicate they belong to the same event. This view
 just shows actual shader work; it doesn't show when the event was
 submitted.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_5.png
+.. image:: media_rgp/rgp_wavefront_occupancy_5.png
 
 Users may single-click on individual events to see detailed information
 on the details pane described below. Zooming into this graph is done by
 selecting the desired region in the wavefront graph above. Additionally,
 zooming in on a single event can be done by selecting the event and
-clicking on ‘Zoom to selection’.  More information can be found under
+clicking on ‘Zoom to selection’. More information can be found under
 the :ref:`Zoom Controls<zoom_controls>` section.
 
 Users may use the **Color by** combo-box on the top left to visualize
@@ -173,7 +248,7 @@ whose durations fall within a certain percentile. For example, selecting
 the rightmost-region of the slider will highlight the most expensive
 events. One will also find a textbox to filter out by event name.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_7.png
+.. image:: media_rgp/rgp_wavefront_occupancy_7.png
 
 The same zooming and dragging that is available on the wavefront
 timeline view is also available here.
@@ -189,7 +264,7 @@ more in-depth information. The contents of this panel will change,
 depending on what the user last selected. If a single event was selected
 in the Events timeline the details panel will look like below:
 
-.. image:: media_rgp/RGP_DetailsPanel_1.png
+.. image:: media_rgp/rgp_details_panel_1.png
 
 The Details panel for a single event contains the following data:
 
@@ -245,10 +320,10 @@ shaders are overlapping, then the duration will be the same as the work
 duration.
 
 If the user selects a range by clicking and dragging the mouse, the
-details panel shows a summary of all the wavefronts contained in the
-selected region as shown below:
+details panel shows a summary of all the wavefronts and cache counter
+data contained in the selected region as shown below:
 
-.. image:: media_rgp/RGP_DetailsPanel_2.png
+.. image:: media_rgp/rgp_details_panel_2.png
 
 If the user selects a barrier, the details panel will show information
 relating to the barrier, such as the barrier flags and any layout
@@ -258,17 +333,17 @@ barrier type is dependent on whether the video driver has support for
 this feature. If not, then it will be indicated as 'N/A'. An example of
 a user-inserted barrier is shown below:
 
-.. image:: media_rgp/RGP_DetailsPanel_3.png
+.. image:: media_rgp/rgp_details_panel_3.png
 
 If the driver needed to insert a barrier, a detailed reason why this barrier
 was inserted is also displayed, as shown below:
 
-.. image:: media_rgp/RGP_DetailsPanel_5.png
+.. image:: media_rgp/rgp_details_panel_5.png
 
 If the user selects a layout transition, the details panel will show
 information relating to the layout transition as shown below:
 
-.. image:: media_rgp/RGP_DetailsPanel_4.png
+.. image:: media_rgp/rgp_details_panel_4.png
 
 The user can also right-click on any event or overlay in the Events
 timeline view and navigate to the Event timing, Pipeline state,
@@ -280,4 +355,4 @@ selection” option from this context menu.
 
 Below is a screenshot of what the right-click context menu looks like.
 
-.. image:: media_rgp/RGP_WavefrontOccupancy_6.png
+.. image:: media_rgp/rgp_wavefront_occupancy_6.png

@@ -68,9 +68,9 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Windows® 10
 
--  Ubuntu 18.04.3 LTS (Vulkan only)
+-  Ubuntu 18.04 LTS (Vulkan only)
 
--  Ubuntu 20.04.1 LTS (Vulkan only)
+-  Ubuntu 20.04 LTS (Vulkan only)
 
 Compute APIs, RDNA and GCN hardware, and operating systems
 ----------------------------------------------------------
@@ -80,6 +80,8 @@ Compute APIs, RDNA and GCN hardware, and operating systems
 -  OpenCL
 
 \ **Supported RDNA and GCN hardware**
+
+-  AMD Radeon RX 6000 series
 
 -  AMD Radeon RX 5000 series
 
@@ -112,7 +114,7 @@ Starting the Radeon GPU Profiler
 
 The following executables can be found in the download directory.
 
-.. image:: media_rgp/RGP_Executables.png
+.. image:: media_rgp/rgp_executables.png
 
 Start **RadeonGPUProfiler.exe** (this is the tool used to view profile
 data).
@@ -125,9 +127,9 @@ There are a few ways to load a profile into RGP.
 1) Use the “File/Open profile” pull down menu, or the “File/Recent
    profile” pull down menu item.
 
-.. image:: media_rgp/RGP_FileLoad.png
+.. image:: media_rgp/rgp_file_load.png
 
-.. image:: media_rgp/RGP_FileRecent.png
+.. image:: media_rgp/rgp_file_recent.png
 
 2) Go to the “Welcome” view and click on the “Open a Radeon GPU
    Profile…”
@@ -135,7 +137,7 @@ There are a few ways to load a profile into RGP.
 3) Go to the “Welcome” view and click on a profile that you have
    previously loaded in the Recent list.
 
-.. image:: media_rgp/RGP_Welcome.png
+.. image:: media_rgp/rgp_welcome.png
 
 4) Go to the Recent profiles view to see a full list of all your recent
    profiles.
@@ -144,13 +146,13 @@ There are a few ways to load a profile into RGP.
    viewed in this pane, such as the GPU the profile was taken on, the date when
    the capture was performed and the number of events contained in the profile.
 
-.. image:: media_rgp/RGP_RecentProfiles.png
+.. image:: media_rgp/rgp_recent_profiles.png
 
 5) Load a profile into a new instance of the **Radeon GPU Profiler**
    from the **Radeon Developer Panel**. Select a profile in the list and
    click on “Open profile”.
 
-.. image:: media_rgp/RDP_OpenProfile.png
+.. image:: media_rgp/rdp_open_profile.png
 
 6) Drag and drop a profile onto the **Radeon GPU Profiler** executable,
    or, onto an already open RGP instance.
@@ -222,16 +224,16 @@ the profile data are within the **Overview** and **Events** sections.
 Settings
 ========
 
-.. include:: Settings.rst
+.. include:: settings.rst
 
 Overview Windows
 ================
 
-.. include:: FrameSummary.rst
+.. include:: frame_summary.rst
 
-.. include:: ProfileSummary.rst
+.. include:: profile_summary.rst
 
-.. include:: Barriers.rst
+.. include:: barriers.rst
 
 Context rolls
 -------------
@@ -259,7 +261,7 @@ measured and visualized by RGP. On RDNA2 hardware, while there are still
 reserved by the hardware and will typically appear completely empty in the
 Context rolls pane.
 
-.. image:: media_rgp/RGP_ContextRolls_1.png
+.. image:: media_rgp/rgp_context_rolls_1.png
 
 In the example above, a DirectX 12 application, we can see that there
 are 223 context rolls in the frame and none of them are redundant.
@@ -286,7 +288,7 @@ completely redundant (the whole context was redundant, not just the state).
 The final column shows the number of context rolls of this state where this
 was the only thing that changed in the event.
 
-.. image:: media_rgp/RGP_ContextRolls_2.png
+.. image:: media_rgp/rgp_context_rolls_2.png
 
 Selecting an API-state shows all the draw calls in the second table,
 called the Events table, that rolled context due to this state
@@ -305,7 +307,7 @@ event represented by the selected row in these panes, as well as in the
 side panels. Below is a screenshot of what the right-click context menu
 looks like.
 
-.. image:: media_rgp/RGP_ContextRolls_3.png
+.. image:: media_rgp/rgp_context_rolls_3.png
 
 **NOTE**: When selecting events on the event panes and using the
 right-click context menu to jump between panes, the option to "View in
@@ -324,16 +326,16 @@ The events in this bucket are most in need of optimization. The double
 slider below the chart can be used to select different regions of the
 histogram. The summary and table below will update as the double
 slider’s position is changed. In the example below we can see that the
-most expensive 5% of events take 44% of the frame time.
+most expensive 5% of events take 51% of the frame time.
 
-Below the histogram is a summary of the frame. In this case, the top 10%
-of events take 70% of the frame time, with 56% of the selected region
-consisting of graphics events and 44% async compute events.
+Below the histogram is a summary of the frame. In this case, the top 15%
+of events take 99% of the frame time, with 52% of the selected region
+consisting of graphics events and 48% async compute events.
 
 The table below the summary shows a list of the events in the selected
 region with the most expensive at the top of the list.
 
-.. image:: media_rgp/RGP_MostExpensiveEvents_1.png
+.. image:: media_rgp/rgp_most_expensive_events_1.png
 
 
 **NOTE**: Selecting an event in this list will select the same event in
@@ -345,7 +347,7 @@ event represented by the selected row in these panes, as well as in the
 side panels. Below is a screenshot of what the right-click context menu
 looks like.
 
-.. image:: media_rgp/RGP_MostExpensiveEvents_2.png
+.. image:: media_rgp/rgp_most_expensive_events_2.png
 
 Render/depth targets
 --------------------
@@ -355,11 +357,11 @@ Render/depth targets
 This UI provides an overview of all buffers that have been used as render
 targets in draw calls throughout the frame.
 
-.. image:: media_rgp/RGP_RendertargetsOverview_1.png
+.. image:: media_rgp/rgp_render_targets_overview_1.png
 
-The screen is split into two sections, a timeline view and a treeview listing:
+The screen is split into two sections, a timeline view and a tree view listing:
 
-.. image:: media_rgp/RGP_RendertargetsOverview_2.png
+.. image:: media_rgp/rgp_render_targets_overview_2.png
 
 The graphical timeline view illustrates the usage of render targets over
 the duration of the frame. Other events like copies, clears and barriers are shown
@@ -370,9 +372,9 @@ information on zoom controls can be found under the
 :ref:`Zoom Controls <zoom_controls>` section. Each solid block in this
 view represents a series of events that overlap and draw to the same
 render target within the same pass. A single click on one of these
-highlights the corresponding entry in the treeview.
+highlights the corresponding entry in the tree view.
 
-.. image:: media_rgp/RGP_RendertargetsOverview_3.png
+.. image:: media_rgp/rgp_render_targets_overview_3.png
 
 This section lists all of the render targets and their properties found in the frame.
 Based on the active grouping mode it either shows a top-level listing of render targets
@@ -395,7 +397,7 @@ Here are the currently available columns:
 - **Compression** Indicates whether compression is enabled for this render target or not.
 - **Sample count** MSAA sample count of the render target.
 - **Out of order draw calls** Number of out of order draw calls issued to this render target.
-  This column is not shown for traces taken on RDNA GPUs.
+  This column is not shown for profiles taken on RDNA GPUs.
 - **Duration** The total duration of all the events that rendered to the render target. For
   example, if 3 events write to a depth buffer the duration will be the sum of these 3 event
   durations.
@@ -404,12 +406,12 @@ The rows in the table can be sorted by clicking on a column header.
 
 **NOTE:**
 
-- Selecting any item in either the timeline view or the treeview will select the corresponding
+- Selecting any item in either the timeline view or the tree view will select the corresponding
   item in the other view.
-- Selecting any item in either the timeline view or the treeview will select the earliest event
+- Selecting any item in either the timeline view or the tree view will select the earliest event
   represented by that item in other sections of the tool.
 
-.. include:: Pipelines.rst
+.. include:: pipelines.rst
 
 Device configuration
 --------------------
@@ -422,7 +424,7 @@ clock frequency running when the capture was taken. The number in
 parentheses represents the peak clock frequency the graphics hardware
 can run at.
 
-.. image:: media_rgp/RGP_DeviceConfiguration.png
+.. image:: media_rgp/rgp_device_configuration.png
 
 Events Windows
 ==============
@@ -438,13 +440,13 @@ event string, not just the event index. For example, if the search string
 is '8', event 31 may be displayed if any of its parameters contain '8'.
 
 
-.. include:: WavefrontOccupancy.rst
+.. include:: wavefront_occupancy.rst
 
-.. include:: EventTiming.rst
+.. include:: event_timing.rst
 
-.. include:: PipelineState.rst
+.. include:: pipeline_state.rst
 
-.. include:: InstructionTiming.rst
+.. include:: instruction_timing.rst
 
 .. _zoom_controls:
 
@@ -455,21 +457,21 @@ Time based graphs in RGP provide Zoom controls for adjusting the time scale that
 viewable on screen. The following set of zoom icons are displayed above each graph that
 supports zooming:
 
-.. |ZoomSelectionRef| image:: media_rgp/RGP_zoom_to_selection.png
-.. |ZoomResetRef| image:: media_rgp/RGP_zoom_reset.png
-.. |ZoomInRef| image:: media_rgp/RGP_zoom_in.png
-.. |ZoomOutRef| image:: media_rgp/RGP_zoom_out.png
+.. |ZoomSelectionRef| image:: media_rgp/rgp_zoom_to_selection.png
+.. |ZoomResetRef| image:: media_rgp/rgp_zoom_reset.png
+.. |ZoomInRef| image:: media_rgp/rgp_zoom_in.png
+.. |ZoomOutRef| image:: media_rgp/rgp_zoom_out.png
 
 |ZoomSelectionRef| **Zoom to selection**
 ----------------------------------------
 When **Zoom to selection** is clicked, the zoom level is increased to a selected
 region or selected event. A selection region is set by holding down the
 left mouse button while the mouse is on the graph and dragging the mouse
-either left or right.  A colored overlay will highlight the selected region
-on the graph.  For graphs that support it, an event may be selected by
+either left or right. A colored overlay will highlight the selected region
+on the graph. For graphs that support it, an event may be selected by
 clicking on it with the mouse (either the left or right button).
 **Zoom to selection** can also be activated by right clicking on a selection on the
-graph and choosing the **Zoom to selection** context menu option.  Zooming
+graph and choosing the **Zoom to selection** context menu option. Zooming
 to a selected event can be accomplished by simply double clicking the event.
 Pressing the **Z** shortcut key while holding down the **CTRL** key activates
 **Zoom to selection** as well.
@@ -496,7 +498,7 @@ Decreases the zoom level incrementally to display a longer time span on the
 graph. The zoom level is decreased each time this icon is clicked until the
 minimum zoom level is reached (i.e. the full available time region).
 Alternatively, holding down the **CTRL** key and scrolling the mouse wheel down
-while the mouse pointer is over the graph will also zoom in for more detailed
+while the mouse pointer is over the graph will also zoom out for more detailed
 view. Zooming out can be activated with the **Z** shortcut key. To zoom out
 quickly at a 10x rate, press the **X** shortcut key.
 
@@ -504,7 +506,7 @@ Zoom Panning
 ------------
 
 When zoomed in on a graph region, the view can be shifted left or right by using
-the horizontal scroll bar.  The view can also be scrolled by dragging the mouse
+the horizontal scroll bar. The view can also be scrolled by dragging the mouse
 left or right while holding down the **spacebar** and the left mouse button.
 Left and right arrow keys can be used to scroll as well.
 
@@ -561,6 +563,16 @@ The steps to update the PIX header file are:
 files (``pix3.h``, ``pix3_win.h``) reside (typically at ``WinPixEventRuntime.[x.x]\Include\WinPixEventRuntime``).
 
 2. Add ``#include "AmdDxExt\AmdPix3.h"`` to the top of ``PIXEvents.h``:
+
+When using WinPixEventRuntime version 1.0.210209001:
+::
+
+  #if defined(USE_PIX) || !defined(PIX_XBOX)
+  #define PIX_CONTEXT_EMIT_CPU_EVENTS
+  #include "AmdDxExt\AmdPix3.h"
+  #endif
+
+When using WinPixEventRuntime version 1.0.200127001:
 ::
 
   #include "PIXEventsCommon.h"
@@ -573,6 +585,30 @@ files (``pix3.h``, ``pix3_win.h``) reside (typically at ``WinPixEventRuntime.[x.
 
 3. Update the ``PIXEvents.h`` file to add an ``Rgp`` prefix to the the existing calls to PIXBeginEventOnContextCpu,
 PIXEndEventOnContextCpu and PIXSetMarkerOnContextCpu:
+
+When using WinPixEventRuntime version 1.0.210209001:
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+    // PIXBeginEventOnContextCpu(context, color, formatString, args...);
+    RgpPIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #endif
+
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+    // PIXSetMarkerOnContextCpu(context, color, formatString, args...);
+    RgpPIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #endif
+
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+    // PIXEndEventOnContextCpu(context);
+    RgpPIXEndEventOnContextCpu(context);
+  #endif
+
+When using WinPixEventRuntime version 1.0.200127001:
 ::
 
   #if PIX_XBOX
@@ -601,7 +637,7 @@ PIXEndEventOnContextCpu and PIXSetMarkerOnContextCpu:
   #endif
 
 
-4. Recompile the application.  Note that the RGP user markers are only enabled when the corresponding
+4. Recompile the application. Note that the RGP user markers are only enabled when the corresponding
 PIX event instrumentation is also enabled with one of the preprocessor symbols:
 **USE_PIX**, **DBG**, **_DEBUG**, **PROFILE**, or **PROFILE_BUILD**.
 
@@ -804,7 +840,7 @@ user markers. The user markers can be seen in the “Event timing” and
 “Pipeline state” views when you choose the “Group by User Marker” option
 as shown below.
 
-.. image:: media_rgp/RGP_UserMarkers_1.png
+.. image:: media_rgp/rgp_user_markers_1.png
 
 "Draw Particles" User marker with the draw calls enclosed in the User
 Marker
@@ -824,7 +860,7 @@ The full user event hierarchy is also visible on the third line of the
 side pane when clicking on individual events. If the event does not
 contain a user event hierarchy, nothing will be shown.
 
-.. image:: media_rgp/RGP_UserMarkers_2.png
+.. image:: media_rgp/rgp_user_markers_2.png
 
 Events enclosed by user markers are colored in the wavefront occupancy
 view. They are also visible in the side panel.
@@ -850,13 +886,13 @@ replacement for profile generation.
 Obtaining a profile from RenderDoc
 ----------------------------------
 
-First, load RenderDoc and obtain a trace as usual. Next, create a new profile
-for that trace as shown below:
+First, load RenderDoc and capture a frame as usual. Next, create a new profile
+for that capture as shown below:
 
-.. image:: media_rgp/RGP_RDC_Interop_1.png
+.. image:: media_rgp/rgp_rdc_interop_1.png
 
 This will kick off the profiling process, which will embed a new profile into
-the RenderDoc trace file. If this is the first time doing this, RenderDoc will
+the RenderDoc capture file. If this is the first time doing this, RenderDoc will
 bring up a prompt to allow specification of a path to Radeon GPU Profiler. Once
 profiling is complete, RenderDoc will launch Radeon GPU Profiler and the new
 profile will be ready for analysis.
@@ -868,12 +904,12 @@ Navigating between events in both tools is done via context menus. For example,
 in Radeon GPU Profiler one would right click on an event and select
 "Select RenderDoc event" as shown below:
 
-.. image:: media_rgp/RGP_RDC_Interop_2.png
+.. image:: media_rgp/rgp_rdc_interop_2.png
 
 This will cause both tools to communicate with and trigger selection of that
 same event in RenderDoc, as shown here:
 
-.. image:: media_rgp/RGP_RDC_Interop_3.png
+.. image:: media_rgp/rgp_rdc_interop_3.png
 
 At this point, users may use RenderDoc’s frame debugging capabilities to
 inspect the event in question.
@@ -882,12 +918,12 @@ Next, users may follow the same procedure to go back to RGP. This is achieved
 by right clicking an event in the Event Browser and selecting "Select RGP Event"
 as show below:
 
-.. image:: media_rgp/RGP_RDC_Interop_4.png
+.. image:: media_rgp/rgp_rdc_interop_4.png
 
 This will cause both tools to communicate and trigger selection of that same
 event in Radeon GPU Profiler, as shown here:
 
-.. image:: media_rgp/RGP_RDC_Interop_5.png
+.. image:: media_rgp/rgp_rdc_interop_5.png
 
 Please be aware that both tools use different numbering schemes to label
 their events. It is therefore expected for the same event to have a different
@@ -915,7 +951,7 @@ Known limitations
 -  Creating consecutive RGP profiles from the same RenderDoc instance
    sometimes fails. This occurs if users obtain multiple RenderDoc captures
    of the same application prior to triggering a second profile. To work
-   around this, start a fresh instance of RenderDoc with the desired trace
+   around this, start a fresh instance of RenderDoc with the desired capture
    to profile.
 
 -  In some cases profiles originating from RenderDoc contain no GPU events.
@@ -945,7 +981,7 @@ Known limitations
 -  If an RGP profile opened by RenderDoc is left running and RenderDoc is restarted,
    the interop connection between the two can't be re-established. In this case, the
    "Create new RGP Profile" menu option will remain disabled after opening a new
-   RenderDoc trace. This is caused by a named pipe having been left open.  To resolve
+   RenderDoc capture. This is caused by a named pipe having been left open. To resolve
    the issue, close RGP, and then restart RenderDoc.
    On Linux®, a similar situation can occur if the RenderDoc process does not
    shutdown cleanly. If this occurs, it may be necessary to wait a few minutes for
@@ -983,4 +1019,4 @@ Microsoft is a registered trademark of Microsoft Corporation in the US and other
 
 Windows is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
 
-© 2016-2020 Advanced Micro Devices, Inc. All rights reserved.
+© 2016-2021 Advanced Micro Devices, Inc. All rights reserved.

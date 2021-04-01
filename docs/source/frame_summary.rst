@@ -4,7 +4,7 @@ Frame summary (DX12 and Vulkan)
 This window describes the structure of a profile from a number of
 different perspectives.
 
-.. image:: media_rgp/RGP_FrameSummary_1.png
+.. image:: media_rgp/rgp_frame_summary_1.png
 
 The System activity section displays a system-level view of sync
 operations and when command buffers were submitted to the GPU. Speaking
@@ -83,7 +83,7 @@ Along the bottom, we find information about user selections:
 
 Below the queue timings view we find the following summary:
 
-.. image:: media_rgp/RGP_FrameSummary_2.png
+.. image:: media_rgp/rgp_frame_summary_2.png
 ..
 
 This shows an interpretation of queue timings data to determine which
@@ -99,8 +99,8 @@ such as Wavefront occupancy.
 The **Profiling overhead** shows the amount of profiling data that was
 written to video memory by the hardware while gathering the RGP profile.
 The profiling overhead is also expressed in terms of memory bandwidth used
-to write the data. The profiling overhead is comprised of the SQTT data
-collected while profiling.
+to write the data. The profiling overhead is comprised of both SQTT data
+and the cache counter data collected while profiling.
 
 The **Queue submissions** and **Command buffers** pie charts show the
 number of queue submissions and command buffers in the frame broken down
@@ -112,7 +112,7 @@ operations are included in the profile data. For instance, any Vulkan
 signals originating from vkAcquireNextImageKHR will not appear since that is
 not a queue operation.
 
-.. image:: media_rgp/RGP_FrameSummary_3.png
+.. image:: media_rgp/rgp_frame_summary_3.png
 ..
 
 The **Event statistics** pie chart and table show the event counts
@@ -123,7 +123,7 @@ instances. In the example above we see that most events drew just a
 single instance, whereas a lesser number of events drew 2-9 and 16
 instances.
 
-.. image:: media_rgp/RGP_FrameSummary_4.png
+.. image:: media_rgp/rgp_frame_summary_4.png
 ..
 
 **Geometry breakdown** gives a summary of the vertices,

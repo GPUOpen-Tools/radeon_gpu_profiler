@@ -3,7 +3,7 @@ Pipelines
 
 This overview pane provides details of the pipeline usage in the profile.
 
-.. image:: media_rgp/RGP_PipelineSummary_1.png
+.. image:: media_rgp/rgp_pipeline_summary_1.png
 
 The pane is divided into three sections:
 
@@ -20,7 +20,7 @@ in the **Pipelines** table.
 Pipeline summary
 ~~~~~~~~~~~~~~~~
 
-.. image:: media_rgp/RGP_PipelineSummary_2.png
+.. image:: media_rgp/rgp_pipeline_summary_2.png
 
 The pipeline summary section displays all **unique** pipeline configurations
 colored by API shader stage.
@@ -33,7 +33,7 @@ the profile matched the configuration.
 Pipelines
 ~~~~~~~~~
 
-.. image:: media_rgp/RGP_PipelineSummary_3.png
+.. image:: media_rgp/rgp_pipeline_summary_3.png
 
 The Pipelines section contains a table with an entry for each pipeline found
 in the profile.
@@ -71,7 +71,7 @@ Pipeline State view for the first event associated with the pipeline.
 Events
 ~~~~~~
 
-.. image:: media_rgp/RGP_PipelineSummary_4.png
+.. image:: media_rgp/rgp_pipeline_summary_4.png
 
 The Events table displays all events which use the currently-selected
 pipeline in the **Pipelines** table.
@@ -87,5 +87,5 @@ The Events table can be sorted by clicking on a column header.
 As with all event lists in RGP, the user can right-click
 to quickly navigate to the event in other panes.
 
-.. image:: media_rgp/RGP_PipelineSummary_5.png
+.. image:: media_rgp/rgp_pipeline_summary_5.png
 

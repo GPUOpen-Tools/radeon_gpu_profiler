@@ -21,13 +21,13 @@ can calculate the theoretical maximum wavefront occupancy for the pixel
 shader. In this case the maximum of 8 wavefronts per SIMD are
 theoretically possible, but may be limited by other factors.
 
-.. image:: media_rgp/RGP_PipelineState_1.png
+.. image:: media_rgp/rgp_pipeline_state_1.png
 
 Switching to the ISA tab will show the shader code at the ISA level. At the
 top, some general information will be given, such as the number of registers
 used and allocated and the various hash values for this event.
 
-.. image:: media_rgp/RGP_PipelineState_3.png
+.. image:: media_rgp/rgp_pipeline_state_3.png
 
 **Grouping modes**
 
@@ -36,11 +36,11 @@ The grouping modes are the same as in the Event timing pane.
 The user can also right-click on any of the events and navigate to the
 Wavefront occupancy or Event timing panes, as well as the Barriers, Most
 expensive events, Context rolls, Render/depth targets, and Pipelines panes
-within the Overview tab.  The user can view the selected event in these panes,
-as well as in the side panels.  Below is a screenshot of what the right-click
+within the Overview tab. The user can view the selected event in these panes,
+as well as in the side panels. Below is a screenshot of what the right-click
 context menu looks like.
 
-.. image:: media_rgp/RGP_PipelineState_2.png
+.. image:: media_rgp/rgp_pipeline_state_2.png
 
 **Note:** The Output Merger stage of a DirectX 12 application may report
 the LogicOp as D3D12\_LOGIC\_OP\_COPY, even though it is set in an
@@ -60,8 +60,10 @@ raytracing event. The compilation mode chosen for a particular event will be
 evident in the event name: events which use the Unified mode will have a
 **<Unified>** suffix, while events which use the Indirect mode will have an
 **<Indirect>** suffix. In the case of DirectX Raytracing, the full event names
-are **DispatchRays<Unified>** and **DispatchRays<Indirect>**. The main
-difference between these two compilation modes has to do with how the
+are **DispatchRays<Unified>** and **DispatchRays<Indirect>**. For Vulkan, the
+full event names are **vkCmdTraceRaysKHR<Unified>** or **vkCmdTraceRaysIndirectKHR<Unified>**
+and **vkCmdTraceRaysKHR<Indirect>** or **vkCmdTraceRaysIndirectKHR<Indirect>**.
+The main difference between these two compilation modes has to do with how the
 individual shaders in the raytracing pipeline are compiled. In Unified mode,
 the individual shaders are inlined into a single shader, resulting in a
 single set of ISA. In Indirect mode, the individual shaders are compiled
@@ -77,7 +79,7 @@ event.
 When selecting a raytracing event that uses the indirect compilation mode,
 the Pipeline state pane will look a bit different.
 
-.. image:: media_rgp/RGP_PipelineState_RayTracing_1.png
+.. image:: media_rgp/rgp_pipeline_state_raytracing_1.png
 
 There are three tabs available: **Shader table**, **ISA**, and **Information**.
 
@@ -117,7 +119,7 @@ Instruction tracing enabled.
 The following screenshot shows how this view will look when Instruction timing data
 is not available.
 
-.. image:: media_rgp/RGP_PipelineState_RayTracing_2.png
+.. image:: media_rgp/rgp_pipeline_state_raytracing_2.png
 
 The ISA tab will also look different for raytracing events that use the indirect
 compilation mode. In addition to the normal ISA listing, there is also a drop down
@@ -125,4 +127,4 @@ combo box that allows for viewing the ISA from a different shader function. For 
 selected shader function, the corresponding row from the shader table is also
 displayed for reference.
 
-.. image:: media_rgp/RGP_PipelineState_RayTracing_3.png
+.. image:: media_rgp/rgp_pipeline_state_raytracing_3.png

@@ -11,7 +11,7 @@ programming guides at
 `GPUOpen <https://gpuopen.com/documentation/amd-isa-documentation/>`_.
 The Instruction Timing view for a shader is shown below.
 
-.. image:: media_rgp/RGP_Instruction_Timing_1.png
+.. image:: media_rgp/rgp_instruction_timing_1.png
 
 \ **Average Latency**
 
@@ -25,16 +25,16 @@ denote the latency between the issue of the *s_mov_b32* instruction and the issu
 and *s_lshr_b32* instruction is 6 clocks. This example shows the best performance case where each
 instruction is issued at an interval of 4 clocks.
 
-.. image:: media_rgp/RGP_Instruction_Timing_Example_1.png
+.. image:: media_rgp/rgp_instruction_timing_example_1.png
 
 **Delays in Instruction Issue:** In the below image, we see three export instructions. The
-*exp pos0* has a rather long interval of 11,121 clocks.  This can be expected since  the
+*exp pos0* has a rather long interval of 11,121 clocks. This can be expected since the
 *exp pos0* instruction's issue can be delayed for reasons such as unavailable memory resources
 which may be in use by other wavefronts. As a result, there is a long duration in the instruction.
 Since the latency waiting for memory resources was seen for the first export instruction,
 subsequent exports have a much shorter duration.
 
-.. image:: media_rgp/RGP_Instruction_Timing_Example_2.png
+.. image:: media_rgp/rgp_instruction_timing_example_2.png
 
 **Waitcounts and Instruction Issue:** In the below image, we see seven instructions. The
 *v_mov_b32_e32*  and the *v_perm_b32* instructions issue in 4 clocks as expected. We then see a
@@ -45,7 +45,7 @@ may seem counter intuitive since it's a memory load instruction. However, this i
 as the previous buffer load to finish. The *s_waitcnt* instruction will issue and then wait (in this
 case 721 clocks) until the next instruction which is the *ds_write2_b32* can be issued.
 
-.. image:: media_rgp/RGP_Instruction_Timing_Example_3.png
+.. image:: media_rgp/rgp_instruction_timing_example_3.png
 
 The Average Latency between any two instructions shown is an average of the latency (between those
 instructions) measured for all the wavefronts analyzed.
@@ -56,7 +56,7 @@ The *Hit count* for each instruction shows the number of times the instruction w
 selected event. Any basic blocks that have zero hit counts will be displayed as disabled in the
 Instruction timing view, as shown below.
 
-.. image:: media_rgp/RGP_Instruction_Timing_DisabledBlock.png
+.. image:: media_rgp/rgp_instruction_timing_disabled_block.png
 
 \ **Instruction Cost Percent**
 
@@ -101,7 +101,7 @@ the "View In Instruction Timing" option. Since it is common to use the same shad
 events, RGP provides an easy way to toggle between multiple events that use the same shader using
 the event drop down shown below.
 
-.. image:: media_rgp/RGP_Instruction_Timing_2.png
+.. image:: media_rgp/rgp_instruction_timing_2.png
 
 This allows the developer to study the behavior of the shader for different events. It is
 recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to change API PSO
@@ -116,12 +116,14 @@ for the selected event. There are two possible compilation modes: **Unified** an
 compilation mode chosen for a particular event will be evident in the event name: events which use
 the Unified mode will have a **<Unified>** suffix, while events which use the Indirect mode will have
 an **<Indirect>** suffix. In the case of DirectX Raytracing, the full event names are
-**DispatchRays<Unified>** and **DispatchRays<Indirect>**. The main difference between these two
-compilation modes has to do with how the individual shaders in the raytracing pipeline are compiled.
-In Unified mode, the individual shaders are inlined into a single shader, resulting in a single set
-of ISA. In Indirect mode, the individual shaders are compiled separately, and the functions in each
-shader end up as their own set of ISA instructions. Function call instructions are generated in the
-ISA to allow one function to call another.
+**DispatchRays<Unified>** and **DispatchRays<Indirect>**. For Vulkan, the full event names are
+**vkCmdTraceRaysKHR<Unified>** or **vkCmdTraceRaysIndirectKHR<Unified>** and
+**vkCmdTraceRaysKHR<Indirect>** or **vkCmdTraceRaysIndirectKHR<Indirect>**. The main difference
+between these two compilation modes has to do with how the individual shaders in the raytracing
+pipeline are compiled. In Unified mode, the individual shaders are inlined into a single shader,
+resulting in a single set of ISA. In Indirect mode, the individual shaders are compiled separately,
+and the functions in each shader end up as their own set of ISA instructions. Function call
+instructions are generated in the ISA to allow one function to call another.
 
 The way the ISA code is presented in the Instruction timing UI follows the way the driver and compiler
 handle the shaders. For Unified mode, there is a single stream of ISA and the Instruction timing view
@@ -137,7 +139,7 @@ between the multiple shaders. The drop down contains the list of exports along w
 cost. The exports will be sorted by the Instruction cost. Ctrl + Shift + Up and Ctrl + Shift + Down
 can be used to move among the list of Export names. This **Export name** drop down is shown below.
 
-.. image:: media_rgp/RGP_Instruction_Timing_Exports.png
+.. image:: media_rgp/rgp_instruction_timing_exports.png
 
 Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to
 directly using the (Ctrl + G) shortcut
@@ -147,13 +149,13 @@ directly using the (Ctrl + G) shortcut
 Individual instructions can be searched for and the developer can navigate directly to a specific
 line using the controls displayed below.
 
-.. image:: media_rgp/RGP_Instruction_Timing_Find.png
+.. image:: media_rgp/rgp_instruction_timing_find.png
 
 \ **Instruction Timing Side Panel**
 
 The Instruction Timing side panel provides additional information about the shader shown.
 
-.. image:: media_rgp/RGP_Instruction_Side_Panel.png
+.. image:: media_rgp/rgp_instruction_side_panel.png
 
 The main sections in the side panel are:
 
@@ -228,7 +230,7 @@ long shaders.
 - Local Data Share Size: This value indicates how many bytes of local data share are used by the
   shader. This is only displayed for Compute Shaders.
 
-\ **Instruction Timing for RNDA**
+\ **Instruction Timing for RDNA**
 
 On RDNA GPUs, Instruction Timing can include certain instructions with a hit count of 0. Usually
 this will be an instruction called *s_code_end* and may also be present after the shader's

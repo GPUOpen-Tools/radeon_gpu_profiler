@@ -5,7 +5,7 @@ Profile summary (OpenCL)
 This window describes the structure of a profile from a number of
 different perspectives.
 
-.. image:: media_rgp/RGP_ProfileSummary_1.png
+.. image:: media_rgp/rgp_profile_summary_1.png
 
 The System activity section displays a system-level view of when command buffers were submitted to the GPU.
 Speaking in general terms, all profiles contain two types of data: command buffer
@@ -29,7 +29,7 @@ Along the top, we find a series of controls:
    when the CPU issued certain types of workloads to the GPU.
 
 -  **Zoom controls:** Consistent with the rest of the tool, these allow
-   users to drill down into points of interest.  See the section entitled
+   users to drill down into points of interest. See the section entitled
    :ref:`Zoom Controls<zoom_controls>` for more information.
 
 In the middle, we find the actual view. Each queue applicable to OpenCL (Compute, Copy)
@@ -54,7 +54,7 @@ Along the bottom, we find information about user selections:
 
    Below the queue timings view we find the following summary:
 
-.. image:: media_rgp/RGP_ProfileSummary_2.png
+.. image:: media_rgp/rgp_profile_summary_2.png
 ..
 
 This shows an interpretation of queue timings data to determine which
@@ -76,5 +76,5 @@ colored by different OpenCL APIs. In the example below, there are 89
 clEnqueueNDRangeKernel calls and 7 clEnqueueFillBuffer calls. The meaning
 of CmdBarrier() is explained in the Barriers section.
 
-.. image:: media_rgp/RGP_ProfileSummary_3.png
+.. image:: media_rgp/rgp_profile_summary_3.png
 ..
