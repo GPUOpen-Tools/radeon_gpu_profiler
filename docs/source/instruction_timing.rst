@@ -230,6 +230,15 @@ long shaders.
 - Local Data Share Size: This value indicates how many bytes of local data share are used by the
   shader. This is only displayed for Compute Shaders.
 
+\ **Call targets**: While viewing data for an **<Indirect>** raytracing event, a Call targets list
+is displayed in the side panel whenever a "swappc" or "setpc" instruction with a non-zero hit count
+is selected. In the ISA view, a glyph is displayed next to any such instruction. For a "swappc"
+instruction, the Call targets list shows the names of the exports that control may jump to, along
+with a hit count indicating how many times each target was called. For a "setpc" instruction, the
+Call targets list shows the name of the export that control will return to.
+
+.. image:: media_rgp/rgp_instruction_timing_call_targets.png
+
 \ **Instruction Timing for RDNA**
 
 On RDNA GPUs, Instruction Timing can include certain instructions with a hit count of 0. Usually

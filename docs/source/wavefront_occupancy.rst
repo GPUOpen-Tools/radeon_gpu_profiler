@@ -127,8 +127,10 @@ include in the graph.
 
 A tooltip will be shown when the mouse hovers over the counter graphs. This tooltip
 shows the counter value of the closest point to the cursor, as well as the number
-of **Requests**, **Hits**, and **Misses** associated with that point. Pressing the
-Ctrl key on the keyboard will temporarily hide the tooltip.
+of **Requests**, **Hits**, and **Misses** associated with that point. When a region
+is selected in the wavefront occupancy view, the tooltip will show aggregated data
+representing the selected region. Pressing the Ctrl key on the keyboard will
+temporarily hide the tooltip.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_3.png
 
@@ -320,8 +322,8 @@ shaders are overlapping, then the duration will be the same as the work
 duration.
 
 If the user selects a range by clicking and dragging the mouse, the
-details panel shows a summary of all the wavefronts and cache counter
-data contained in the selected region as shown below:
+details panel shows a summary of all the wavefront data contained in
+the selected region as shown below:
 
 .. image:: media_rgp/rgp_details_panel_2.png
 
