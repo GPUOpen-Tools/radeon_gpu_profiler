@@ -61,6 +61,9 @@ different ways:
    base color. This can be useful to visualize when the application
    attempted to render different portions of a scene.
 
+-  **Color by API PSO** Shows which wavefronts correspond to which
+   shader, based on the shader's API PSO hash value.
+
 Additionally, there are filters along the top intended to help visualize
 the occupancy of only certain GCN pipeline stages. Lastly, there are
 colored legends on the bottom which serve as color reminders. Note these

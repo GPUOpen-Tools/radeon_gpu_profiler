@@ -40,6 +40,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 
 ### Supported Operating Systems
 * Windows® 10
+* Windows® 11
 * Ubuntu 18.04 LTS (Vulkan only)
 * Ubuntu 20.04 LTS (Vulkan only)
 
@@ -57,4 +58,5 @@ In order to use the latest features of RGP, it is strongly recommended that user
 
 ### Supported Operating Systems
 * Windows 10
+* Windows 11
 

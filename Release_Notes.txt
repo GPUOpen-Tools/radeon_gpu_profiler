@@ -1,23 +1,29 @@
-Radeon™ GPU Profiler V1.11 06-30-2021
+Radeon™ GPU Profiler V1.12 01-20-2022
 -------------------------------------
 
-V1.11 Changes
+V1.12 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
 1) Support for additional AMD RDNA™ 2 hardware
-2) Cache counter support for OpenCL™ applications (requires a 21.20-based driver)
-3) Indirect raytracing pipelines will now show a "Call targets" table in the Instruction timing pane for any swappc/setpc (call/return) instructions
-4) The Cache counters tooltip in the Wavefront occupancy view will now show aggregated data when there is a selected region
-5) Performance improvement when loading profiles
-6) Updated to use Qt 5.15.2
-7) Bug/stability fixes
+2) Instruction timing improvements
+  - Single-wavefront Instruction timing mode
+  - UI now shows which parts of latency are hidden by work on other slots
+  - Searching will now find text matches in labels instead of only instructions
+3) New "Color by API PSO" mode to Wavefront timeline in the Wavefront Occupancy pane
+4) RGP will now inform the user about missing/incorrect data when profiles are loaded
+  - DirectX 12 profiles with missing Signals/Waits Synchronization Primitive data will be detected
+  - Profiles with missing/incorrect cache counter data will be detected
+5) PIX3 marker support now properly handles PIX marker strings constructed using string format specifiers
+6) Bug/stability fixes
 
 * Radeon Developer Panel
 
-1) Cache counters can now be collected for OpenCL applications
-2) Updated to use Qt 5.15.2
+1) The Profiling Capture key can now be configured by the user
+2) RDP will now inform the user about configuration issues that will affect profiling data
+  - On Windows, a warning will be shown if the current user does not have proper permissions required to collect DirectX 12 Signal and Wait data
+  - On Linux, in the remote profiling case, a warning will be shown if the current user does not have proper permissions required to set stable GPU clock frequencies
 
 Known Issues
 -------------------------------------
@@ -38,7 +44,7 @@ Known Issues
 12) Cache counter data collection is not currently supported on AMD RDNA 2 hardware on Linux.
 13) In some rare cases on RDNA 2 hardware, all cache counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
 14) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
-15) In some rare cases, applications that use async compute queues may crash on startup while Radeon Developer Panel is running and a connection has been established.
+15) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
 
 * Windows®
 
@@ -64,6 +70,25 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V1.11 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for additional AMD RDNA™ 2 hardware
+2) Cache counter support for OpenCL™ applications (requires a 21.20-based driver)
+3) Indirect raytracing pipelines will now show a "Call targets" table in the Instruction timing pane for any s_swappc/s_setpc (call/return) instructions
+4) The Cache counters tooltip in the Wavefront occupancy view will now show aggregated data when there is a selected region
+5) Performance improvement when loading profiles
+6) Updated to use Qt 5.15.2
+7) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) Cache counters can now be collected for OpenCL applications
+2) Updated to use Qt 5.15.2
+
 
 V1.10 Changes
 -------------------------------------

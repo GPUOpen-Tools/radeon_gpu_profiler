@@ -68,6 +68,8 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Windows® 10
 
+-  Windows® 11
+
 -  Ubuntu 18.04 LTS (Vulkan only)
 
 -  Ubuntu 20.04 LTS (Vulkan only)
@@ -94,6 +96,8 @@ Compute APIs, RDNA and GCN hardware, and operating systems
 \ **Supported Operating Systems**
 
 -  Windows 10
+
+-  Windows 11
 
 Radeon GPU Profiler - Quick Start
 =================================
@@ -124,8 +128,8 @@ How to load a profile
 
 There are a few ways to load a profile into RGP.
 
-1) Use the “File/Open profile” pull down menu, or the “File/Recent
-   profile” pull down menu item.
+1) Use the “File/Open profile” pull down menu item, or the
+   “File/Recent profiles” pull down menu item.
 
 .. image:: media_rgp/rgp_file_load.png
 
@@ -193,7 +197,7 @@ the profile data are within the **Overview** and **Events** sections.
 
    g. **Pipelines** - Details of the pipeline usage in the profile.
 
-   h. **Device Configuration** - Information about the GPU the profile
+   h. **Device configuration** - Information about the GPU the profile
       was generated on.
 
 3. **Events**
@@ -661,15 +665,15 @@ rendering technology) configuration info, and Eyefinity (AMD’s
 multi-display rendering technology) configuration info. AGS also exposes
 the explicit Crossfire API extension, GCN shader extensions, and
 additional extensions supported in the AMD drivers for DirectX® 11 and
-DirectX 12. One of the latest features in AGS is the support for DirectX
-12 user debug markers.
+DirectX 12. One of the features in AGS is the support for DirectX 12
+user debug markers.
 
 User markers can be inserted into your application using AGS function
 calls. The inserted user markers can then be viewed within RGP. The main
 steps to obtaining user markers are described below.
 
 Articles and blogs about AGS can be found here:
-https://gpuopen.com/gaming-product/amd-gpu-services-ags-library/
+https://gpuopen.com/amd-gpu-services-ags-library/
 
 Additional API documentation for AGS can be found at:
 https://gpuopen-librariesandsdks.github.io/ags/
@@ -690,42 +694,70 @@ documentation. You will need to use files in the following two dirs.
 Integrate AGS header, libs, and DLL into your project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-AGS requires one header (``amd\ags.h``) to be included in your source code.
+AGS requires one header (``amd_ags.h``) to be included in your source code.
 Add the location of the AGS header to the Visual Studio project settings
 and include the header in the relevant code files.
 
 #include "amd\_ags.h"
 
 Link your exe against correct AGS library for your project (32 or 64bit,
-MD, MT, DLL, or UWP DLL).
+MD or MT static library, debug or release, or DLL).
 
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | **Library Name**              | **AGS Runtime DLL required**   | **Library Type**                                    |
-+==============+===============================+================================+=====================================================+
-| **64 Bit**   | amd\_ags\_uwp\_x64.lib        | amd\_ags\_uwp\_x64.dll         | UWP                                                 |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x64.lib             | amd\_ags\_x64.dll              | DLL                                                 |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x64\_2015\_MD.lib   | NA                             | VS2015 Lib (multithreaded dll runtime library)      |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x64\_2015\_MT.lib   | NA                             | VS2015 Lib (multithreaded static runtime library)   |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x64\_2017\_MD.lib   | NA                             | VS2017 Lib (multithreaded dll runtime library)      |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x64\_2017\_MT.lib   | NA                             | VS2017 Multithreaded static                         |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-| **32 Bit**   | amd\_ags\_uwp\_x86.lib        | amd\_ags\_uwp\_x86.dll         | UWP                                                 |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x86.lib             | amd\_ags\_x86.dll              | DLL                                                 |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x86\_2015\_MD.lib   | NA                             | VS2015 Lib (multithreaded dll runtime library)      |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x86\_2015\_MT.lib   | NA                             | VS2015 Lib (multithreaded static runtime library)   |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x86\_2017\_MD.lib   | NA                             | VS2017 Lib (multithreaded dll runtime library)      |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
-|              | amd\_ags\_x86\_2017\_MT.lib   | NA                             | VS2017 Lib (multithreaded static runtime library)   |
-+--------------+-------------------------------+--------------------------------+-----------------------------------------------------+
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | **Library Name**              | **AGS Runtime DLL required**   | **Library Type**                                          |
++==============+===============================+================================+===========================================================+
+| **64 Bit**   | amd\_ags\_x64.lib             | amd\_ags\_x64.dll              | DLL                                                       |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2015\_MD.lib   | NA                             | VS2015 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2015\_MT.lib   | NA                             | VS2015 Lib (multithreaded static runtime library)         |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2015\_MDd.lib  | NA                             | VS2015 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2015\_MTd.lib  | NA                             | VS2015 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2017\_MD.lib   | NA                             | VS2017 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2017\_MT.lib   | NA                             | VS2017 Lib (multithreaded static runtime library          |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2017\_MDd.lib  | NA                             | VS2017 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2017\_MTd.lib  | NA                             | VS2017 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2019\_MD.lib   | NA                             | VS2019 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library          |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2019\_MDd.lib  | NA                             | VS2019 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x64\_2019\_MTd.lib  | NA                             | VS2019 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+| **32 Bit**   | amd\_ags\_x86.lib             | amd\_ags\_x86.dll              | DLL                                                       |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2015\_MD.lib   | NA                             | VS2015 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2015\_MT.lib   | NA                             | VS2015 Lib (multithreaded static runtime library)         |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2015\_MDd.lib  | NA                             | VS2015 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2015\_MTd.lib  | NA                             | VS2015 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2017\_MD.lib   | NA                             | VS2017 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2017\_MT.lib   | NA                             | VS2017 Lib (multithreaded static runtime library)         |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2017\_MDd.lib  | NA                             | VS2017 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2017\_MTd.lib  | NA                             | VS2017 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2019\_MD.lib   | NA                             | VS2019 Lib (multithreaded dll runtime library)            |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library          |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2019\_MDd.lib  | NA                             | VS2019 Lib (debug multithreaded dll runtime library)      |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
+|              | amd\_ags\_x86\_2019\_MTd.lib  | NA                             | VS2019 Lib (debug multithreaded static runtime library)   |
++--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 
 Initialize AGS
 ~~~~~~~~~~~~~~
@@ -733,17 +765,17 @@ Initialize AGS
 When you have your project building the first thing to do is to initialize the AGS context.
 ::
 
-  // Specify if memory allocation callbacks are required, and the type of crossfire support
-  AGSConfiguration config = {};
+	// Specify AGS configuration (optional memory allocation callbacks)
+	AGSConfiguration config = {};
 
-  // Initialize AGS
-  AGSReturnCode agsInitReturn = agsInit(&m_AGSContext, &config, &m_AmdgpuInfo);
+	// Initialize AGS
+	AGSReturnCode agsInitReturn = agsInitialize(AGS_MAKE_VERSION(AMD_AGS_VERSION_MAJOR, AMD_AGS_VERSION_MINOR, AMD_AGS_VERSION_PATCH), &config, &m_AGSContext, &m_AmdgpuInfo);
 
-  // Check to see if AGS was started
-  if (agsInitReturn != AGS_SUCCESS)
-  {
-    printf("\\nError: AGS Library was NOT initialized - Return Code %d\\n", agsInitReturn);
-  }
+	// Report error on AGS initialization failure
+	if (agsInitReturn != AGS_SUCCESS)
+	{
+		printf("\\nError: AGS Library was NOT initialized - Return Code %d\\n", agsInitReturn);
+	}
 
 
 Initialize the DirectX12 Extension
@@ -752,35 +784,36 @@ Initialize the DirectX12 Extension
 Once the AGS extension has been successfully created we need to create the DirectX12 extension as follows:
 ::
 
-	// Initialize the DX12 extension on the device
-	unsigned int flags = 0;
+	// Create the device using AGS
+	AGSDX12DeviceCreationParams dxCreateParams = {hardwareAdapter.Get(), __uuidof(ID3D12Device), D3D_FEATURE_LEVEL_11_0};
+	AGSDX12ReturnedParams dxReturnedParams;
+	AGSReturnCode dxInitReturn = agsDriverExtensionsDX12_CreateDevice(m_AGSContext, &dxCreateParams, nullptr, &dxReturnedParams);
 
-	AGSReturnCode dxInitReturn = agsDriverExtensionsDX12_Init(m_AGSContext, m_device.Get(), &flags);
-
-	// Check to see if the DX12 extension was created
-	if (agsInitReturn != AGS_SUCCESS)
+	// Report error on AGS DX12 device creation failure
+	if (dxInitReturn != AGS_SUCCESS)
 	{
-		printf("AGS DX12 extension was NOT initialized - Return Code %d\\n",agsInitReturn);
+		printf("Error: AGS DX12 extension could not create a device - Return Code %d\n", agsInitReturn);
 	}
 	else
 	{
-		printf("AGS DX12 extension was initialized.\\n");
-		// Check to see if user markers are supported in the current driver
-		if (flags & AGS_DX12_EXTENSION_USER_MARKERS)
+		printf("AGS DX12 device was created.\n");
+		m_device = dxReturnedParams.pDevice;
+
+		// Check whether user markers are supported by the current driver
+		if (dxReturnedParams.extensionsSupported.userMarkers == 1)
 		{
-			printf("AGS_DX12_EXTENSION_USER_MARKERS are supported.\\n");
+			printf("AGS_DX12_EXTENSION_USER_MARKERS are supported.\n");
 		}
 		else
 		{
-			printf("AGS_DX12_EXTENSION_USER_MARKERS are NOT supported.\\n");
+			printf("AGS_DX12_EXTENSION_USER_MARKERS are NOT supported.\n");
 		}
 	}
 
 
 Please note that the above code checks if the driver is capable of
-supporting user markers by testing the output flags produced by the
-creation of the DirectX12 extension. This step may fail on older
-drivers.
+supporting user markers by looking at the extensions supported by
+the driver. This step may fail on older drivers.
 
 Insert Markers in Application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1019,4 +1052,4 @@ Microsoft is a registered trademark of Microsoft Corporation in the US and other
 
 Windows is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
 
-© 2016-2021 Advanced Micro Devices, Inc. All rights reserved.
+© 2016-2022 Advanced Micro Devices, Inc. All rights reserved.
