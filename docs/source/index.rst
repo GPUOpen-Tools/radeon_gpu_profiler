@@ -7,7 +7,7 @@ and GCN hardware. It is part of a suite of tools comprised of the following
 software:
 
 -  **Radeon Developer Mode Driver** - This is shipped as part of the AMD
-   public Adrenaline driver and supports the developer mode features required for
+   public Adrenalin driver and supports the developer mode features required for
    profiling.
 
 -  **Radeon Developer Service (RDS)** - A system tray application that
@@ -28,8 +28,8 @@ software:
    designed to work with compute applications and frame based graphics
    applications. It is specifically designed to address the issues that
    developers are dealing with in the move from traditional graphics
-   APIs to explicit APIs. It also provides the visualization of GCN
-   hardware specific information allowing the developer to tune an
+   APIs to explicit APIs. It also provides the visualization of RDNA and
+   GCN hardware-specific information allowing the developer to tune an
    application to the full potential of the architecture. The tool
    provides unique visualizations of queue synchronization using fences
    and semaphores, asynchronous compute, and barrier timings. Currently,
@@ -136,7 +136,7 @@ There are a few ways to load a profile into RGP.
 .. image:: media_rgp/rgp_file_recent.png
 
 2) Go to the “Welcome” view and click on the “Open a Radeon GPU
-   Profile…”
+   Profile…” link.
 
 3) Go to the “Welcome” view and click on a profile that you have
    previously loaded in the Recent list.
@@ -159,7 +159,7 @@ There are a few ways to load a profile into RGP.
 .. image:: media_rgp/rdp_open_profile.png
 
 6) Drag and drop a profile onto the **Radeon GPU Profiler** executable,
-   or, onto an already open RGP instance.
+   or onto an already open RGP instance.
 
 The Radeon GPU Profiler user interface
 --------------------------------------
@@ -298,9 +298,9 @@ Selecting an API-state shows all the draw calls in the second table,
 called the Events table, that rolled context due to this state
 changing, with or without other states changing too.
 
-The search box in the top-right corner of the state table filters
+The **Filter API-states...** field in the top-right corner of the state table filters
 the state tree in real-time as you type. Only the state containing the
-search text string will be shown.
+filter text string will be shown.
 
 **NOTE**: Selecting an event in this list will select the same event in
 the other Event windows.
@@ -353,6 +353,10 @@ looks like.
 
 .. image:: media_rgp/rgp_most_expensive_events_2.png
 
+The :ref:`API Shader Stage Control <api_shader_stage_control>` shown in
+the last column of the table indicates which API shader stages are active
+in the pipeline used by the given event.
+
 Render/depth targets
 --------------------
 
@@ -368,8 +372,8 @@ The screen is split into two sections, a timeline view and a tree view listing:
 .. image:: media_rgp/rgp_render_targets_overview_2.png
 
 The graphical timeline view illustrates the usage of render targets over
-the duration of the frame. Other events like copies, clears and barriers are shown
-at the bottom of this view.
+the duration of the frame. Other events like dispatches, copies, clears
+and barriers are shown at the bottom of this view.
 
 Zoom controls can be used to focus in on a section of the timeline. More
 information on zoom controls can be found under the
@@ -437,10 +441,10 @@ This section of RGP is where users will perform most analysis at the
 event level. An RGP event is simply an API call within a command buffer
 that was issued by either the application or the driver.
 
-The event windows allow searching of the event string. The event string
+The event windows allow filtering of the event string. The event string
 consists of the event index, the API call and parameters. Only events
-containing the search string will be displayed. This works for the whole
-event string, not just the event index. For example, if the search string
+containing the filter string will be displayed. This works for the whole
+event string, not just the event index. For example, if the filter string
 is '8', event 31 may be displayed if any of its parameters contain '8'.
 
 
@@ -451,6 +455,62 @@ is '8', event 31 may be displayed if any of its parameters contain '8'.
 .. include:: pipeline_state.rst
 
 .. include:: instruction_timing.rst
+
+.. _api_shader_stage_control:
+
+API Shader Stage Control
+========================
+
+Several views in RGP provide information about which API shader stages are active
+for a particular event or pipeline. This information is represented by the API Shader
+Stage control.
+
+**NOTE**: This control is only available for DirectX and Vulkan profiles.
+
+This control appears in the **Most expensive events** and **Pipelines** Overview panes, as well
+as in the Details panel in the **Wavefront occupancy** and **Event timings** panes, and in the
+toolbar area of the **Instruction timing** pane.
+
+Here are examples of what the control looks like for a few different DirectX12 and Vulkan pipelines.
+
+DirectX12 pipeline with the VS and PS stages active:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_vs_ps.png
+
+DirectX12 pipeline with the VS, HS, DS and PS stages active:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_vs_hs_ds_ps.png
+
+DirectX12 pipeline with the VS, GS and PS stages active:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_vs_gs_ps.png
+
+DirectX12 pipeline with the CS stages active:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_cs.png
+
+DirectX12 pipeline with the RT stages active:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_rt.png
+
+Vulkan pipeline with the VS and FS stages active:
+
+.. image:: media_rgp/rgp_vk_pipeline_stage_vs_fs.png
+
+Vulkan pipeline with the CS stages active:
+
+.. image:: media_rgp/rgp_vk_pipeline_stage_cs.png
+
+Vulkan pipeline with the RT stages active:
+
+.. image:: media_rgp/rgp_vk_pipeline_stage_rt.png
+
+This control can also indicate when a particular shader stage contains inline ray
+tracing. When this is detected, a stage will indicate this with a gradient red
+pattern painted in that stage's box. Here is an example of a DirectX12 pipeline
+where the compute shader performs inline ray tracing:
+
+.. image:: media_rgp/rgp_dx12_pipeline_stage_cs_with_inline_rt.png
 
 .. _zoom_controls:
 
@@ -882,7 +942,7 @@ User markers can also be seen in the wavefront occupancy view when you
 color by user events. Coloring by user events is also possible in the
 event timing view. As seen below, the draw calls enclosed by the user
 marker change color to purple. The events not enclosed by user markers
-are shown in gray. The coloration is only affected by the Push/PopMarker
+are shown in grey. The coloration is only affected by the Push/PopMarker
 combination; the SetMarker has no effect on the user event color since
 these markers simply mark a particular moment in time.
 
@@ -910,17 +970,42 @@ This feature is only supported for DirectX12 and Vulkan.
 Intended usage
 --------------
 
-We encourage users to use both Radeon Developer Panel and RenderDoc to obtain
-profiling data. The former will produce the best data for performance analysis,
-and the latter can be used to pinpoint which elements of a frame consume
-the most GPU time. Consider this interop feature as a supplement instead of a
-replacement for profile generation.
+When RenderDoc replays a captured frame, there are expected differences in
+performance when compared to a normal run of the application. Therefore, when a
+profile is generated by RenderDoc, the overall profile data may not accurately
+reflect the true performance of the application. For a more accurate
+representation of the overall application performance, a profile should be
+captured directly from the application using the Radeon Developer Panel.
+
+The profile data generated from a RenderDoc capture, along with the supported
+interoperability features, can be useful in helping to determine which elements
+of a frame consume the most GPU time. Therefore, users are encouraged to
+leverage both methods of generating profile data when analyzing performance.
 
 Obtaining a profile from RenderDoc
 ----------------------------------
 
-First, load RenderDoc and capture a frame as usual. Next, create a new profile
-for that capture as shown below:
+First, load RenderDoc and capture a frame as usual. When loading the capture into
+RenderDoc, make sure to use the **Open Capture with Options** menu item (under the
+main **File** menu in the RenderDoc user interface) and set the **Replay optimisation
+level** setting to **Fastest**. Without this setting, extra events that were not in
+the original frame may appear in the profile, as RenderDoc may insert extra events as
+part of its other replay levels. There may also be some RenderDoc captures that are
+unable to generate a profile if another replay level is used.
+
+.. image:: media_rgp/rgp_rdc_interop_6.png
+
+The **Replay optimisation level** setting can also be set globally for all captures
+in RenderDoc's **Settings** dialog:
+
+.. image:: media_rgp/rgp_rdc_interop_7.png
+
+Next, make sure that the **Core** settings are configured to allow Radeon GPU Profiler
+Integration:
+
+.. image:: media_rgp/rgp_rdc_interop_8.png
+
+Finally, create a new profile for the loaded capture as shown below:
 
 .. image:: media_rgp/rgp_rdc_interop_1.png
 

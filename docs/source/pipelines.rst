@@ -58,9 +58,10 @@ Each entry in the table displays the following information:
 9. **Scratch mem** - Yes/No to indicate if the pipeline uses scratch memory.
 10. **Wave mode** -- wave32/wave64 to indicate the mode of the shader. This column
     only appears for devices that support wave32 vs. wave64.
-11. **Stages** - API shader stage configuration view.
+11. **Stages** - The :ref:`API Shader Stage Control <api_shader_stage_control>`
+    indicating which stages are active for given pipeline.
 
-The Search control can be used to filter items in the list by the API PSO hash.
+The **Filter pipelines...** field can be used to filter items in the list by the API PSO hash.
 The Pipelines table can be sorted by clicking on a column header.
 
 Below the table, the Bucket ID, API PSO hash and Driver internal pipeline

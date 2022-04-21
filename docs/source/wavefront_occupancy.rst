@@ -64,6 +64,11 @@ different ways:
 -  **Color by API PSO** Shows which wavefronts correspond to which
    shader, based on the shader's API PSO hash value.
 
+-  **Color by ray tracing** Shows which wavefronts correspond to shaders
+   which perform ray tracing. Wavefronts from traditional ray tracing events as
+   well as wavefronts from shaders with inlined ray tracing will be shown using
+   the specified ray tracing color. All other waves will be shown as grey.
+
 Additionally, there are filters along the top intended to help visualize
 the occupancy of only certain GCN pipeline stages. Lastly, there are
 colored legends on the bottom which serve as color reminders. Note these
@@ -153,6 +158,23 @@ presentation found on gpuopen.com.
 
 .. image:: media_rgp/rgp_rdna_cache_hierarchy.png
 
+\ **Ray tracing counters**
+
+When profiling a game that uses ray tracing, a second row of counter data will show
+ray tracing counter values.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_5.png
+
+There are currently two ray tracing counters collected while profiling. These counters
+provide information on the number of ray tests performed by the frame.
+
+-  **Ray box tests** The number of ray box intersection tests.
+
+- **Ray triangle tests** The number of ray triangle intersection tests.
+
+The user interaction for the ray tracing counters is identical to the user interaction
+for the cache counters.
+
 \ **Events timeline view**
 
 This section shows all events in your profile. This includes both
@@ -206,11 +228,11 @@ events in different ways:
 -  **Color by API PSO** will color events by their API PSO hash values.
 
 -  **Color by instruction timing** will only colorize events which contain
-   detailed instruction timing information. All other events will be grayed
+   detailed instruction timing information. All other events will be greyed
    out.
 
 -  **Color by ray tracing** will only colorize raytracing events. All other
-   events will be grayed out.
+   events will be greyed out.
 
 Next to the **Color by** combo-box is the **Event filter** combo-box.
 This allows the user to visualize only certain types of events on the timeline.
@@ -310,7 +332,8 @@ The Details panel for a single event contains the following data:
    * Tooltips explaining the data are available by hovering the mouse over
      the table header.
 
-*  Block diagram of active pipeline stages
+*  The :ref:`API Shader Stage Control <api_shader_stage_control>` indicates
+   which shader stages are active for the selected event.
 
 *  Primitive, vertex, control point, and pixel counts
 

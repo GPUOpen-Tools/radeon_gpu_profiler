@@ -4,7 +4,7 @@ Pipeline state
 The pipeline state window shows the render state information for
 individual events by stage. In the example below the event is a
 DirectX12 DrawInstanced call using a VS, GS, and a PS. Active stages are
-rendered in black and can be selected, gray stages are inactive on this
+rendered in black and can be selected, grey stages are inactive on this
 draw and cannot be selected.
 
 The user has selected the PS stage for viewing and it is rendered in
@@ -90,8 +90,8 @@ shader functions. Each shader function has an associated type. This type can be
 or **Miss**. The shader table lists each shader function, its type, resource
 usage statistics, instruction timing statistics, and both the API shader hash and
 the Internal pipeline hash. You can filter the table by shader type using the
-**Show filters** combo box. You can also filter the table by Export name using
-the **Shader search...** edit box. If you click on any hyperlinked text in the
+**Shader types** combo box. You can also filter the table by Export name using
+the **Filter shaders...** field. If you click on any hyperlinked text in the
 shader table, it will navigate to the ISA tab and show the ISA for the selected
 shader function. You can also use the right-click context menu to navigate to
 either the ISA tab or to the Instruction timing view.

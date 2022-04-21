@@ -125,7 +125,7 @@ by the bars.
 Below the histogram is a slider control that can be used to filter wavefronts. The two sliders allow
 you to specify a clock range for the wavefronts to analyze. Only wavefronts that fall into the specified
 range will contribute to the Latency, Hit count and Instruction cost percentage values displayed. If a
-range is set, the *fastest in selection* and "slowest in selection" filters will show information from
+range is set, the *fastest in selection* and *slowest in selection* filters will show information from
 the fastest and slowest waves within that range.
 
 The histogram only appears when there is more than one wavefront analyzed for the selected shader.
@@ -166,7 +166,9 @@ the event drop down shown below.
 This allows the developer to study the behavior of the shader for different events. It is
 recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to change API PSO
 selection and (Shift + Left and Shift + Right) to move across different events using the same
-shader.
+shader. The :ref:`API Shader Stage Control <api_shader_stage_control>` indicates which shader
+stages are active for the selected event. When an active stage is clicked, the Instruction
+timing pane will update to show the timing data for the selected shader stage.
 
 \ **Navigation of Raytracing events**
 

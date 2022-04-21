@@ -11,17 +11,17 @@ In order to use the latest features of RGP, it is strongly recommended that user
 
 1. Install the latest AMD Video/display driver.
 2. Unzip/Untar the download file. The directory contains the following:
- * Radeon Developer Service (RDS)
- * RadeonDeveloperServiceCLI (RDS headless)
- * Radeon Developer Panel (RDP)
- * Radeon GPU Profiler (RGP)
+   * Radeon Developer Service (RDS)
+   * RadeonDeveloperServiceCLI (RDS headless)
+   * Radeon Developer Panel (RDP)
+   * Radeon GPU Profiler (RGP)
 3. To capture a profile from a game, run the Radeon Developer Panel and follow the instructions in the Help. Help can be found in the following locations:
- * Help web pages exist in the "docs" sub directory
- * Help web pages can be accessed from the **Help** button in the Developer Panel
- * Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the **Help** menu
- * The documentation is hosted publicly at:
-    * https://radeon-developer-panel.readthedocs.io/en/latest/
-    * https://radeon-gpuprofiler.readthedocs.io/en/latest/
+   * Help web pages exist in the "docs" sub directory
+   * Help web pages can be accessed from the **Help** button in the Developer Panel
+   * Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the **Help** menu
+   * The documentation is hosted publicly at:
+     * https://radeon-developer-panel.readthedocs.io/en/latest/
+     * https://radeon-gpuprofiler.readthedocs.io/en/latest/
 
 ## Graphics APIs, RDNA™ and GCN hardware, and operating systems
 ### Supported APIs

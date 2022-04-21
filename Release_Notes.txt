@@ -1,4 +1,74 @@
-Radeon™ GPU Profiler V1.12 01-20-2022
+Radeon™ GPU Profiler V1.13 04-21-2022
+-------------------------------------
+
+V1.13 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for additional AMD RDNA™ 2 hardware
+2) Ray tracing counter visualization in the Wavefront Occupancy pane
+3) Support for DirectX® Raytracing (DXR) Tier 1.1 style inline raytracing
+  - Shaders that perform inline raytracing will be marked as such in various parts of RGP
+  - New "Color by ray tracing" mode in the Wavefront timeline portion of the Wavefront Occupancy pane will highlight waves from traditional ray tracing events as well as waves from shaders that contain inline ray tracing
+4) The ISA view in the Pipeline state pane now supports searching
+5) The shader table in the Pipeline state pane for ray tracing events now shows how many shaders are part of the pipeline
+6) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) RDP will now collect ray tracing counters when profiling an application running on a GPU that supports ray tracing
+2) As part of the support for ray tracing counters, RDP will now post-process counter data after capture. This allows for faster loading of profile data files in RGP
+3) The size of the SQTT memory buffer can now be configured to allow for a larger or smaller buffer
+4) Reduced profiling overhead when using a Workflow that includes both Profiling and Memory Tracing
+5) Fixed capture issue which caused each command buffer to be submitted individually when using a Workflow that includes both Profiling and Memory Tracing
+
+Known Issues
+-------------------------------------
+
+* All platforms
+
+1)  Radeon Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other non-AMD cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
+2)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
+3)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
+4)  Radeon Developer Panel will NOT capture profiles from Windows® Insider Editions.
+5)  Anti-virus may impede key-based capture (Ctrl+Alt+C)
+6)  Applications that call Present() from the async compute queue are not supported on pre-RDNA hardware.
+7)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
+8)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
+9)  OpenCL™ captures may include an extra DMA command buffer in the Profile Summary.
+10) Launching the Radeon Developer Panel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
+11) Detailed instruction timing is not supported on OpenCL.
+12) In some rare cases on RDNA 2 hardware, all counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
+13) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
+14) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
+15) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
+
+* Windows®
+
+1)  Queue synchronization data will be missing from DirectX 12 apps running on Windows Home editions.
+2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
+3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
+4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame Summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
+5)  Vulkan profiles captured using the Adrenalin 22.3.2 or 22.4.1 driver may be missing Instruction timing data. Additionally, the Pipelines Overview and the ISA view in the Pipeline state view may be missing data. Please use either an older or newer driver when profiling Vulkan applications on Windows.
+
+* Linux®
+
+1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
+2)  After launching RGP from the Developer Panel to view a captured profile, the panel may fail to connect the next time it is launched. The workaround is to close RGP before relaunching the panel.
+3)  If the Developer Panel or the Developer Service crash while running with the root account, it may be necessary to restart/exit them again with the root account in order to cleanup shared memory.
+4)  When running with the root account, the Developer Panel may output error or warning messages to the terminal. These should not prevent the panel from functioning properly.
+5)  The Radeon Developer Service and Panel are only officially supported using the standard desktop managers (GDM and Unity). Other desktop managers should work but a dialog box indicating that the service is running in headless mode may pop up. However, it should still be possible to capture profiles.
+6)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the RemoveSharedMemory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
+7)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
+8)  Cache and ray tracing counter data collection is not currently supported on AMD RDNA 2 hardware on Linux.
+
+* RDNA
+
+1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
+
+
+Release Notes History
 -------------------------------------
 
 V1.12 Changes
@@ -6,7 +76,7 @@ V1.12 Changes
 
 * Radeon GPU Profiler
 
-1) Support for additional AMD RDNA™ 2 hardware
+1) Support for additional AMD RDNA 2 hardware
 2) Instruction timing improvements
   - Single-wavefront Instruction timing mode
   - UI now shows which parts of latency are hidden by work on other slots
@@ -25,59 +95,13 @@ V1.12 Changes
   - On Windows, a warning will be shown if the current user does not have proper permissions required to collect DirectX 12 Signal and Wait data
   - On Linux, in the remote profiling case, a warning will be shown if the current user does not have proper permissions required to set stable GPU clock frequencies
 
-Known Issues
--------------------------------------
-
-* All platforms
-
-1)  Radeon Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other non-AMD cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
-2)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
-3)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
-4)  Radeon Developer Panel will NOT capture profiles from Windows® Insider Editions.
-5)  Anti-virus may impede key-based capture (Ctrl+Shift+C)
-6)  Applications that call Present() from the async compute queue are not supported.
-7)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
-8)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-9)  OpenCL captures may include an extra DMA command buffer in the Profile Summary.
-10) Launching the Radeon Developer Panel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
-11) Detailed instruction timing is not supported on OpenCL.
-12) Cache counter data collection is not currently supported on AMD RDNA 2 hardware on Linux.
-13) In some rare cases on RDNA 2 hardware, all cache counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
-14) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
-15) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
-
-* Windows®
-
-1)  Queue synchronization data will be missing from DirectX 12 apps running on Windows 10 Home.
-2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
-3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
-4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame Summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile.
-
-* Linux®
-
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
-2)  After launching RGP from the Developer Panel to view a captured profile, the panel may fail to connect the next time it is launched. The workaround is to close RGP before relaunching the panel.
-3)  If the Developer Panel or the Developer Service crash while running with the root account, it may be necessary to restart/exit them again with the root account in order to cleanup shared memory.
-4)  When running with the root account, the Developer Panel may output error or warning messages to the terminal. These should not prevent the panel from functioning properly.
-5)  The Radeon Developer Service and Panel are only officially supported using the standard desktop managers (GDM and Unity). Other desktop managers should work but a dialog box indicating that the service is running in headless mode may pop up. However, it should still be possible to capture profiles.
-6)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the RemoveSharedMemory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
-7)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
-
-* RDNA
-
-1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
-
-
-Release Notes History
--------------------------------------
-
 V1.11 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
-1) Support for additional AMD RDNA™ 2 hardware
-2) Cache counter support for OpenCL™ applications (requires a 21.20-based driver)
+1) Support for additional AMD RDNA 2 hardware
+2) Cache counter support for OpenCL applications (requires a 21.20-based driver)
 3) Indirect raytracing pipelines will now show a "Call targets" table in the Instruction timing pane for any s_swappc/s_setpc (call/return) instructions
 4) The Cache counters tooltip in the Wavefront occupancy view will now show aggregated data when there is a selected region
 5) Performance improvement when loading profiles
@@ -96,7 +120,7 @@ V1.10 Changes
 * Radeon GPU Profiler
 
 1) Support for additional AMD RDNA 2 hardware
-2) Vulkan Raytracing support: features are on par with the DirectX® Raytracing (DXR) support that was added in the previous release
+2) Vulkan Raytracing support: features are on par with the DirectX Raytracing (DXR) support that was added in the previous release
 3) Cache counter visualization in the Wavefront Occupancy pane
 4) Performance improvements when navigating through the RGP UI with large DXR profiles
 5) Improved copy to clipboard support in various RGP UI elements
