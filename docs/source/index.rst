@@ -74,6 +74,8 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Ubuntu 20.04 LTS (Vulkan only)
 
+-  Ubuntu 22.04 LTS (Vulkan only)
+
 Compute APIs, RDNA and GCN hardware, and operating systems
 ----------------------------------------------------------
 
@@ -128,17 +130,17 @@ How to load a profile
 
 There are a few ways to load a profile into RGP.
 
-1) Use the “File/Open profile” pull down menu item, or the
-   “File/Recent profiles” pull down menu item.
+1) Use the "File/Open profile" pull down menu item, or the
+   "File/Recent profiles" pull down menu item.
 
 .. image:: media_rgp/rgp_file_load.png
 
 .. image:: media_rgp/rgp_file_recent.png
 
-2) Go to the “Welcome” view and click on the “Open a Radeon GPU
-   Profile…” link.
+2) Go to the "Welcome" view and click on the "Open a Radeon GPU
+   Profile…" link.
 
-3) Go to the “Welcome” view and click on a profile that you have
+3) Go to the "Welcome" view and click on a profile that you have
    previously loaded in the Recent list.
 
 .. image:: media_rgp/rgp_welcome.png
@@ -154,7 +156,7 @@ There are a few ways to load a profile into RGP.
 
 5) Load a profile into a new instance of the **Radeon GPU Profiler**
    from the **Radeon Developer Panel**. Select a profile in the list and
-   click on “Open profile”.
+   click on "Open profile".
 
 .. image:: media_rgp/rdp_open_profile.png
 
@@ -885,14 +887,14 @@ The main functions provided by AGS for marking applications are:
   agsDriverExtensionsDX12_PopMarker;
   agsDriverExtensionsDX12_SetMarker;
 
-The below example shows how a draw call can be enclosed within a “Draw
-Particles” user marker, followed by inserting a marker.
+The below example shows how a draw call can be enclosed within a "Draw
+Particles" user marker, followed by inserting a marker.
 ::
 
   // Push a marker
   agsDriverExtensionsDX12_PushMarker(m_AGSContext, pCommandList, "DrawParticles");
 
-  // This draw call will be in the “Draw Particles” User Marker
+  // This draw call will be in the "Draw Particles" User Marker
   pCommandList->DrawInstanced(ParticleCount, 1, 0, 0);
 
   // Pop a marker
@@ -929,8 +931,8 @@ Viewing User Markers
 --------------------
 
 The RGP file captured for a frame of the above application contains many
-user markers. The user markers can be seen in the “Event timing” and
-“Pipeline state” views when you choose the “Group by User Marker” option
+user markers. The user markers can be seen in the "Event timing" and
+"Pipeline state" views when you choose the "Group by User Marker" option
 as shown below.
 
 .. image:: media_rgp/rgp_user_markers_1.png

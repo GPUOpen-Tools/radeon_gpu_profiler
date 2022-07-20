@@ -29,6 +29,13 @@ This pane allows users to thoroughly customize those colors.
 
 .. image:: media_rgp/rgp_themes_and_colors_settings.png
 
+**NOTE**: There are some coloring modes in RGP that use randomly-generated colors. These
+are the **Color by event**, **Color by API PSO** and **Color by user events** modes. In
+some situations, the randomly-generated colors can cause two very similar colors to be
+displayed near each other in the user interface, making it hard to distinguish between
+the similar colors. In order to alleviate this issue, the **Random color seed** setting
+allows the random seed to be altered, generating a different set of random colors.
+
 Keyboard shortcuts
 ------------------
 

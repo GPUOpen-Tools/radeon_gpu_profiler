@@ -1,27 +1,18 @@
-Radeon™ GPU Profiler V1.13 04-21-2022
+Radeon™ GPU Profiler V1.13.1 07-27-2022
 -------------------------------------
 
-V1.13 Changes
+V1.13.1 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
-1) Support for additional AMD RDNA™ 2 hardware
-2) Ray tracing counter visualization in the Wavefront Occupancy pane
-3) Support for DirectX® Raytracing (DXR) Tier 1.1 style inline raytracing
-  - Shaders that perform inline raytracing will be marked as such in various parts of RGP
-  - New "Color by ray tracing" mode in the Wavefront timeline portion of the Wavefront Occupancy pane will highlight waves from traditional ray tracing events as well as waves from shaders that contain inline ray tracing
-4) The ISA view in the Pipeline state pane now supports searching
-5) The shader table in the Pipeline state pane for ray tracing events now shows how many shaders are part of the pipeline
-6) Bug/stability fixes
-
-* Radeon Developer Panel
-
-1) RDP will now collect ray tracing counters when profiling an application running on a GPU that supports ray tracing
-2) As part of the support for ray tracing counters, RDP will now post-process counter data after capture. This allows for faster loading of profile data files in RGP
-3) The size of the SQTT memory buffer can now be configured to allow for a larger or smaller buffer
-4) Reduced profiling overhead when using a Workflow that includes both Profiling and Memory Tracing
-5) Fixed capture issue which caused each command buffer to be submitted individually when using a Workflow that includes both Profiling and Memory Tracing
+1) The seed used to generate random colors (for the "Color by event", "Color by API PSO" and "Color by user events" modes) can be altered by the user (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/64)
+2) Fixed issue with disassembly of SMEM instructions with offsets (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/65)
+3) Fixed sorting by Duration and Drain time columns in the Barriers pane (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/67)
+4) Fixed incorrect front-face stencil func value for DirectX® 12 profiles (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/68)
+5) Context rolls pane now includes the Vulkan® front and back stencil reference (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/69)
+6) Pipeline state pane will now report when thread group dimensions are the limiting factor for theoretical wavefront occupancy
+7) RGP can now open profile files saved in paths containing non-ASCII characters
 
 Known Issues
 -------------------------------------
@@ -44,7 +35,7 @@ Known Issues
 14) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
 15) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
 
-* Windows®
+* Windows
 
 1)  Queue synchronization data will be missing from DirectX 12 apps running on Windows Home editions.
 2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
@@ -54,7 +45,7 @@ Known Issues
 
 * Linux®
 
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
+1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
 2)  After launching RGP from the Developer Panel to view a captured profile, the panel may fail to connect the next time it is launched. The workaround is to close RGP before relaunching the panel.
 3)  If the Developer Panel or the Developer Service crash while running with the root account, it may be necessary to restart/exit them again with the root account in order to cleanup shared memory.
 4)  When running with the root account, the Developer Panel may output error or warning messages to the terminal. These should not prevent the panel from functioning properly.
@@ -70,6 +61,28 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V1.13 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for additional AMD RDNA 2 hardware
+2) Ray tracing counter visualization in the Wavefront Occupancy pane
+3) Support for DirectX Raytracing (DXR) Tier 1.1 style inline raytracing
+  - Shaders that perform inline raytracing will be marked as such in various parts of RGP
+  - New "Color by ray tracing" mode in the Wavefront timeline portion of the Wavefront Occupancy pane will highlight waves from traditional ray tracing events as well as waves from shaders that contain inline ray tracing
+4) The ISA view in the Pipeline state pane now supports searching
+5) The shader table in the Pipeline state pane for ray tracing events now shows how many shaders are part of the pipeline
+6) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) RDP will now collect ray tracing counters when profiling an application running on a GPU that supports ray tracing
+2) As part of the support for ray tracing counters, RDP will now post-process counter data after capture. This allows for faster loading of profile data files in RGP
+3) The size of the SQTT memory buffer can now be configured to allow for a larger or smaller buffer
+4) Reduced profiling overhead when using a Workflow that includes both Profiling and Memory Tracing
+5) Fixed capture issue which caused each command buffer to be submitted individually when using a Workflow that includes both Profiling and Memory Tracing
 
 V1.12 Changes
 -------------------------------------
@@ -169,7 +182,7 @@ V1.8 Changes
 6) Navigation is now supported from Overlays in the Event timeline in the Wavefront Occupancy pane
 7) Improved performance in the Pipeline State view when loading ISA for large shaders
 8) Improved column sorting support in Pipelines Overview pane
-9) Support for viewing the location (for example in Windows® Explorer) of an .rgp file (both the currently-loaded or a recently-loaded file)
+9) Support for viewing the location (for example in Windows Explorer) of an .rgp file (both the currently-loaded or a recently-loaded file)
 10) Support running on Ubuntu 20.04
 11) Bug/stability fixes
 
@@ -268,7 +281,7 @@ V1.4 Changes
 AMD RX Vega 64, AMD RX Vega 56, AMD Ryzen™ 5 2400G and Ryzen 3 2200G Processors with Radeon Vega Graphics
 2) Improved ability to capture profiles from applications with multiple devices and APIs
 3) Coloring of alert messages changed so that warnings are colored with a yellow background
-4) Alert the user if peak clocks isn't enabled (Linux® only)
+4) Alert the user if peak clocks isn't enabled (Linux only)
 5) Display 'localhost' if connected via a pipe locally, rather than the pipename
 6) Bug/stability fixes & UI clean ups
 

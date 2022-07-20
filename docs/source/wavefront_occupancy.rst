@@ -27,7 +27,7 @@ desired region as shown below.
 .. image:: media_rgp/rgp_wavefront_occupancy_3.png
 
 You can zoom into the region by selecting Ctrl + Z, or by clicking on
-“Zoom to selection” (result shown below).
+"Zoom to selection" (result shown below).
 
 .. image:: media_rgp/rgp_wavefront_occupancy_4.png
 
@@ -378,8 +378,8 @@ timeline view and navigate to the Event timing, Pipeline state,
 or Instruction timing pane, or to one of the panes in the Overview tab.
 The selected event or overlay will be shown in the chosen view.
 
-In addition, the user can zoom into an event using the “Zoom to
-selection” option from this context menu.
+In addition, the user can zoom into an event using the "Zoom to
+selection" option from this context menu.
 
 Below is a screenshot of what the right-click context menu looks like.
 
