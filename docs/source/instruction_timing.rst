@@ -1,21 +1,21 @@
-Instruction Timing
+Instruction timing
 ------------------
 
-The Instruction Timing pane shows the average issue latency of each instruction of a single shader.
-The Instruction Timing information is generated using hardware support on AMD RDNA and GCN GPUs.
-Generating Instruction Timing does not require recompilation of shaders or insertion of any
+The Instruction timing pane shows the average issue latency of each instruction of a single shader.
+The instruction timing information is generated using hardware support on AMD RDNA and GCN GPUs.
+Generating instruction timing does not require recompilation of shaders or insertion of any
 instrumentation into shaders.
 
-The Instruction Timing pane shows RDNA or GCN ISA. For a description of ISA, refer to the shader
+The Instruction timing pane shows RDNA or GCN ISA. For a description of ISA, refer to the shader
 programming guides at
 `GPUOpen <https://gpuopen.com/documentation/amd-isa-documentation/>`_.
-The Instruction Timing view for a shader is shown below.
+The Instruction timing pane for a shader is shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_1.png
 
 \ **Latency**
 
-Each shader line in the Instruction Timing view shows the time taken between the issue of an
+Each shader line in the Instruction timing view shows the time taken between the issue of an
 instruction and the one after that. To provide information on what Latency means some sample
 ISA statements are shown below.
 
@@ -128,43 +128,46 @@ range will contribute to the Latency, Hit count and Instruction cost percentage 
 range is set, the *fastest in selection* and *slowest in selection* filters will show information from
 the fastest and slowest waves within that range.
 
-The histogram only appears when there is more than one wavefront analyzed for the selected shader.
+If all analyzed wavefronts have the same total latency, the histogram will be hidden, as all wavefronts
+would end up in a single bucket. Because of this, the histogram is hidden when there is only a single
+wavefront analyzed for the selected shader. Any time the histogram is hidden, the *Wavefront latencies*
+drop down and the *Timeline* in the *Wavefront statistics* section of the side panel will also be hidden.
 
 \ **Instruction Timing Capture Granularity**
 
-Instruction Timing information is generated for the whole RGP profile, but data is limited to a
+Instruction timing information is generated for the whole RGP profile, but data is limited to a
 single shader engine. Only waves executed by a single shader engine contribute to the hit counts
 and timing information shown in the Instruction timing pane. Please see the Radeon Developer Panel
 documentation for more information on how to capture instruction timing information.
 
-To view all the events that have Instruction Timing information, the developer can choose the
-"Color by Instruction Timing" option in the Wavefront Occupancy or the Event Timing views.
+To view all the events that have instruction timing information, the developer can choose the
+"Color by instruction timing" option in the Wavefront occupancy or the Event timing views.
 
 \ **Availability of Instruction Timing**
 
-In certain cases it is possible that the Instruction Timing information may not be available for
-all events. The main reasons why Instruction Timing information may not be present
+In certain cases it is possible that the instruction timing information may not be available for
+all events. The main reasons why instruction timing information may not be present
 for an event are described below.
 
-\ **Hardware Architecture and Draw Scheduling**: Instruction Timing information is only sampled
+\ **Hardware Architecture and Draw Scheduling**: Instruction timing information is only sampled
 from some of the compute units on a single shader engine of the GPU. As a result, it is possible
 for events with very few waves to not have instruction data. This can happen if the
 GPU schedules the waves on a shader engine or compute unit that doesn't have instruction trace enabled.
 
-\ **Internal Events**: It should be noted that it is not possible to view Instruction Timing
+\ **Internal Events**: It should be noted that it is not possible to view instruction timing
 information for internal events such as Clear().
 
 \ **Navigation**
 
-The Instruction Timing for an event can be accessed by right clicking on that event and choosing
-the "View In Instruction Timing" option. Since it is common to use the same shader in multiple
+The instruction timing for an event can be accessed by right clicking on that event and choosing
+the "View In Instruction timing" option. Since it is common to use the same shader in multiple
 events, RGP provides an easy way to toggle between multiple events that use the same shader using
 the event drop down shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_2.png
 
 This allows the developer to study the behavior of the shader for different events. It is
-recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to change API PSO
+recommended to use the keyboard shortcuts, (Shift + Up and Shift + Down) to change the API PSO
 selection and (Shift + Left and Shift + Right) to move across different events using the same
 shader. The :ref:`API Shader Stage Control <api_shader_stage_control>` indicates which shader
 stages are active for the selected event. When an active stage is clicked, the Instruction
@@ -178,7 +181,8 @@ for the selected event. There are two possible compilation modes: **Unified** an
 compilation mode chosen for a particular event will be evident in the event name: events which use
 the Unified mode will have a **<Unified>** suffix, while events which use the Indirect mode will have
 an **<Indirect>** suffix. In the case of DirectX Raytracing, the full event names are
-**DispatchRays<Unified>** and **DispatchRays<Indirect>**. For Vulkan, the full event names are
+**DispatchRays<Unified>** or **ExecuteIndirect<Rays><Unified>** and **DispatchRays<Indirect>** or
+**ExecuteIndirect<Rays><Indirect>**. For Vulkan, the full event names are
 **vkCmdTraceRaysKHR<Unified>** or **vkCmdTraceRaysIndirectKHR<Unified>** and
 **vkCmdTraceRaysKHR<Indirect>** or **vkCmdTraceRaysIndirectKHR<Indirect>**. The main difference
 between these two compilation modes has to do with how the individual shaders in the raytracing
@@ -187,7 +191,7 @@ resulting in a single set of ISA. In Indirect mode, the individual shaders are c
 and the functions in each shader end up as their own set of ISA instructions. Function call
 instructions are generated in the ISA to allow one function to call another.
 
-The way the ISA code is presented in the Instruction timing UI follows the way the driver and compiler
+The way the ISA code is presented in the Instruction timing view follows the way the driver and compiler
 handle the shaders. For Unified mode, there is a single stream of ISA and the Instruction timing view
 treats it as a single shader. For Indirect mode, there are multiple streams of instructions, one for
 each shader in the raytracing pipeline. The instruction streams and their associated costs are displayed
@@ -203,8 +207,18 @@ can be used to move among the list of Export names. This **Export name** drop do
 
 .. image:: media_rgp/rgp_instruction_timing_exports.png
 
-Display of line numbers can be toggled using (Ctrl + Shift + L) and lines can be navigated to
-directly using the (Ctrl + G) shortcut
+\ **Navigation in Compute profiles**
+
+In profiles collected for OpenCL or HIP applications, the navigation controls are slightly different.
+Instead of the API PSO drop down, there is a event name/kernel name drop down. This drop down contains
+an entry for each unique kernel dispatch found in the profile. Once an event name or kernel name is
+selected, the Event drop down can be used to choose between events that dispatch the selected kernel.
+The API Shader Stage Control is not available in Compute profiles. Keyboard shortcuts can be used to
+cycle through the available kernel names (Shift + Up and Shift + Down) and to move across different
+events using the selected kernel (Shift + Left and Shift + Right). The navigation controls for a
+Compute profile are shown below.
+
+.. image:: media_rgp/rgp_instruction_timing_3.png
 
 \ **Search and Go to Line**
 
@@ -213,9 +227,13 @@ line using the controls displayed below.
 
 .. image:: media_rgp/rgp_instruction_timing_find.png
 
+Both the Search command (Ctrl + F) and the Go to Line command (Ctrl + G) can be invoked using keystrokes.
+
+The display of line numbers can be toggled using a keyboard shortcut (Ctrl + Alt + L).
+
 \ **Instruction Timing Side Panel**
 
-The Instruction Timing side panel provides additional information about the shader shown.
+The Instruction timing side panel provides additional information about the shader shown.
 
 .. image:: media_rgp/rgp_instruction_side_panel.png
 
@@ -285,13 +303,13 @@ of analyzed wavefronts)*
 \ **Shader Statistics**: The shader statistics section provides useful information about the shader
 
 - Shader Duration: This denotes the execution duration of the whole shader. It can be correlated
-  with the timings seen for the same shader in other RGP views such as the Wavefront Occupancy and
-  the Event Timing views.
+  with the timings seen for the same shader in other RGP views such as the Wavefront occupancy and
+  the Event timing views.
 
 - Wavefronts: This denotes the total number of wavefronts in the shader and the number of
-  wavefronts analyzed as part of building the Instruction Timing visualizations. It is expected that
+  wavefronts analyzed as part of building the instruction timing visualizations. It is expected that
   not all waves in the shader will be analyzed. This is for the same reasons described above when
-  discussing the availability of Instruction Timing.
+  discussing the availability of instruction timing.
 
 - Theoretical Occupancy: From the register information and knowledge about the GPU architecture we
   can calculate the theoretical maximum wavefront occupancy for the shader.
@@ -314,14 +332,10 @@ Call targets list shows the name of the export that control will return to.
 
 \ **Instruction Timing for RDNA**
 
-On RDNA GPUs, Instruction Timing can include certain instructions with a hit count of 0. Usually
+On RDNA GPUs, instruction timing can include certain instructions with a hit count of 0. Usually
 this will be an instruction called *s_code_end* and may also be present after the shader's
 *s_endpgm* instruction. This is expected since this is an instruction added by the compiler to
 allow for instruction prefetching or for padding purposes. The hardware does not execute this
 instruction.
 
 Such instructions may also be present in the ISA view in the Pipeline state pane.
-
-\ **Note**
-
-Instruction timing data is currently unavailable for OpenCL.

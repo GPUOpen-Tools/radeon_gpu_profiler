@@ -49,7 +49,7 @@ semantically the same if blending is enabled. A no-op indicates that no
 transform of the data is to be performed so the output is the same as
 the source.
 
-**Note:** For OpenCL applications, the pipeline state does not show the
+**Note:** For OpenCL or HIP applications, the pipeline state does not show the
 graphics specific stages since they are not active during compute dispatches.
 
 \ **Raytracing events**
@@ -60,8 +60,9 @@ raytracing event. The compilation mode chosen for a particular event will be
 evident in the event name: events which use the Unified mode will have a
 **<Unified>** suffix, while events which use the Indirect mode will have an
 **<Indirect>** suffix. In the case of DirectX Raytracing, the full event names
-are **DispatchRays<Unified>** and **DispatchRays<Indirect>**. For Vulkan, the
-full event names are **vkCmdTraceRaysKHR<Unified>** or **vkCmdTraceRaysIndirectKHR<Unified>**
+are **DispatchRays<Unified>** or **ExecuteIndirect<Rays><Unified>** and
+**DispatchRays<Indirect>** or **ExecuteIndirect<Rays><Indirect>**. For Vulkan,
+the full event names are **vkCmdTraceRaysKHR<Unified>** or **vkCmdTraceRaysIndirectKHR<Unified>**
 and **vkCmdTraceRaysKHR<Indirect>** or **vkCmdTraceRaysIndirectKHR<Indirect>**.
 The main difference between these two compilation modes has to do with how the
 individual shaders in the raytracing pipeline are compiled. In Unified mode,

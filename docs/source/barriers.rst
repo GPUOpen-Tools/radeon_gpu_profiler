@@ -68,7 +68,7 @@ The table shows the following information:
    the Wavefront occupancy, Event timing, Instruction timing or Pipeline
    state panes and view the event represented by the selected row in these
    panes, as well as in the side panels. The user can also see the parent
-   command buffer in the Frame Summary pane or navigate to the Render/depth
+   command buffer in the Frame summary pane or navigate to the Render/depth
    targets view and view the event in the timeline.
 
    Below is a screenshot of what the right-click context menu looks like:
@@ -102,22 +102,23 @@ The following Layout Transition columns are shown in the Barriers table:
 See `https://gpuopen.com/dcc-overview/ <https://gpuopen.com/dcc-overview/>`_ for more information
 on what may cause a **DCC Decompress** or what "clear" values can be used to skip **Fast Clear Eliminates**.
 
-Barriers and OpenCL
-~~~~~~~~~~~~~~~~~~~
+Barriers and OpenCL/HIP
+~~~~~~~~~~~~~~~~~~~~~~~
 
-Barriers for OpenCL profiles provide visibility into how the driver scheduled
+Barriers for OpenCL or HIP profiles provide visibility into how the driver scheduled
 dispatches to the GPU and dependencies between kernel dispatches. These barriers
 are the same synchronization primitives used by DirectX12 and Vulkan that are described above.
 
-The barriers shown in an OpenCL profile correspond to the barriers
-inserted by the OpenCL driver for one of the following reasons.
-
-#. **Queue Profiling** - The application has enabled profiling CL_QUEUE_PROFILING_ENABLE property
-   when creating a command queue. This causes barriers to be inserted so that timestamps can be recorded.
+The barriers shown in an OpenCL or HIP profile correspond to the barriers
+inserted by the OpenCL or HIP driver for one of the following reasons.
 
 #. **Data Dependencies** - There are data dependencies between subsequent dispatches. For
    example, reading the results of a previous kernel dispatch. This causes barriers to be inserted
    so that caches can be invalidated.
+
+#. **Queue Profiling** - (OpenCL-specific) The application has enabled profiling CL_QUEUE_PROFILING_ENABLE
+   property when creating a command queue. This causes barriers to be inserted so that timestamps can be
+   recorded.
 
 OpenCL command queues process dispatches one after another and it is common for a
 subsequent kernel dispatch to use the results of a previous kernel dispatch. For this reason, it
@@ -132,7 +133,9 @@ As we see, the time taken due to barriers is typically very small since inter-di
 .. image:: media_rgp/rgp_barriers_opencl_2.png
 
 
-It should be noted that the meaning of barriers in RGP for OpenCL is different from OpenCL's synchronization
-APIs and is not related to the OpenCL synchronization APIs based on cl_event or cl_barrier.
-For this reason, the barriers seen in OpenCL profiles are known as cmdBarrier() which is not a part of the OpenCL API.
-For OpenCL profiles, RGP does not presently show OpenCL events or host synchronization.
+It should be noted that the meaning of barriers in RGP for OpenCL/HIP is different from
+OpenCL or HIP built-in synchronization APIs. For example, barriers that appear in an
+OpenCL RGP profile are not related to the OpenCL synchronization APIs based on cl_event
+or cl_barrier. For this reason, the barriers seen in OpenCL/HIP profiles are displayed
+as **CmdBarrier()** which is not a part of the OpenCL or HIP API. For these profiles,
+RGP does not currently show API-specific events or host synchronization.

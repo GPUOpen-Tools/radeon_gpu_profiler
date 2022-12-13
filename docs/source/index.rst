@@ -2,9 +2,9 @@ The Radeon™ GPU Profiler
 ========================
 
 The Radeon GPU Profiler is a performance tool that can be used by
-developers to optimize DirectX®12, Vulkan® and OpenCL™ applications for AMD RDNA™
-and GCN hardware. It is part of a suite of tools comprised of the following
-software:
+developers to optimize DirectX®12, Vulkan®, OpenCL™ and HIP applications for
+AMD RDNA™ and GCN hardware. It is part of a suite of tools comprised of the
+following software:
 
 -  **Radeon Developer Mode Driver** - This is shipped as part of the AMD
    public Adrenalin driver and supports the developer mode features required for
@@ -17,7 +17,7 @@ software:
 
 -  **Radeon Developer Panel (RDP)** - A GUI application that allows the
    developer to configure driver settings and generate profiler data
-   from DirectX12, Vulkan and OpenCL applications.
+   from DirectX12, Vulkan, OpenCL and HIP applications.
 
 -  **Radeon GPU Profiler (RGP)** - A GUI tool used to visualize and
    analyze the profile data.
@@ -34,7 +34,7 @@ software:
    provides unique visualizations of queue synchronization using fences
    and semaphores, asynchronous compute, and barrier timings. Currently,
    it supports the explicit graphics APIs (DirectX12 and Vulkan), compute
-   APIs (OpenCL) and will NOT work with older graphics APIs such as
+   APIs (OpenCL and HIP) and will NOT work with older graphics APIs such as
    DirectX11 or OpenGL.
 
 Graphics APIs, RDNA and GCN hardware, and operating systems
@@ -47,6 +47,8 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 -  Vulkan
 
 \ **Supported RDNA and GCN hardware**
+
+-  AMD Radeon RX 7000 series
 
 -  AMD Radeon RX 6000 series
 
@@ -70,10 +72,6 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Windows® 11
 
--  Ubuntu 18.04 LTS (Vulkan only)
-
--  Ubuntu 20.04 LTS (Vulkan only)
-
 -  Ubuntu 22.04 LTS (Vulkan only)
 
 Compute APIs, RDNA and GCN hardware, and operating systems
@@ -83,7 +81,11 @@ Compute APIs, RDNA and GCN hardware, and operating systems
 
 -  OpenCL
 
+-  HIP
+
 \ **Supported RDNA and GCN hardware**
+
+-  AMD Radeon RX 7000 series
 
 -  AMD Radeon RX 6000 series
 
@@ -183,19 +185,19 @@ the profile data are within the **Overview** and **Events** sections.
 2. **Overview**
 
    a. **Frame Summary** - Contains a summary of the structure of the
-      graphics frame. This overview section is not available for OpenCL profiles.
+      graphics frame. This overview section is not available for OpenCL or HIP profiles.
 
-   b. **Profile Summary** - Contains a summary of the structure of the OpenCL profile.
+   b. **Profile Summary** - Contains a summary of the structure of the OpenCL of HIP profile.
 
    c. **Barriers** - Details of the barrier usage in the profile.
 
    d. **Context rolls** - Details of the hardware context register usage.
-      This overview section is not available for OpenCL profiles.
+      This overview section is not available for OpenCL or HIP profiles.
 
    e. **Most expensive events** - List of the most expensive events.
 
    f. **Render/depth targets** - Overview of render targets used throughout
-      the graphics frame. This overview section is not available for OpenCL profiles.
+      the graphics frame. This overview section is not available for OpenCL or HIP profiles.
 
    g. **Pipelines** - Details of the pipeline usage in the profile.
 
@@ -597,7 +599,8 @@ User Debug Markers
 ==================
 
 User markers can help application developers to correlate the data seen
-in RGP with their application behavior. User Markers are presently not supported for OpenCL.
+in RGP with their application behavior. User Markers are currently
+not supported for OpenCL or HIP.
 
 DirectX12 User Markers
 ----------------------

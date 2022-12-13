@@ -17,7 +17,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
    * Radeon GPU Profiler (RGP)
 3. To capture a profile from a game, run the Radeon Developer Panel and follow the instructions in the Help. Help can be found in the following locations:
    * Help web pages exist in the "docs" sub directory
-   * Help web pages can be accessed from the **Help** button in the Developer Panel
+   * Help web pages can be accessed from the **Help** button in the Radeon Developer Panel
    * Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the **Help** menu
    * The documentation is hosted publicly at:
      * https://radeon-developer-panel.readthedocs.io/en/latest/
@@ -29,6 +29,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
  * Vulkan
 
 ### Supported RDNA and GCN hardware
+* AMD Radeon RX 7000 series
 * AMD Radeon RX 6000 series
 * AMD Radeon RX 5000 series
 * AMD Radeon VII
@@ -41,16 +42,16 @@ In order to use the latest features of RGP, it is strongly recommended that user
 ### Supported Operating Systems
 * Windows® 10
 * Windows® 11
-* Ubuntu 18.04 LTS (Vulkan only)
-* Ubuntu 20.04 LTS (Vulkan only)
 * Ubuntu 22.04 LTS (Vulkan only)
 
 
 ## Compute APIs, RDNA and GCN hardware, and operating systems
 ### Supported APIs
 * OpenCL™
+* HIP
 
 ### Supported RDNA and GCN hardware
+* AMD Radeon RX 7000 series
 * AMD Radeon RX 6000 series
 * AMD Radeon RX 5000 series
 * AMD Radeon VII

@@ -41,10 +41,10 @@ different ways:
 -  **Color by API stage.** Default. Shows which wavefronts
    correspond to which Vulkan/DX12 pipeline stage.
 
--  **Color by GCN stage.** Shows which wavefronts correspond to which
-   GCN pipeline stage.
+-  **Color by RDNA (or GCN) shader stage.** Shows which wavefronts correspond to which
+   RDNA/GCN pipeline stage.
 
--  **Color by hardware context.** Shows which GCN context (0-7) the
+-  **Color by hardware context.** Shows which hardware context (0-7) the
    wavefronts ran on. This can be useful to visualize the amount of
    context rolls that occurred.
 
@@ -69,15 +69,21 @@ different ways:
    well as wavefronts from shaders with inlined ray tracing will be shown using
    the specified ray tracing color. All other waves will be shown as grey.
 
+Color modes can be synchronized across the Wavefront occupancy and Event timing
+panes. To do this, simply hold down the Ctrl key when selecting a mode from any
+Color by combo box. The selected color mode will be used for the Wavefront
+timeline and the Event timeline in the Wavefront occupancy pane as well as for
+the Event timing pane.
+
 Additionally, there are filters along the top intended to help visualize
-the occupancy of only certain GCN pipeline stages. Lastly, there are
+the occupancy of only certain RDNA or GCN pipeline stages. Lastly, there are
 colored legends on the bottom which serve as color reminders. Note these
 colors can be customized within Settings.
 
-The RGP wavefront occupancy for OpenCL has only compute in the wavefront occupancy.
-This is because compute APIs such as OpenCL only dispatch compute shader waves.
+The RGP wavefront occupancy for OpenCL or HIP has only compute in the wavefront occupancy.
+This is because compute APIs such as OpenCL or HIP only dispatch compute shader waves.
 For this same reason, a number of the coloring options such as hardware context
-and GCN stages are not applicable for OpenCL.
+and RDNA/GCN stages are not applicable for OpenCL or HIP.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_opencl.png
 
@@ -126,7 +132,7 @@ The description of each counter can be viewed by hovering the mouse over the
 counter name in the legend below the counter graphs.
 
 The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
-reported in the Device Configuration Overview pane.
+reported in the Device configuration pane in the Overview tab.
 
 Users may use the **Counters** combo box on the top left to choose which counters to
 include in the graph.
@@ -273,7 +279,10 @@ enabled. The following Overlays are supported:
 The event duration percentile filter allows users to only see events
 whose durations fall within a certain percentile. For example, selecting
 the rightmost-region of the slider will highlight the most expensive
-events. One will also find a textbox to filter out by event name.
+events. When using the slider buttons on the duration percentile filter,
+a tooltip will display the time duration range that corresponds to the
+selected percentiles. One will also find a textbox to filter the timeline
+by event name.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_7.png
 
@@ -305,15 +314,15 @@ The Details panel for a single event contains the following data:
 
 *  Hardware context and if it was rolled
 
-*  List of GCN hardware stages and wavefront counts
+*  List of RDNA or GCN hardware stages and wavefront counts
 
-*  Colored bar showing wavefront distribution per GCN hardware stage
+*  Colored bar showing wavefront distribution per RDNA or GCN hardware stage
 
 *  Total wavefront count
 
 *  Total threads
 
-*  GCN shader timeline graphic showing active stages and duration
+*  RDNA or GCN shader timeline graphic showing active stages and duration
 
 *  A table showing resource usage for each API shader stage:
 

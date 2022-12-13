@@ -11,14 +11,14 @@ toggle between these time units.
 This can be based off a combination of shader base address, depth buffer address,
 render target address and API PSO hash.
 
-**Sync event time windows:** Keep the Wavefront Occupancy and Event Timing
+**Sync event time windows:** Keep the Wavefront occupancy and Event timing
 panes in sync while browsing through different time ranges.
 
-**Processor boundness:** Specific to the Frame Summary and Profile Summary, this value will tell
+**Processor boundness:** Specific to the Frame summary and Profile summary, this value will tell
 RGP at which point to consider an application as being GPU bound or CPU bound.
 
 **Wavefront occupancy detail:** Increase the visual quality of wavefronts in
-the Wavefront Occupancy pane. This allows users to see a more accurate
+the Wavefront occupancy pane. This allows users to see a more accurate
 representation of GPU occupancy at the expense of some profiler performance.
 
 
@@ -45,7 +45,7 @@ Here users will find the **Keyboard shortcuts** pane:
 
 The **System activity, Wavefront occupancy and Event timing** shortcuts
 are specific to zooming and panning operations that can be performed
-within the Frame Summary and Events subtabs. See the section entitled
+within the Frame summary and Events subtabs. See the section entitled
 :ref:`Zoom Controls <zoom_controls>` for more information.
 
 .. image:: media_rgp/rgp_tabs_1.png

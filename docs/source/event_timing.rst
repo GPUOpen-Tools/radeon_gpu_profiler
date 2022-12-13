@@ -127,12 +127,11 @@ of the vertices shaded by the vertex shader.
 Users may also obtain information about an event's parent command buffer
 by right-clicking on an event. This will bring up a context menu which
 contains a menu item to find the event's parent command buffer. Selecting
-this menu item will navigate to the Frame Summary and set focus on the selected
-event's parent command buffer. Once here, users can obtain valuable system-level
-insight about the surrounding context for the event in question.
+this menu item will navigate to the Frame summary pane and set focus on the
+selected event's parent command buffer. Once here, users can obtain valuable
+system-level insight about the surrounding context for the event in question.
 
-Compute dispatches for both graphics APIs and OpenCL have a simpler structure.
-A sample compute event is shown below.
+Compute dispatches have a simpler structure. A sample compute event is shown below.
 
 .. image:: media_rgp/rgp_compute_event.png
 

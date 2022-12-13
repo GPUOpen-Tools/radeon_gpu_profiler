@@ -1,6 +1,6 @@
 
-Profile summary (OpenCL)
-------------------------
+Profile summary (OpenCL or HIP)
+-------------------------------
 
 This window describes the structure of a profile from a number of
 different perspectives.
@@ -32,7 +32,7 @@ Along the top, we find a series of controls:
    users to drill down into points of interest. See the section entitled
    :ref:`Zoom Controls<zoom_controls>` for more information.
 
-In the middle, we find the actual view. Each queue applicable to OpenCL (Compute, Copy)
+In the middle, we find the actual view. Each queue applicable to OpenCL or HIP (Compute, Copy)
 gets its own section. Note that command buffers are visualized using two shades of the
 same color. The lighter shade represents time spent prior to reaching the GPU, and
 the darker shade represents actual execution.
@@ -71,10 +71,12 @@ to video memory by the hardware while gathering the RGP profile. The
 profiling overhead is also expressed in terms of memory bandwidth used
 to write the SQTT data.
 
-The **Event statistics** pie chart and table show the event counts
-colored by different OpenCL APIs. In the example below, there are 89
-clEnqueueNDRangeKernel calls and 7 clEnqueueFillBuffer calls. The meaning
-of CmdBarrier() is explained in the Barriers section.
+The **Event statistics** pie chart and table show the event counts. For OpenCL, 
+the items are colored by OpenCL API type. For HIP, the items are colored by
+either kernel name (for dispatches) or HIP API type (for other events).
+In the example below, there are 89 clEnqueueNDRangeKernel calls and 7
+clEnqueueFillBuffer calls. The meaning of CmdBarrier() is explained in the
+Barriers section.
 
 .. image:: media_rgp/rgp_profile_summary_3.png
 ..

@@ -1,47 +1,56 @@
-Radeon™ GPU Profiler V1.13.1 07-27-2022
+Radeon™ GPU Profiler V1.14 12-14-2022
 -------------------------------------
 
-V1.13.1 Changes
+V1.14 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
-1) The seed used to generate random colors (for the "Color by event", "Color by API PSO" and "Color by user events" modes) can be altered by the user (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/64)
-2) Fixed issue with disassembly of SMEM instructions with offsets (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/65)
-3) Fixed sorting by Duration and Drain time columns in the Barriers pane (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/67)
-4) Fixed incorrect front-face stencil func value for DirectX® 12 profiles (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/68)
-5) Context rolls pane now includes the Vulkan® front and back stencil reference (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/69)
-6) Pipeline state pane will now report when thread group dimensions are the limiting factor for theoretical wavefront occupancy
-7) RGP can now open profile files saved in paths containing non-ASCII characters
+1) Support for AMD RDNA 3 hardware (AMD Radeon RX 7000 Series). Make sure you have the "Adrenalin 22.12.1 for RX7000 Series Graphics with Radeon Developer Tool Suite Support" driver or newer installed.
+2) Support for profiling HIP applications on Windows
+3) Support for Instruction timing capture and visualization for OpenCL™ and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
+4) The kernel ISA can now be displayed in the Pipeline state pane for OpenCL and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
+5) Cache and raytracing counter collection and visualization are now supported on Linux on RDNA 2 (and newer) hardware (requires at least a 22.40-based driver)
+5) Support for showing the raytracing pipeline and the raytracing shader table for ExecuteIndirect calls that perform raytracing and use the Indirect compilation path
+6) The various "Color by" combo boxes in the Events panes can now be automatically synchronized (hold down the CTRL key while selecting a Color By mode from one of the combo boxes)
+7) The Device configuration pane will now show additional cache size information
+8) The Radeon GPU Profiler UI will behave much better at lower screen resolutions. The recommended minimum resolution is still 1080p (1920 x 1080) but much of the user interface will look better and usability has been improved when running at lower resolutions
+9) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) Capturing profiles on multi-GPU systems is now supported
+2) Support for a new timer-based automatic capture mechanism for OpenCL and HIP applications (in addition to the existing dispatch range mechanism)
 
 Known Issues
 -------------------------------------
 
 * All platforms
 
-1)  Radeon Developer Panel will NOT capture profiles from AMD multi-GPU configurations (e.g. two AMD GPUs). It will work with one AMD GPU and other non-AMD cards installed in the same machine. Please note that the primary monitor will need to be configured for the AMD GPU/monitor combination. For systems consisting of an AMD APU and AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
-2)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
-3)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
-4)  Radeon Developer Panel will NOT capture profiles from Windows® Insider Editions.
-5)  Anti-virus may impede key-based capture (Ctrl+Alt+C)
-6)  Applications that call Present() from the async compute queue are not supported on pre-RDNA hardware.
-7)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
-8)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-9)  OpenCL™ captures may include an extra DMA command buffer in the Profile Summary.
-10) Launching the Radeon Developer Panel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
-11) Detailed instruction timing is not supported on OpenCL.
-12) In some rare cases on RDNA 2 hardware, all counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
-13) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
-14) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
-15) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
+1)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
+2)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
+3)  Radeon Developer Panel will NOT capture profiles from Windows® Insider Editions.
+4)  Anti-virus may impede key-based capture (Ctrl+Alt+C).
+5)  Applications that call Present() from the async compute queue are not supported on pre-RDNA hardware. Incomplete profile data may result on RDNA-based hardware.
+6)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
+7)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
+8)  OpenCL captures may include an extra DMA command buffer in the Profile summary.
+9)  Launching the Radeon Developer Panel, clicking "connect" and starting an application may cause a hang or reboot when using 3 or more attached monitors (especially if they are 4K). Please use a dual-monitor configuration at most to avoid this from happening.
+10) In some rare cases on RDNA 2 hardware, all counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
+11) In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
+12) In some cases on RDNA 3 hardware, the cache and raytracing counters may be missing. Usually, rebooting the system and recapturing will allow the missing data to show up.
+13) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
+14) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
+15) In some instances, profiles captured on multi-GPU systems may not be captured at peak GPU clock frequencies. If this is the case, changing which GPU the primary monitor is connected to may help.
+16) For systems consisting of an AMD APU and an AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
 
 * Windows
 
-1)  Queue synchronization data will be missing from DirectX 12 apps running on Windows Home editions.
+1)  Queue synchronization data will be missing from DirectX® 12 apps running on Windows Home editions.
 2)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
 3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
-4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame Summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
-5)  Vulkan profiles captured using the Adrenalin 22.3.2 or 22.4.1 driver may be missing Instruction timing data. Additionally, the Pipelines Overview and the ISA view in the Pipeline state view may be missing data. Please use either an older or newer driver when profiling Vulkan applications on Windows.
+4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
+5)  Vulkan® profiles captured using the Adrenalin 22.3.2 or 22.4.1 driver may be missing Instruction timing data. Additionally, the Pipelines Overview and the ISA view in the Pipeline state view may be missing data. Please use either an older or newer driver when profiling Vulkan applications on Windows.
 
 * Linux®
 
@@ -52,7 +61,7 @@ Known Issues
 5)  The Radeon Developer Service and Panel are only officially supported using the standard desktop managers (GDM and Unity). Other desktop managers should work but a dialog box indicating that the service is running in headless mode may pop up. However, it should still be possible to capture profiles.
 6)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the RemoveSharedMemory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
 7)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
-8)  Cache and ray tracing counter data collection is not currently supported on AMD RDNA 2 hardware on Linux.
+8)  On RDNA 3 hardware, detailed instruction timing data will not be available even when the user asks Radeon Developer Panel to collect it.
 
 * RDNA
 
@@ -62,16 +71,29 @@ Known Issues
 Release Notes History
 -------------------------------------
 
+V1.13.1 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) The seed used to generate random colors (for the "Color by event", "Color by API PSO" and "Color by user events" modes) can be altered by the user (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/64)
+2) Fixed issue with disassembly of SMEM instructions with offsets (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/65)
+3) Fixed sorting by Duration and Drain time columns in the Barriers pane (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/67)
+4) Fixed incorrect front-face stencil func value for DirectX 12 profiles (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/68)
+5) Context rolls pane now includes the Vulkan front and back stencil reference (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/69)
+6) Pipeline state pane will now report when thread group dimensions are the limiting factor for theoretical wavefront occupancy
+7) RGP can now open profile files saved in paths containing non-ASCII characters
+
 V1.13 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
 1) Support for additional AMD RDNA 2 hardware
-2) Ray tracing counter visualization in the Wavefront Occupancy pane
+2) Ray tracing counter visualization in the Wavefront occupancy pane
 3) Support for DirectX Raytracing (DXR) Tier 1.1 style inline raytracing
   - Shaders that perform inline raytracing will be marked as such in various parts of RGP
-  - New "Color by ray tracing" mode in the Wavefront timeline portion of the Wavefront Occupancy pane will highlight waves from traditional ray tracing events as well as waves from shaders that contain inline ray tracing
+  - New "Color by ray tracing" mode in the Wavefront timeline portion of the Wavefront occupancy pane will highlight waves from traditional ray tracing events as well as waves from shaders that contain inline ray tracing
 4) The ISA view in the Pipeline state pane now supports searching
 5) The shader table in the Pipeline state pane for ray tracing events now shows how many shaders are part of the pipeline
 6) Bug/stability fixes
@@ -94,7 +116,7 @@ V1.12 Changes
   - Single-wavefront Instruction timing mode
   - UI now shows which parts of latency are hidden by work on other slots
   - Searching will now find text matches in labels instead of only instructions
-3) New "Color by API PSO" mode to Wavefront timeline in the Wavefront Occupancy pane
+3) New "Color by API PSO" mode to Wavefront timeline in the Wavefront occupancy pane
 4) RGP will now inform the user about missing/incorrect data when profiles are loaded
   - DirectX 12 profiles with missing Signals/Waits Synchronization Primitive data will be detected
   - Profiles with missing/incorrect cache counter data will be detected
@@ -134,7 +156,7 @@ V1.10 Changes
 
 1) Support for additional AMD RDNA 2 hardware
 2) Vulkan Raytracing support: features are on par with the DirectX Raytracing (DXR) support that was added in the previous release
-3) Cache counter visualization in the Wavefront Occupancy pane
+3) Cache counter visualization in the Wavefront occupancy pane
 4) Performance improvements when navigating through the RGP UI with large DXR profiles
 5) Improved copy to clipboard support in various RGP UI elements
 6) Most Expensive Events pane now has an additional "Work duration" column
@@ -176,11 +198,11 @@ V1.8 Changes
 2) Theoretical occupancy calculation improvements
    - The Theoretical occupancy figures shown throughout the RGP UI now take LDS and thread group size into account when necessary
    - The Theoretical occupancy figures shown throughout the RGP UI are now more accurate on Radeon RX 5000 series GPUs
-3) Reworked the reported Frame Duration calculation in the Frame Summary pane to report Present-to-present duration, rather than just duration of collected hardware data
+3) Reworked the reported Frame Duration calculation in the Frame summary pane to report Present-to-present duration, rather than just duration of collected hardware data
 4) Improved UI handling of running at different DPI display settings
 5) Improved event timing calculations to properly take into account overlapped events
-6) Navigation is now supported from Overlays in the Event timeline in the Wavefront Occupancy pane
-7) Improved performance in the Pipeline State view when loading ISA for large shaders
+6) Navigation is now supported from Overlays in the Event timeline in the Wavefront occupancy pane
+7) Improved performance in the Pipeline state view when loading ISA for large shaders
 8) Improved column sorting support in Pipelines Overview pane
 9) Support for viewing the location (for example in Windows Explorer) of an .rgp file (both the currently-loaded or a recently-loaded file)
 10) Support running on Ubuntu 20.04
@@ -202,11 +224,11 @@ V1.7 Changes
    on RDNA hardware
 4) In the Barriers pane, additional cache levels (L0/L1/L2) are shown for invalidates on RDNA hardware
 5) The Most expensive events and Render/depth targets panes now have sortable table columns
-6) The Frame Summary and Profile Summary panes now show the amount of profiling overhead (the amount
+6) The Frame summary and Profile summary panes now show the amount of profiling overhead (the amount
    of video memory and bandwidth consumed by profile data collection)
-7) Add Overlays in the Wavefront Occupancy Event Timeline view to view User events, Hardware contexts,
+7) Add Overlays in the Wavefront occupancy Event Timeline view to view User events, Hardware contexts,
    Command buffers and Render targets
-8) Improved Instruction Timing to increase accuracy of timing data
+8) Improved Instruction timing to increase accuracy of timing data
 9) Improved zoom control UI in the various panes that support zooming
 10) Improved UI when running at different DPI settings
 11) Bug/stability fixes
@@ -240,7 +262,7 @@ V1.5.1 Changes
 * Radeon GPU Profiler
 
 1) Support for displaying profiles taken with instruction tracing data
-2) Support for displaying user events in the Wavefront Occupancy timeline view
+2) Support for displaying user events in the Wavefront occupancy timeline view
 3) Support to display GCN ISA disassembly in the Pipeline state view
 4) Support for showing and colorizing API PSO hash for each event
 5) New grouping modes based on API PSO hash
@@ -349,7 +371,7 @@ V1.1.0 Changes
 
 1) GPU only view option added to system activity view
 2) Placed system activity checkboxes inside new pulldowns: Workload views and CPU submission markers
-3) Color by command buffer added to Event Timing and wavefront occupancy timeline views
+3) Color by command buffer added to Event timing and Wavefront occupancy timeline views
 4) Barriers & layout transitions extended to show whether they originated from the application or the driver. Text indicating the reason for the barrier will be shown if available
 5) Fixed-function work shown as part of an event in the Event timing pane and the timeline in the wavefront occupancy view
 6) Actionable context rolls, showing the state changes that caused them
