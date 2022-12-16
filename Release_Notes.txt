@@ -7,7 +7,7 @@ V1.14 Changes
 * Radeon GPU Profiler
 
 1) Support for AMD RDNA 3 hardware (AMD Radeon RX 7000 Series). Make sure you have the "Adrenalin 22.12.1 for RX7000 Series Graphics with Radeon Developer Tool Suite Support" driver or newer installed.
-2) Support for profiling HIP applications on Windows
+2) Support for profiling HIP applications on Windows (best results require at least a 22.40-based driver)
 3) Support for Instruction timing capture and visualization for OpenCL™ and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
 4) The kernel ISA can now be displayed in the Pipeline state pane for OpenCL and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
 5) Cache and raytracing counter collection and visualization are now supported on Linux on RDNA 2 (and newer) hardware (requires at least a 22.40-based driver)
@@ -43,6 +43,7 @@ Known Issues
 14) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
 15) In some instances, profiles captured on multi-GPU systems may not be captured at peak GPU clock frequencies. If this is the case, changing which GPU the primary monitor is connected to may help.
 16) For systems consisting of an AMD APU and an AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
+17) Cache sizes reported on the Device configuration pane may be incorrect on RDNA 2 based GPUs if not using at least a 22.40-based driver.
 
 * Windows
 
@@ -51,6 +52,7 @@ Known Issues
 3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
 4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
 5)  Vulkan® profiles captured using the Adrenalin 22.3.2 or 22.4.1 driver may be missing Instruction timing data. Additionally, the Pipelines Overview and the ISA view in the Pipeline state view may be missing data. Please use either an older or newer driver when profiling Vulkan applications on Windows.
+6)  Full HIP support requires at least a 22.40-based driver. With earlier drivers, the profile will look like an OpenCL profile, rather than a HIP profile. 
 
 * Linux®
 
