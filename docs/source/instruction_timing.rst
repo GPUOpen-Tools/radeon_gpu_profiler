@@ -8,7 +8,7 @@ instrumentation into shaders.
 
 The Instruction timing pane shows RDNA or GCN ISA. For a description of ISA, refer to the shader
 programming guides at
-`GPUOpen <https://gpuopen.com/documentation/amd-isa-documentation/>`_.
+`GPUOpen <https://gpuopen.com/amd-isa-documentation/>`_.
 The Instruction timing pane for a shader is shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_1.png

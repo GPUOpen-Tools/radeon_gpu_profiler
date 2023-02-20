@@ -1,26 +1,21 @@
-Radeon™ GPU Profiler V1.14 12-14-2022
+Radeon™ GPU Profiler V1.14.1 02-20-2023
 -------------------------------------
 
-V1.14 Changes
+V1.14.1 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
-1) Support for AMD RDNA 3 hardware (AMD Radeon RX 7000 Series). Make sure you have the "Adrenalin 22.12.1 for RX7000 Series Graphics with Radeon Developer Tool Suite Support" driver or newer installed.
-2) Support for profiling HIP applications on Windows (best results require at least a 22.40-based driver)
-3) Support for Instruction timing capture and visualization for OpenCL™ and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
-4) The kernel ISA can now be displayed in the Pipeline state pane for OpenCL and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
-5) Cache and raytracing counter collection and visualization are now supported on Linux on RDNA 2 (and newer) hardware (requires at least a 22.40-based driver)
-5) Support for showing the raytracing pipeline and the raytracing shader table for ExecuteIndirect calls that perform raytracing and use the Indirect compilation path
-6) The various "Color by" combo boxes in the Events panes can now be automatically synchronized (hold down the CTRL key while selecting a Color By mode from one of the combo boxes)
-7) The Device configuration pane will now show additional cache size information
-8) The Radeon GPU Profiler UI will behave much better at lower screen resolutions. The recommended minimum resolution is still 1080p (1920 x 1080) but much of the user interface will look better and usability has been improved when running at lower resolutions
-9) Bug/stability fixes
-
-* Radeon Developer Panel
-
-1) Capturing profiles on multi-GPU systems is now supported
-2) Support for a new timer-based automatic capture mechanism for OpenCL and HIP applications (in addition to the existing dispatch range mechanism)
+1)  Fix a crash when loading a RADV-exported profile (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/77)
+2)  Fix a crash when loading a profile captured from OpenMM's amoebagk benchmark (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/81)
+3)  Fix issue where the specified ray tracing export function was not shown in the Instruction timing pane when navigating from the Ray tracing shader table in the Pipeline state pane
+4)  Fix issue where keyboard selection of an item in the event tree view in the Event timing and Pipeline state pane did not cause the Details pane to update
+5)  Fix incorrect state of the "Compression" flag for Color Targets on the Render targets pane on AMD RDNA 3 Series GPUs
+6)  Fix several Instruction timing issues on AMD RDNA 3 Series GPUs
+  - Improve overall accuracy of the data (for some events, the data from some or all wavefronts was being ignored)
+  - Improve accuracy of the Hardware Utilization bar graphs
+  - Fix several issues with incorrect hit count shown for s_delay_alu, s_subvector_loop_begin and some s_waitcnt instructions
+  - Fix issue with incorrect VALU/SALU latency breakdown when total latency is relatively low
 
 Known Issues
 -------------------------------------
@@ -52,7 +47,7 @@ Known Issues
 3)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
 4)  If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
 5)  Vulkan® profiles captured using the Adrenalin 22.3.2 or 22.4.1 driver may be missing Instruction timing data. Additionally, the Pipelines Overview and the ISA view in the Pipeline state view may be missing data. Please use either an older or newer driver when profiling Vulkan applications on Windows.
-6)  Full HIP support requires at least a 22.40-based driver. With earlier drivers, the profile will look like an OpenCL profile, rather than a HIP profile. 
+6)  Full HIP support requires at least a 22.40-based driver. With earlier drivers, the profile will look like an OpenCL profile, rather than a HIP profile.
 
 * Linux®
 
@@ -72,6 +67,27 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V1.14 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for AMD RDNA 3 hardware (AMD Radeon RX 7000 Series). Make sure you have the "Adrenalin 22.12.1 for RX7000 Series Graphics with Radeon Developer Tool Suite Support" driver or newer installed.
+2) Support for profiling HIP applications on Windows (best results require at least a 22.40-based driver)
+3) Support for Instruction timing capture and visualization for OpenCL™ and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
+4) The kernel ISA can now be displayed in the Pipeline state pane for OpenCL and HIP applications (requires RDNA-based hardware and at least a 22.10-based driver)
+5) Cache and raytracing counter collection and visualization are now supported on Linux on RDNA 2 (and newer) hardware (requires at least a 22.40-based driver)
+5) Support for showing the raytracing pipeline and the raytracing shader table for ExecuteIndirect calls that perform raytracing and use the Indirect compilation path
+6) The various "Color by" combo boxes in the Events panes can now be automatically synchronized (hold down the CTRL key while selecting a Color By mode from one of the combo boxes)
+7) The Device configuration pane will now show additional cache size information
+8) The Radeon GPU Profiler UI will behave much better at lower screen resolutions. The recommended minimum resolution is still 1080p (1920 x 1080) but much of the user interface will look better and usability has been improved when running at lower resolutions
+9) Bug/stability fixes
+
+* Radeon Developer Panel
+
+1) Capturing profiles on multi-GPU systems is now supported
+2) Support for a new timer-based automatic capture mechanism for OpenCL and HIP applications (in addition to the existing dispatch range mechanism)
 
 V1.13.1 Changes
 -------------------------------------
