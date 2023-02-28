@@ -637,13 +637,13 @@ When using WinPixEventRuntime version 1.0.210209001:
 ::
 
   #if defined(USE_PIX) || !defined(PIX_XBOX)
-  #define PIX_CONTEXT_EMIT_CPU_EVENTS
-  #endif
+    #define PIX_CONTEXT_EMIT_CPU_EVENTS
   
-  #ifndef PIX_XBOX
-  #include "AmdDxExt\AmdPix3.h"
-  #define PIX_AMD_EXT
-  #endif
+    #ifndef PIX_XBOX
+      #include "AmdDxExt\AmdPix3.h"
+      #define PIX_AMD_EXT
+    #endif
+  #endif  
 
 When using WinPixEventRuntime version 1.0.200127001:
 ::
