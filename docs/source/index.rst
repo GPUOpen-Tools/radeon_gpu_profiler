@@ -637,9 +637,13 @@ When using WinPixEventRuntime version 1.0.210209001:
 ::
 
   #if defined(USE_PIX) || !defined(PIX_XBOX)
-  #define PIX_CONTEXT_EMIT_CPU_EVENTS
-  #include "AmdDxExt\AmdPix3.h"
-  #endif
+    #define PIX_CONTEXT_EMIT_CPU_EVENTS
+  
+    #ifndef PIX_XBOX
+      #include "AmdDxExt\AmdPix3.h"
+      #define PIX_AMD_EXT
+    #endif
+  #endif  
 
 When using WinPixEventRuntime version 1.0.200127001:
 ::
@@ -659,22 +663,31 @@ When using WinPixEventRuntime version 1.0.210209001:
 ::
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
-    // PIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #ifdef PIX_AMD_EXT
     RgpPIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #else
+    PIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #endif
   #endif
 
 ::
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
-    // PIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #ifdef PIX_AMD_EXT
     RgpPIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #else
+    PIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #endif
   #endif
 
 ::
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
-    // PIXEndEventOnContextCpu(context);
+  #ifdef PIX_AMD_EXT
     RgpPIXEndEventOnContextCpu(context);
+  #else
+    PIXEndEventOnContextCpu(context);
+  #endif
   #endif
 
 When using WinPixEventRuntime version 1.0.200127001:
