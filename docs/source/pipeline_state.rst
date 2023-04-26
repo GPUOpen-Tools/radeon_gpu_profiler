@@ -29,6 +29,8 @@ used and allocated and the various hash values for this event.
 
 .. image:: media_rgp/rgp_pipeline_state_3.png
 
+More information on the ISA tab can be found under the :ref:`ISA View <isa_view>` section.
+
 **Grouping modes**
 
 The grouping modes are the same as in the Event timing pane.

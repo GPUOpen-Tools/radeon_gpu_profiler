@@ -56,8 +56,12 @@ The **Event timeline** section refers to panning and event selection
 operations for the bottom graph within the Wavefront occupancy view.
 
 The **Instruction timing** section refers to keystrokes to change
-API PSO, event and export selection, toggle line numbers, and jump
-to a specific instruction.
+API PSO, event and export selection.
+
+The **ISA Viewer (in Pipeline state and Instruction timing)** section
+refers to keystrokes to jump to a specific instruction, search for
+text, expand or collapse blocks of code, traverse through navigation
+history and toggle line numbers.
 
 The **Global navigation** section refers to keystrokes that aid user
 navigation, and are always detected regardless of which pane is visible.

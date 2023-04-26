@@ -66,8 +66,8 @@ The Pipelines table can be sorted by clicking on a column header.
 
 Below the table, the Bucket ID, API PSO hash and Driver internal pipeline
 hash for the currently-selected pipeline is displayed. There is also a quick link to
-view the selected pipeline in the Pipeline State view. This will navigate to the
-Pipeline State view for the first event associated with the pipeline.
+view the selected pipeline in the Pipeline state view. This will navigate to the
+Pipeline state view for the first event associated with the pipeline.
 
 Events
 ~~~~~~

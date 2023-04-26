@@ -20,19 +20,18 @@ instruction and the one after that. To provide information on what Latency means
 ISA statements are shown below.
 
 **Best Case Instruction Issue:** In the below image, we see five instructions. The *1 clk*
-denotes the latency between the issue of the *s_add_u32* instruction and the issue of the following
-*s_and_b32* instruction. Similarly, the interval between the issue of *v_rcp_f32_e32*
-and *s_add_u32* instruction is 2 clocks. This example shows an ideal performance case where each
-instruction is issued at an interval of 1-2 clocks.
+denotes the latency between the issue of each of the instructions and the issue of the
+following instruction.  This example shows an ideal performance case where each
+instruction is issued at an interval of 1 clock.
 
 .. image:: media_rgp/rgp_instruction_timing_example_1.png
 
-**Delays in Instruction Issue:** In the below image, we see three export instructions. The
-*exp pos0* has a rather long interval of 16,616 clocks. This can be expected since the
-*exp pos0* instruction's issue can be delayed for reasons such as unavailable memory resources
+**Delays in Instruction Issue:** In the below image, we see four export instructions. The
+first *exp* instruction has a rather long interval of 4,162 clocks. This can be expected since the
+export instruction's issue can be delayed for reasons such as unavailable memory resources
 which may be in use by other wavefronts. As a result, there is a long duration in the instruction.
 Since the latency waiting for memory resources was seen for the first export instruction,
-the subsequent export, *exp param0* has a much shorter duration.
+the subsequent exports, have a much shorter duration.
 
 .. image:: media_rgp/rgp_instruction_timing_example_2.png
 
@@ -84,8 +83,13 @@ work. In this case, yellow is more prevalent than green.
 \ **Hit Count**
 
 The *Hit count* for each instruction shows the number of times the instruction was executed for the
-selected event. Any basic blocks that have a hit count of zero will be displayed as disabled in the
-Instruction timing view, as shown below.
+selected event. Any basic blocks that have a hit count of zero across all wavefronts in a shader will 
+automatically be collapsed when viewing an event for the first time, as shown below.
+
+.. image:: media_rgp/rgp_instruction_timing_disabled_and_collapsed_block.png
+
+Basic blocks with a current hit count of zero based on the current latency range and latency selection
+mode will also be grayed out, as shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_disabled_block.png
 
@@ -220,16 +224,8 @@ Compute profile are shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_3.png
 
-\ **Search and Go to Line**
-
-Individual instructions can be searched for and the developer can navigate directly to a specific
-line using the controls displayed below.
-
-.. image:: media_rgp/rgp_instruction_timing_find.png
-
-Both the Search command (Ctrl + F) and the Go to Line command (Ctrl + G) can be invoked using keystrokes.
-
-The display of line numbers can be toggled using a keyboard shortcut (Ctrl + Alt + L).
+More information on some of the features available in the Instruction timing pane can be found under
+the :ref:`ISA View <isa_view>` section.
 
 \ **Instruction Timing Side Panel**
 
@@ -276,13 +272,15 @@ more details.
 
 - LDS: Includes Local Data Share instructions
 
-- IMMEDIATE: Includes the immediate instructions such as s_nop and s_waitcnt.
+- IMMEDIATE: Includes the immediate instructions such as s_nop and s_waitcnt
 
 - EXPORT: Includes export instructions
 
 - MISC: Includes other miscellaneous instructions such as s_endpgm
 
-- RAYTRACE: Includes the BVH instructions used during raytracing.
+- RAYTRACE: Includes the BVH instructions used during raytracing. Only shown when viewing profiles captured on a GPU that supports ray tracing
+
+- WMMA: Includes the WMMA instructions used during wave matrix multiply accumulate operations. Only shown when viewing profiles captured on a GPU that supports WMMA instructions
 
 The instruction types table provides a useful summary of the shader's structure especially for very
 long shaders.

@@ -93,7 +93,7 @@ as in the Wavefront occupancy view.
 
 The user can also right-click on any of the events and navigate to
 Wavefront occupancy or Pipeline state panes, as well as Barriers, Most
-expensive events and Context rolls panes within Overview tab, and view
+expensive events and Context rolls panes within the Overview tab, and view
 the selected event in these panes, as well as in the side panels.
 
 **Wavefront occupancy and event timing window synchronization**
