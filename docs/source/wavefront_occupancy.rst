@@ -90,9 +90,9 @@ and RDNA/GCN stages are not applicable for OpenCL or HIP.
 \ **Cache counters**
 
 This section visualizes the cache counter data collected while profiling.
-Cache counter data is only available on Radeon RX 5000 series and Radeon
-RX 6000 series GPUs. While profiling, counter data is sampled at a fixed
-rate, roughly one sample every 4096 clock cycles.
+Cache counter data is only available on Radeon RX 5000 series and newer
+GPUs. While profiling, counter data is sampled at a fixed rate, roughly
+one sample every 4096 clock cycles.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_1.png
 
@@ -167,7 +167,8 @@ presentation found on gpuopen.com.
 \ **Ray tracing counters**
 
 When profiling a game that uses ray tracing, a second row of counter data will show
-ray tracing counter values.
+ray tracing counter values. These counters are only available on Radeon RX 6000
+series and newer GPUs.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_5.png
 

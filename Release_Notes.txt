@@ -1,24 +1,18 @@
-Radeon™ GPU Profiler V1.15 04-26-2023
+Radeon™ GPU Profiler V1.15.1 05-24-2023
 -------------------------------------
 
-V1.15 Changes
+V1.15.1 Changes
 -------------------------------------
 
 * Radeon GPU Profiler
 
-1) Support for additional AMD RDNA 3 hardware
-2) Newly redesigned ISA disassembly views in the Pipeline state and Instruction timing panes
-  - Code blocks can now be collapsed/expanded
-  - Selected token highlighting allows you to quickly see other instances of the selected token (instruction opcodes, registers and constants)
-  - One-click navigation between branch instructions and their targets, along with tracked navigation history
-  - Customize the displayed columns
-  - Improved search result highlighting
-3) Improved performance in the System activity timeline in the Frame summary pane when opening large profiles
-4) Instruction timing side panel will now report the total number of WMMA (wave matrix multiply accumulate) instructions executed by a shader when running on RDNA 3 or newer hardware
-5) Pipeline state pane will now report when conservative rasterization is enabled
-6) Fixed issues with keyboard selection in the tree view in the Event timing and Pipeline state panes
-7) DirectX® 12 Mesh shader functions and Vulkan® Mesh shader extension functions now are identified properly in RGP's event lists
-8) Fixed incorrect tree hierarchy in the Event timing and Pipeline state pane when events are grouped by user events and event filtering is used
+1) Fix an issue with missing counter data on RDNA 3 captures
+2) Fix an issue with Pipeline state pane showing more than 256 VGPRs allocated for some shaders in RDNA 3 captures
+3) Fix an issue with time units not updating in the Instruction timing Details panel when the Time Units setting is changed
+4) Fix an issue with searching not finding matches in the Latency column in the Instruction timing pane
+5) Fix an issue with missing commas when copying ISA instructions to the clipboard from the Instruction timing or Pipeline state pane
+6) Fix a few minor visual glitches in the ISA display in the Instruction timing or Pipeline state pane
+
 
 Known Issues
 -------------------------------------
@@ -33,11 +27,10 @@ Known Issues
 6)  OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
 7)  In some rare cases on RDNA 2 hardware, all counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
 8)  In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
-9)  In some cases on RDNA 3 hardware, the cache and raytracing counters may be missing. Usually, rebooting the system and recapturing will allow the missing data to show up.
-10) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
-11) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
-12) In some instances, profiles captured on multi-GPU systems may not be captured at peak GPU clock frequencies. If this is the case, changing which GPU the primary monitor is connected to may help.
-13) For systems consisting of an AMD APU and an AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
+9) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
+10) Cache and ray tracing counter data collection is not currently supported on RDNA 2 based APUs.
+11) In some instances, profiles captured on multi-GPU systems may not be captured at peak GPU clock frequencies. If this is the case, changing which GPU the primary monitor is connected to may help.
+12) For systems consisting of an AMD APU and an AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
 
 * Windows®
 
@@ -63,6 +56,25 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V1.15 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Support for additional AMD RDNA 3 hardware
+2) Newly redesigned ISA disassembly views in the Pipeline state and Instruction timing panes
+  - Code blocks can now be collapsed/expanded
+  - Selected token highlighting allows you to quickly see other instances of the selected token (instruction opcodes, registers and constants)
+  - One-click navigation between branch instructions and their targets, along with tracked navigation history
+  - Customize the displayed columns
+  - Improved search result highlighting
+3) Improved performance in the System activity timeline in the Frame summary pane when opening large profiles
+4) Instruction timing side panel will now report the total number of WMMA (wave matrix multiply accumulate) instructions executed by a shader when running on RDNA 3 or newer hardware
+5) Pipeline state pane will now report when conservative rasterization is enabled
+6) Fixed issues with keyboard selection in the tree view in the Event timing and Pipeline state panes
+7) DirectX® 12 Mesh shader functions and Vulkan® Mesh shader extension functions now are identified properly in RGP's event lists
+8) Fixed incorrect tree hierarchy in the Event timing and Pipeline state pane when events are grouped by user events and event filtering is used
 
 V1.14.1 Changes
 -------------------------------------
