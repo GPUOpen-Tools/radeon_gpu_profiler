@@ -315,9 +315,15 @@ The Details panel for a single event contains the following data:
 
 *  Hardware context and if it was rolled
 
-*  List of RDNA or GCN hardware stages and wavefront counts
+*  The API shader hashes for all shaders used by the event
+
+*  The API PSO hash for the event
+
+*  The Driver internal pipeline hash for the event
 
 *  Colored bar showing wavefront distribution per RDNA or GCN hardware stage
+
+*  List of RDNA or GCN hardware stages and wavefront counts
 
 *  Total wavefront count
 

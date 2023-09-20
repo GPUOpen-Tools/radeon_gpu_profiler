@@ -3,7 +3,7 @@ The Radeon™ GPU Profiler
 
 The Radeon GPU Profiler is a performance tool that can be used by
 developers to optimize DirectX®12, Vulkan®, OpenCL™ and HIP applications for
-AMD RDNA™ and GCN hardware. It is part of a suite of tools comprised of the
+AMD RDNA™ hardware. It is part of a suite of tools comprised of the
 following software:
 
 -  **Radeon Developer Mode Driver** - This is shipped as part of the AMD
@@ -28,8 +28,8 @@ following software:
    designed to work with compute applications and frame based graphics
    applications. It is specifically designed to address the issues that
    developers are dealing with in the move from traditional graphics
-   APIs to explicit APIs. It also provides the visualization of RDNA and
-   GCN hardware-specific information allowing the developer to tune an
+   APIs to explicit APIs. It also provides the visualization of RDNA
+   hardware-specific information allowing the developer to tune an
    application to the full potential of the architecture. The tool
    provides unique visualizations of queue synchronization using fences
    and semaphores, asynchronous compute, and barrier timings. Currently,
@@ -37,7 +37,7 @@ following software:
    APIs (OpenCL and HIP) and will NOT work with older graphics APIs such as
    DirectX11 or OpenGL.
 
-Graphics APIs, RDNA and GCN hardware, and operating systems
+Graphics APIs, RDNA hardware, and operating systems
 -----------------------------------------------------------
 
 **Supported APIs**
@@ -46,7 +46,7 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Vulkan
 
-\ **Supported RDNA and GCN hardware**
+\ **Supported RDNA hardware**
 
 -  AMD Radeon RX 7000 series
 
@@ -54,17 +54,7 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  AMD Radeon RX 5000 series
 
--  AMD Radeon VII
-
--  AMD RX Vega 64 and RX Vega 56
-
--  AMD Ryzen™ Processors with Radeon Vega Graphics
-
--  AMD Radeon R9 Fury and Nano series
-
--  AMD Radeon RX 400 and RX 500 series
-
--  AMD Tonga R9 285, R9 380
+-  AMD Ryzen™ Processors with Radeon Graphics
 
 \ **Supported Operating Systems**
 
@@ -74,7 +64,7 @@ Graphics APIs, RDNA and GCN hardware, and operating systems
 
 -  Ubuntu 22.04 LTS (Vulkan only)
 
-Compute APIs, RDNA and GCN hardware, and operating systems
+Compute APIs, RDNA hardware, and operating systems
 ----------------------------------------------------------
 
 **Supported APIs**
@@ -83,7 +73,7 @@ Compute APIs, RDNA and GCN hardware, and operating systems
 
 -  HIP
 
-\ **Supported RDNA and GCN hardware**
+\ **Supported RDNA hardware**
 
 -  AMD Radeon RX 7000 series
 
@@ -91,11 +81,7 @@ Compute APIs, RDNA and GCN hardware, and operating systems
 
 -  AMD Radeon RX 5000 series
 
--  AMD Radeon VII
-
--  AMD RX Vega 64 and RX Vega 56
-
--  AMD Ryzen Processors with Radeon Vega Graphics
+-  AMD Ryzen Processors with Radeon Graphics
 
 \ **Supported Operating Systems**
 
@@ -558,7 +544,9 @@ line using the controls displayed below.
 
 Both the Search command (Ctrl + F) and the Go to line command (Ctrl + G) can be invoked using keystrokes.
 
-Instruction lines that match the search results are highlighted.
+Instruction lines that match the search results are highlighted. The vertical
+scroll bar will also indicate the location of all matches, giving you a visual
+indicator of where in the shader the various matches can be found.
 
 .. image:: media_rgp/rgp_isa_view_search_results.png
 

@@ -6,9 +6,12 @@ The instruction timing information is generated using hardware support on AMD RD
 Generating instruction timing does not require recompilation of shaders or insertion of any
 instrumentation into shaders.
 
-The Instruction timing pane shows RDNA or GCN ISA. For a description of ISA, refer to the shader
-programming guides at
-`GPUOpen <https://gpuopen.com/amd-isa-documentation/>`_.
+The Instruction timing pane shows RDNA or GCN ISA. For more details on the ISA, please refer the following resources:
+
+ - The **AMD GPU ISA Documentation** on `GPUOpen <https://gpuopen.com/amd-isa-documentation/>`_. These guides provide detailed definitions of the instructions you may see in RGP.
+ - The **User Guide for AMDGPU Backend** as part of the `LLVM User Guides <https://llvm.org/docs/AMDGPUUsage.html>`_. This guide provides details on some minor differences you may see in the Instruction timing pane versus what you might read in the ISA guides on GPUOpen. For instance some VALU instructions may appear with an extra suffix to provide more information on the instruction encoding. These suffixes, which are added by the LLVM-based AMDGPU disassembler, are described `here <https://llvm.org/docs/AMDGPUUsage.html#valu>`_.
+
+
 The Instruction timing pane for a shader is shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_1.png
@@ -79,6 +82,9 @@ Contrast this with the image below, where an instruction is shown where more lat
 work. In this case, yellow is more prevalent than green.
 
 .. image:: media_rgp/rgp_instruction_timing_latency_bars_2.png
+
+A red indicator will be shown in the vertical scroll bar corresponding to the location of the
+instruction with the highest latency. This allows you to quickly find the hotspot within the shader.
 
 \ **Hit Count**
 
@@ -259,8 +265,8 @@ The counts denote the number of instructions of each category.
 Each category's count denote the instruction count for that shader's invocation in the event.
 Different executions of the same shader could have different Instruction statistics based on
 factors such as the number of wavefronts launched for the shader and loop parameters. The
-instruction categories are briefly described below. Please see the Shader Programming Guides for
-more details.
+instruction categories are briefly described below. Please see the `AMD GPU ISA Documentation <https://gpuopen.com/amd-isa-documentation/>`_
+for more details.
 
 - VALU: Includes vector ALU instructions
 
