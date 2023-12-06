@@ -75,8 +75,7 @@ The table shows the following information:
 
 .. image:: media_rgp/rgp_barriers_2.png
 
-Layout Transitions
-~~~~~~~~~~~~~~~~~~
+.. rubric:: Layout Transitions
 
 The following Layout Transition columns are shown in the Barriers table:
 
@@ -102,8 +101,9 @@ The following Layout Transition columns are shown in the Barriers table:
 See `https://gpuopen.com/dcc-overview/ <https://gpuopen.com/dcc-overview/>`_ for more information
 on what may cause a **DCC Decompress** or what "clear" values can be used to skip **Fast Clear Eliminates**.
 
-Barriers and OpenCL/HIP
-~~~~~~~~~~~~~~~~~~~~~~~
+
+.. rubric:: Barriers and OpenCL/HIP
+
 
 Barriers for OpenCL or HIP profiles provide visibility into how the driver scheduled
 dispatches to the GPU and dependencies between kernel dispatches. These barriers
@@ -124,7 +124,7 @@ OpenCL command queues process dispatches one after another and it is common for 
 subsequent kernel dispatch to use the results of a previous kernel dispatch. For this reason, it
 can be expected that an RGP profile will have a large number of barriers.
 
-A typical OpenCL profile's barriers are shown below.
+A barrier from a typical HIP application is shown below.
 
 .. image:: media_rgp/rgp_barriers_opencl_1.png
 

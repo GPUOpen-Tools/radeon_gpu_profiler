@@ -89,15 +89,31 @@ There are three tabs available: **Shader table**, **ISA**, and **Information**.
 The Shader table tab contains two main parts: an interactive flowchart
 representing the raytracing pipeline and a table containing the list of
 shader functions. Each shader function has an associated type. This type can be
-**Ray generation**, **Traversal**, **Intersection**, **Any hit**, **Closest hit**
-or **Miss**. The shader table lists each shader function, its type, resource
-usage statistics, instruction timing statistics, and both the API shader hash and
-the Internal pipeline hash. You can filter the table by shader type using the
-**Shader types** combo box. You can also filter the table by Export name using
-the **Filter shaders...** field. If you click on any hyperlinked text in the
-shader table, it will navigate to the ISA tab and show the ISA for the selected
-shader function. You can also use the right-click context menu to navigate to
-either the ISA tab or to the Instruction timing view.
+**Ray generation**, **Traversal**, **Intersection**, **Any hit**,
+**Closest hit**, **Miss** or **Callable**. The shader table lists each shader
+function, its type, resource usage statistics, instruction timing statistics,
+and both the API shader hash and the Internal pipeline hash. You can filter the
+table by shader type using the **Shader types** combo box. You can also filter
+the table by Export name using the **Filter shaders...** field. If you click on
+any hyperlinked text in the shader table, it will navigate to the ISA tab and
+show the ISA for the selected shader function. You can also use the right-click
+context menu to navigate to either the ISA tab or to the Instruction timing
+view.
+
+If the **Enable shader instrumentation** checkbox was checked in Radeon
+Developer Panel when the profile was captured, the table will also include
+a column showing the number of average active lanes for each shader function,
+across all calls made to the function. The number of active lanes is sampled
+near the beginning of execution for each shader, giving an indication of the
+amount of thread divergence in the entire raytracing pipeline. When hovering
+the mouse over a cell in this column, a tooltip will be displayed to show the
+distribution of the number of active lanes for individual calls. This can
+give an indication of how many different execution paths through the pipeline
+were taken at runtime. Please note that enabling this setting in the Radeon
+Developer Panel may cause additional runtime overhead for the application that
+is being profiled.
+
+.. image:: media_rgp/rgp_pipeline_state_raytracing_4.png
 
 The flowchart gives a visual representation of the raytracing pipeline, as well as
 shows the relative percent cost of the shader functions in each stage. The percentage

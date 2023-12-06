@@ -36,6 +36,26 @@ displayed near each other in the user interface, making it hard to distinguish b
 the similar colors. In order to alleviate this issue, the **Random color seed** setting
 allows the random seed to be altered, generating a different set of random colors.
 
+.. image:: media_rgp/rgp_color_theme_drop_down.png
+
+**Color theme:** The color theme can be changed with the "Color Theme" drop down combo box. 
+This changes the application-wide background and text color. The "Light" option maintains 
+RGP's default look of white backgrounds with black text. The "Dark" option changes RGP to 
+have a dark background color with lighter color text. The "Detect OS" option uses the system's 
+color theme to determine whether the color theme should be light or dark. If the system's 
+color theme cannot not be detected, RGP will default to light theme. If the system's color 
+theme is changed while RGP is open with the "Detect OS" option selected it will not apply
+until the application has been restarted. On Windows operating systems when changing the color 
+theme a pop-up prompt will recommend restarting the application. This is because not all parts 
+of RGP will update to a change in color theme until the application is restarted. Changing 
+the color theme will not change any other color customization options that have been selected.
+
+.. image:: media_rgp/rgp_color_theme_changed_prompt.png
+
+This is an example of how RGP will look when the color theme is changed to dark: 
+
+.. image:: media_rgp/rgp_dark_theme_frame_summary_pane.png
+
 Keyboard shortcuts
 ------------------
 
@@ -80,9 +100,6 @@ UI Navigation
 
 In an effort to improve workflow, RGP supports keyboard shortcuts and
 back and forward history to quickly navigate throughout the UI.
-
-Back and forward navigation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 RGP tracks navigation history, which allows users to navigate back and
 forward between all of RGP’s panes. This is achieved using global

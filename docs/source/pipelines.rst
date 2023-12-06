@@ -17,8 +17,7 @@ the profile and child entries for each shader stage active in the pipeline.
 in the **Pipelines** table.
 
 
-Pipeline summary
-~~~~~~~~~~~~~~~~
+.. rubric:: Pipeline summary
 
 .. image:: media_rgp/rgp_pipeline_summary_2.png
 
@@ -30,8 +29,7 @@ colored by API shader stage.
 Next to each configuration is a count of how many pipelines in
 the profile matched the configuration.
 
-Pipelines
-~~~~~~~~~
+.. rubric:: Pipelines
 
 .. image:: media_rgp/rgp_pipeline_summary_3.png
 
@@ -69,8 +67,7 @@ hash for the currently-selected pipeline is displayed. There is also a quick lin
 view the selected pipeline in the Pipeline state view. This will navigate to the
 Pipeline state view for the first event associated with the pipeline.
 
-Events
-~~~~~~
+.. rubric:: Events
 
 .. image:: media_rgp/rgp_pipeline_summary_4.png
 

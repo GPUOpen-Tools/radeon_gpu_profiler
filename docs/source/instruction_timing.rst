@@ -16,7 +16,7 @@ The Instruction timing pane for a shader is shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_1.png
 
-\ **Latency**
+.. rubric:: Latency
 
 Each shader line in the Instruction timing view shows the time taken between the issue of an
 instruction and the one after that. To provide information on what Latency means some sample
@@ -86,7 +86,7 @@ work. In this case, yellow is more prevalent than green.
 A red indicator will be shown in the vertical scroll bar corresponding to the location of the
 instruction with the highest latency. This allows you to quickly find the hotspot within the shader.
 
-\ **Hit Count**
+.. rubric:: Hit Count
 
 The *Hit count* for each instruction shows the number of times the instruction was executed for the
 selected event. Any basic blocks that have a hit count of zero across all wavefronts in a shader will 
@@ -99,7 +99,7 @@ mode will also be grayed out, as shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_disabled_block.png
 
-\ **Instruction Cost Percent**
+.. rubric:: Instruction Cost Percent
 
 The *Instruction Cost* for each ISA instruction shows the percentage of the Total Issue Latency of
 the whole shader. For shaders with branches where consecutive instructions can have varying hit
@@ -111,7 +111,7 @@ The Instruction Cost for an ISA instruction is calculated as follows:
 *Instruction Cost = 100 * (Sum of All Latencies for ISA Instruction) / (Sum of All Latencies for
 the shader)*
 
-\ **Filtering wavefronts**
+.. rubric:: Filtering wavefronts
 
 By default the *Latency*, *Hit count* and *Instruction cost* values are calculated using all
 wavefronts that have been analyzed for a given shader. Information about the fastest wavefront and
@@ -143,7 +143,7 @@ would end up in a single bucket. Because of this, the histogram is hidden when t
 wavefront analyzed for the selected shader. Any time the histogram is hidden, the *Wavefront latencies*
 drop down and the *Timeline* in the *Wavefront statistics* section of the side panel will also be hidden.
 
-\ **Instruction Timing Capture Granularity**
+.. rubric:: Instruction Timing Capture Granularity
 
 Instruction timing information is generated for the whole RGP profile, but data is limited to a
 single shader engine. Only waves executed by a single shader engine contribute to the hit counts
@@ -153,7 +153,7 @@ documentation for more information on how to capture instruction timing informat
 To view all the events that have instruction timing information, the developer can choose the
 "Color by instruction timing" option in the Wavefront occupancy or the Event timing views.
 
-\ **Availability of Instruction Timing**
+.. rubric:: Availability of Instruction Timing
 
 In certain cases it is possible that the instruction timing information may not be available for
 all events. The main reasons why instruction timing information may not be present
@@ -167,7 +167,7 @@ GPU schedules the waves on a shader engine or compute unit that doesn't have ins
 \ **Internal Events**: It should be noted that it is not possible to view instruction timing
 information for internal events such as Clear().
 
-\ **Navigation**
+.. rubric:: Navigation
 
 The instruction timing for an event can be accessed by right clicking on that event and choosing
 the "View In Instruction timing" option. Since it is common to use the same shader in multiple
@@ -183,7 +183,7 @@ shader. The :ref:`API Shader Stage Control <api_shader_stage_control>` indicates
 stages are active for the selected event. When an active stage is clicked, the Instruction
 timing pane will update to show the timing data for the selected shader stage.
 
-\ **Navigation of Raytracing events**
+.. rubric:: Navigation of Raytracing events
 
 For certain Raytracing events, an additional **Export name** drop down will be available. Whether
 or not this drop down is shown depends on the compilation mode chosen by the AMD driver and compiler
@@ -217,7 +217,7 @@ can be used to move among the list of Export names. This **Export name** drop do
 
 .. image:: media_rgp/rgp_instruction_timing_exports.png
 
-\ **Navigation in Compute profiles**
+.. rubric:: Navigation in Compute profiles
 
 In profiles collected for OpenCL or HIP applications, the navigation controls are slightly different.
 Instead of the API PSO drop down, there is a event name/kernel name drop down. This drop down contains
@@ -325,16 +325,18 @@ of analyzed wavefronts)*
 - Local Data Share Size: This value indicates how many bytes of local data share are used by the
   shader. This is only displayed for Compute Shaders.
 
-\ **Call Targets**: While viewing data for an **<Indirect>** raytracing event, a Call targets list
+\ **Call Targets**: While viewing data for a shader that calls other functions, a Call targets list
 is displayed in the side panel whenever a "s_swappc" or "s_setpc" instruction with a non-zero hit count
 is selected. In the ISA view, a glyph is displayed next to any such instruction. For a "s_swappc"
 instruction, the Call targets list shows the names of the exports that control may jump to, along
 with a hit count indicating how many times each target was called. For a "s_setpc" instruction, the
-Call targets list shows the name of the export that control will return to.
+Call targets list shows the name of the export that control will return to. This feature is currently
+supported for pipelines used by **<Indirect>** raytracing events as well as for HIP kernels that call
+additional functions in their execution.
 
 .. image:: media_rgp/rgp_instruction_timing_call_targets.png
 
-\ **Instruction Timing for RDNA**
+.. rubric:: Instruction Timing for RDNA
 
 On RDNA GPUs, instruction timing can include certain instructions with a hit count of 0. Usually
 this will be an instruction called *s_code_end* and may also be present after the shader's

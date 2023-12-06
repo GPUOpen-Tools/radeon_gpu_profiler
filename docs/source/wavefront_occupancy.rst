@@ -2,12 +2,22 @@ Wavefront occupancy
 -------------------
 
 This section presents users with an interactive timeline that shows GPU
-utilization, GPU cache counter data, and all events in the profile.
+utilization, GPU counter data, and all events in the profile.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_1.png
 
-There are four components, the Wavefront timeline view, the Cache counter
-view, the Events timeline view, and the Details panel.
+There are five components, the Legend side panel, the Wavefront timeline view, one or more Counter views,
+the Events timeline view, and the Details side panel.
+
+Note that the counter views are only available if the "Collect counters" checkbox is enabled in RDP.
+
+\ **Legend side panel**
+
+Pressing \ **Hide Legend** on the top left will hide the side panel with
+visualization controls and a color coded legend for each view. 
+The contents of each individual legend depends on its view.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_legend_1.png
 
 \ **Wavefront timeline view**
 
@@ -19,7 +29,7 @@ wavefronts on the async compute queue.
 .. image:: media_rgp/rgp_wavefront_occupancy_2.png
 
 Users may examine regions by selecting ranges within the graph and using
-the zoom buttons on the top right. Users may also hover over this view
+the zoom buttons on the top right of the tab. Users may also hover over this view
 and use mouse wheel to zoom and center in on a particular spot. A region
 of wavefronts can be selected by using the mouse button to drag over the
 desired region as shown below.
@@ -35,8 +45,8 @@ You can also drag the graph if you are zoomed in. Hold down the space
 bar first, then hold the mouse button down. The graph will now move with
 the mouse.
 
-Users may use the combo-box on the top left to visualize wavefronts in
-different ways:
+Users may use the Color by combo-box on the top of the Wavefront occupancy
+legend to visualize wavefronts in different ways:
 
 -  **Color by API stage.** Default. Shows which wavefronts
    correspond to which Vulkan/DX12 pipeline stage.
@@ -75,9 +85,9 @@ Color by combo box. The selected color mode will be used for the Wavefront
 timeline and the Event timeline in the Wavefront occupancy pane as well as for
 the Event timing pane.
 
-Additionally, there are filters along the top intended to help visualize
-the occupancy of only certain RDNA or GCN pipeline stages. Lastly, there are
-colored legends on the bottom which serve as color reminders. Note these
+Beneath the Color by combo-box there is another combo-box to help visualize
+the occupancy of certain RDNA or GCN pipeline stages. Beneath the pipeline stage combo-box is
+a color coded legend which serve as color reminders. Note these
 colors can be customized within Settings.
 
 The RGP wavefront occupancy for OpenCL or HIP has only compute in the wavefront occupancy.
@@ -129,15 +139,24 @@ data already in the cache.
   Each request is 128 bytes in size.
 
 The description of each counter can be viewed by hovering the mouse over the
-counter name in the legend below the counter graphs.
+counter name in the legend left of the counter graph.
 
 The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
 reported in the Device configuration pane in the Overview tab.
 
-Users may use the **Counters** combo box on the top left to choose which counters to
+Users may use the legend on the left to choose which counters to
 include in the graph.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_2.png
+
+Each counter key in the legend is a tri-state button. Pressing the button cycles
+through 3 states: visible, visible and selected, and not visible.
+
+Selecting a counter will cause the area under the line for the selected counter to be filled in. 
+This can be done for one or more counters simultaneously. In this image, the user has clicked the color boxes
+for both the L1 and L2 cache hit counters.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_4.png
 
 A tooltip will be shown when the mouse hovers over the counter graphs. This tooltip
 shows the counter value of the closest point to the cursor, as well as the number
@@ -147,13 +166,6 @@ representing the selected region. Pressing the Ctrl key on the keyboard will
 temporarily hide the tooltip.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_3.png
-
-Additionally, users may click a color box in the legend. This will cause the area
-under the line for the selected counter to be filled in. This can be done for one
-or more counters simultaneously. In this image, the user has clicked the color boxes
-for both the L1 and L1 cache hit counters.
-
-.. image:: media_rgp/rgp_wavefront_occupancy_counters_4.png
 
 Collection of cache counters can be disabled when capturing a profile in the
 Radeon Developer Panel. In this case, the cache counter graphs will not be visible.
@@ -196,13 +208,13 @@ submitted.
 .. image:: media_rgp/rgp_wavefront_occupancy_5.png
 
 Users may single-click on individual events to see detailed information
-on the details pane described below. Zooming into this graph is done by
+on the details side panel described below. Zooming into this graph is done by
 selecting the desired region in the wavefront graph above. Additionally,
 zooming in on a single event can be done by selecting the event and
 clicking on ‘Zoom to selection’. More information can be found under
 the :ref:`Zoom Controls<zoom_controls>` section.
 
-Users may use the **Color by** combo-box on the top left to visualize
+Users may use the **Color by** combo-box on the left to visualize
 events in different ways:
 
 -  **Color by queue.** Default. Shows which events were submitted to
@@ -241,14 +253,14 @@ events in different ways:
 -  **Color by ray tracing** will only colorize raytracing events. All other
    events will be greyed out.
 
-Next to the **Color by** combo-box is the **Event filter** combo-box.
+Beneath the **Color by** combo-box is the **Event filter** combo-box.
 This allows the user to visualize only certain types of events on the timeline.
 For example, the user can select to see draws, dispatches, clears, barriers,
 layout transitions, copies, resolves, events containing instruction trace data,
 and raytracing events. There is also an option to switch the CP marker on or off.
 Switching the CP marker off will just show the active shader blocks.
 
-Next to the **Event filter** combo-box is the **Overlay** combo-box. This allows
+Beneath the **Event filter** combo-box is the **Overlay** combo-box. This allows
 the user to select which fixed "Overlays" to show in the timeline. Overlays are
 shown in one or more rows at the top of the timeline. They are useful to
 visualize the various states for each event. More than one Overlay can be
@@ -294,16 +306,16 @@ Lastly, there are colored legends on the bottom which serve as color
 reminders. Note these colors can be customized within Settings.
 
 
-\ **Details pane**
+\ **Details side panel**
 
-Pressing \ **Show Details** on the top right will open a side panel with
+Pressing \ **Hide Details** on the top right will hide the side panel with
 more in-depth information. The contents of this panel will change,
 depending on what the user last selected. If a single event was selected
-in the Events timeline the details panel will look like below:
+in the Events timeline the details side panel will look like below:
 
 .. image:: media_rgp/rgp_details_panel_1.png
 
-The Details panel for a single event contains the following data:
+The Details side panel for a single event contains the following data:
 
 *  The event’s API call name
 
@@ -364,12 +376,12 @@ shaders are overlapping, then the duration will be the same as the work
 duration.
 
 If the user selects a range by clicking and dragging the mouse, the
-details panel shows a summary of all the wavefront data contained in
+details side panel shows a summary of all the wavefront data contained in
 the selected region as shown below:
 
 .. image:: media_rgp/rgp_details_panel_2.png
 
-If the user selects a barrier, the details panel will show information
+If the user selects a barrier, the details side panel will show information
 relating to the barrier, such as the barrier flags and any layout
 transitions associated with this barrier. It will also show the barrier
 type (whether it came from the application or the driver). Note that the
@@ -384,7 +396,7 @@ was inserted is also displayed, as shown below:
 
 .. image:: media_rgp/rgp_details_panel_5.png
 
-If the user selects a layout transition, the details panel will show
+If the user selects a layout transition, the details side panel will show
 information relating to the layout transition as shown below:
 
 .. image:: media_rgp/rgp_details_panel_4.png
@@ -400,3 +412,49 @@ selection" option from this context menu.
 Below is a screenshot of what the right-click context menu looks like.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_6.png
+
+.. rubric:: Wavefront occupancy customization
+
+The Wavefront occupancy section of RGP is customizable. Users can hide
+and reorder the vertical position of views.
+
+To hide a view, simply press the X button next to the view.
+
+.. image:: media_rgp/rgp_occupancy_view_x_button.png
+
+To show a hidden view, use the Views combo box in the top left of the tab.
+
+.. image:: media_rgp/rgp_show_hidden_occupancy_view.png
+
+The Views combo box can also be used to hide views.
+
+To reorder a view's vertical position within the tab, you can drag the view you
+want to reorder and drop it into a new position.
+
+To do this, move the mouse above the drag button next to the view you
+want to move. A dashed blue rectangle will appear around the view to
+indicate which view will be dragged.
+
+.. image:: media_rgp/rgp_occupancy_view_drag_button.png
+
+Press, and hold, the drag button. A solid blue line will appear to
+indicate what the new position of the view will be after letting
+go of the mouse.
+
+.. image:: media_rgp/rgp_occupancy_view_drop_indicator.png
+
+The view will be dropped into its new position and remain there
+until you move it again. The Views combo box will be updated to
+reflect its new position.
+
+.. image:: media_rgp/rgp_occupancy_view_new_position.png
+
+The customization of the Wavefront occupancy section is treated like a
+normal RGP setting and persists upon closing and reopening RGP.
+
+To return the Wavefront occupancy customization to its original state,
+press the Restore to default button in the top left of the tab.
+
+.. image:: media_rgp/rgp_occupancy_view_restore_to_default.png
+
+Note that the visibility state of the legends side panel is also saved.

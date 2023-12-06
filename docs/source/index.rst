@@ -38,15 +38,15 @@ following software:
    DirectX11 or OpenGL.
 
 Graphics APIs, RDNA hardware, and operating systems
------------------------------------------------------------
+---------------------------------------------------
 
-**Supported APIs**
+.. rubric:: Supported APIs
 
 -  DirectX12
 
 -  Vulkan
 
-\ **Supported RDNA hardware**
+.. rubric:: Supported RDNA hardware
 
 -  AMD Radeon RX 7000 series
 
@@ -56,7 +56,7 @@ Graphics APIs, RDNA hardware, and operating systems
 
 -  AMD Ryzen™ Processors with Radeon Graphics
 
-\ **Supported Operating Systems**
+.. rubric:: Supported Operating Systems
 
 -  Windows® 10
 
@@ -65,15 +65,15 @@ Graphics APIs, RDNA hardware, and operating systems
 -  Ubuntu 22.04 LTS (Vulkan only)
 
 Compute APIs, RDNA hardware, and operating systems
-----------------------------------------------------------
+--------------------------------------------------
 
-**Supported APIs**
+.. rubric:: Supported APIs
 
 -  OpenCL
 
 -  HIP
 
-\ **Supported RDNA hardware**
+.. rubric:: Supported RDNA hardware
 
 -  AMD Radeon RX 7000 series
 
@@ -83,7 +83,7 @@ Compute APIs, RDNA hardware, and operating systems
 
 -  AMD Ryzen Processors with Radeon Graphics
 
-\ **Supported Operating Systems**
+.. rubric:: Supported Operating Systems
 
 -  Windows 10
 
@@ -458,7 +458,7 @@ Stage control.
 **NOTE**: This control is only available for DirectX and Vulkan profiles.
 
 This control appears in the **Most expensive events** and **Pipelines** Overview panes, as well
-as in the Details panel in the **Wavefront occupancy** and **Event timings** panes, and in the
+as in the Details side panel in the **Wavefront occupancy** and **Event timings** panes, and in the
 toolbar area of the **Instruction timing** pane.
 
 Here are examples of what the control looks like for a few different DirectX12 and Vulkan pipelines.
@@ -505,7 +505,7 @@ where the compute shader performs inline ray tracing:
 .. _isa_view:
 
 ISA View
-========================
+========
 
 Several views in RGP display ISA for API shader stages.
 ISA is displayed for a single shader stage at a time using the 
@@ -647,8 +647,7 @@ with user markers that can be viewed within RGP:
 1. using Microsoft® PIX3 event instrumentation, or
 2. using the debug marker support in AMD GPU Services (AGS) Library.
 
-Using PIX3 event instrumentation for DirectX12 user debug markers
------------------------------------------------------------------
+.. rubric:: Using PIX3 event instrumentation for DirectX12 user debug markers
 
 If your application has been instrumented with PIX3 user markers, then
 to view the markers within RGP is a simple matter of recompiling the source code
@@ -664,12 +663,12 @@ The PIX3 event instrumentation functions supported by RGP are:
 
 The steps to update the PIX header file are:
 
-1. Copy the entire ``samples\AMDDxExt`` folder provided in the RGP package to the location where the PIX header
+1. Copy the entire ``samples\AmdDxExt`` folder provided in the RGP package to the location where the PIX header
 files (``pix3.h``, ``pix3_win.h``) reside (typically at ``WinPixEventRuntime.[x.x]\Include\WinPixEventRuntime``).
 
 2. Add ``#include "AmdDxExt\AmdPix3.h"`` to the top of ``PIXEvents.h``:
 
-When using WinPixEventRuntime version 1.0.210209001:
+When using WinPixEventRuntime version 1.0.210209001 or newer:
 ::
 
   #if defined(USE_PIX) || !defined(PIX_XBOX)
@@ -695,12 +694,43 @@ When using WinPixEventRuntime version 1.0.200127001:
 3. Update the ``PIXEvents.h`` file to add an ``Rgp`` prefix to the the existing calls to PIXBeginEventOnContextCpu,
 PIXEndEventOnContextCpu and PIXSetMarkerOnContextCpu:
 
-When using WinPixEventRuntime version 1.0.210209001:
+When using WinPixEventRuntime version 1.0.231030001 or newer:
 ::
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
   #ifdef PIX_AMD_EXT
-    RgpPIXBeginEventOnContextCpu(context, color, formatString, args...);
+    RgpPIXBeginEventOnContextCpu(destination, eventSize, context, color, formatString, args...);
+  #else
+    PIXBeginEventOnContextCpu(destination, eventSize, context, color, formatString, args...);
+  #endif
+  #endif
+
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+  #ifdef PIX_AMD_EXT
+    RgpPIXSetMarkerOnContextCpu(destination, eventSize, context, color, formatString, args...);
+  #else
+    PIXSetMarkerOnContextCpu(destination, eventSize, context, color, formatString, args...);
+  #endif
+  #endif
+
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+  #ifdef PIX_AMD_EXT
+    RgpPIXEndEventOnContextCpu(destination, context);
+  #else
+    destination = PIXEndEventOnContextCpu(context);
+  #endif
+  #endif
+
+When using WinPixEventRuntime version 1.0.210209001 up to 1.0.230302001:
+::
+
+  #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
+  #ifdef PIX_AMD_EXT
+    RgpPIXBeginEventOnContextCpuLegacy(context, color, formatString, args...);
   #else
     PIXBeginEventOnContextCpu(context, color, formatString, args...);
   #endif
@@ -710,7 +740,7 @@ When using WinPixEventRuntime version 1.0.210209001:
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
   #ifdef PIX_AMD_EXT
-    RgpPIXSetMarkerOnContextCpu(context, color, formatString, args...);
+    RgpPIXSetMarkerOnContextCpuLegacy(context, color, formatString, args...);
   #else
     PIXSetMarkerOnContextCpu(context, color, formatString, args...);
   #endif
@@ -720,7 +750,7 @@ When using WinPixEventRuntime version 1.0.210209001:
 
   #ifdef PIX_CONTEXT_EMIT_CPU_EVENTS
   #ifdef PIX_AMD_EXT
-    RgpPIXEndEventOnContextCpu(context);
+    RgpPIXEndEventOnContextCpuLegacy(context);
   #else
     PIXEndEventOnContextCpu(context);
   #endif
@@ -732,8 +762,11 @@ When using WinPixEventRuntime version 1.0.200127001:
   #if PIX_XBOX
     PIXBeginEvent(color, formatString, args...);
   #else
-    // PIXBeginEventOnContextCpu(context, color, formatString, args...);
-    RgpPIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #ifdef PIX_AMD_EXT
+    RgpPIXBeginEventOnContextCpuLegacy(context, color, formatString, args...);
+  #else
+    PIXBeginEventOnContextCpu(context, color, formatString, args...);
+  #endif
   #endif
 
 ::
@@ -741,8 +774,11 @@ When using WinPixEventRuntime version 1.0.200127001:
   #if PIX_XBOX
     PIXEndEvent();
   #else
-     // PIXEndEventOnContextCpu(context);
-     RgpPIXEndEventOnContextCpu(context);
+  #ifdef PIX_AMD_EXT
+     RgpPIXEndEventOnContextCpuLegacy(context);
+  #else
+     PIXEndEventOnContextCpu(context);
+  #endif
   #endif
 
 ::
@@ -750,14 +786,17 @@ When using WinPixEventRuntime version 1.0.200127001:
   #if PIX_XBOX
     PIXSetMarker(color, formatString, args...);
   #else
-    // PIXSetMarkerOnContextCpu(context, color, formatString, args...);
-    RgpPIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #ifdef PIX_AMD_EXT
+    RgpPIXSetMarkerOnContextCpuLegacy(context, color, formatString, args...);
+  #else
+    PIXSetMarkerOnContextCpu(context, color, formatString, args...);
+  #endif
   #endif
 
 
 4. Recompile the application. Note that the RGP user markers are only enabled when the corresponding
 PIX event instrumentation is also enabled with one of the preprocessor symbols:
-**USE_PIX**, **DBG**, **_DEBUG**, **PROFILE**, or **PROFILE_BUILD**.
+``USE_PIX``, ``DBG``, ``_DEBUG``, ``PROFILE``, or ``PROFILE_BUILD``.
 
 The PIX3 event instrumentation within the application continues to be usable for
 `Microsoft PIX tool`_ without additional side effects or overhead.
@@ -767,8 +806,7 @@ https://blogs.msdn.microsoft.com/pix/winpixeventruntime/.
 
 See many examples of using PIX event instrumentation at https://github.com/Microsoft/DirectX-Graphics-Samples.
 
-Using AGS for DirectX12 user debug markers
-------------------------------------------
+.. rubric:: Using AGS for DirectX12 user debug markers
 
 The AMD GPU Services (AGS) library provides software developers
 with the ability to query AMD GPU software and hardware state
@@ -792,8 +830,7 @@ https://gpuopen.com/amd-gpu-services-ags-library/
 Additional API documentation for AGS can be found at:
 https://gpuopen-librariesandsdks.github.io/ags/
 
-Download AGS
-~~~~~~~~~~~~
+.. rubric:: Download AGS
 
 Download the AGS library from:
 https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK/
@@ -805,8 +842,7 @@ documentation. You will need to use files in the following two dirs.
 
 -  Libraries: AGS\_SDK-master\\ags\_lib\\lib
 
-Integrate AGS header, libs, and DLL into your project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: Integrate AGS header, libs, and DLL into your project
 
 AGS requires one header (``amd_ags.h``) to be included in your source code.
 Add the location of the AGS header to the Visual Studio project settings
@@ -873,8 +909,7 @@ MD or MT static library, debug or release, or DLL).
 |              | amd\_ags\_x86\_2019\_MTd.lib  | NA                             | VS2019 Lib (debug multithreaded static runtime library)   |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 
-Initialize AGS
-~~~~~~~~~~~~~~
+.. rubric:: Initialize AGS
 
 When you have your project building the first thing to do is to initialize the AGS context.
 ::
@@ -891,9 +926,7 @@ When you have your project building the first thing to do is to initialize the A
 		printf("\\nError: AGS Library was NOT initialized - Return Code %d\\n", agsInitReturn);
 	}
 
-
-Initialize the DirectX12 Extension
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: Initialize the DirectX12 Extension
 
 Once the AGS extension has been successfully created we need to create the DirectX12 extension as follows:
 ::
@@ -929,8 +962,7 @@ Please note that the above code checks if the driver is capable of
 supporting user markers by looking at the extensions supported by
 the driver. This step may fail on older drivers.
 
-Insert Markers in Application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: Insert Markers in Application
 
 The main functions provided by AGS for marking applications are:
 ::
@@ -959,8 +991,8 @@ Particles" user marker, followed by inserting a marker.
 Vulkan User Markers
 -------------------
 
-Debug Marker Extension
-~~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: Debug Marker Extension
+
 Vulkan has support for user debug markers using the ``VK_EXT_debug_marker`` extension. Please read the following
 article for details:
 
@@ -970,8 +1002,8 @@ See code sample at:
 
 https://github.com/SaschaWillems/Vulkan/blob/master/examples/debugmarker/debugmarker.cpp
 
-Debug Utils Extension
-~~~~~~~~~~~~~~~~~~~~~
+.. rubric:: Debug Utils Extension
+
 The debug marker extension ``VK_EXT_debug_marker`` has been replaced with a new extension ``VK_EXT_debug_utils`` that provides additional support to narrow down the location of a debug message in complicated applications. The following document describes the capabilities of the new extension.
 
 https://www.lunarg.com/wp-content/uploads/2018/05/Vulkan-Debug-Utils_05_18_v1.pdf
@@ -994,8 +1026,8 @@ Marker
 
 User markers can also be seen in the wavefront occupancy view when you
 color by user events. Coloring by user events is also possible in the
-event timing view. As seen below, the draw calls enclosed by the user
-marker change color to purple. The events not enclosed by user markers
+event timing view. As seen below, any events enclosed by the same user
+marker will be shown with the same color. Any events not enclosed by user markers
 are shown in grey. The coloration is only affected by the Push/PopMarker
 combination; the SetMarker has no effect on the user event color since
 these markers simply mark a particular moment in time.
@@ -1003,11 +1035,13 @@ these markers simply mark a particular moment in time.
 Additionally, the user event names are displayed in an Overlay at the top
 of the event timeline view.
 
+.. image:: media_rgp/rgp_user_markers_2.png
+
 The full user event hierarchy is also visible on the third line of the
 side pane when clicking on individual events. If the event does not
 contain a user event hierarchy, nothing will be shown.
 
-.. image:: media_rgp/rgp_user_markers_2.png
+.. image:: media_rgp/rgp_user_markers_3.png
 
 Events enclosed by user markers are colored in the wavefront occupancy
 view. They are also visible in the side panel.
@@ -1166,7 +1200,7 @@ Known limitations
 .. _Microsoft PIX tool: https://blogs.msdn.microsoft.com/pix/introduction/
 
 Disclaimer
-----------
+==========
 
 The information contained herein is for informational purposes only, and is subject to change without notice. While every
 precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical
