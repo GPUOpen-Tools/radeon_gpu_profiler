@@ -1,4 +1,49 @@
-Radeon™ GPU Profiler V2.0 12-07-2023
+Radeon™ GPU Profiler V2.1 04-24-2024
+-------------------------------------
+
+V2.1 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Interoperability with the Radeon GPU Analyzer: binary pipelines can now be extracted from a loaded profile data set in RGP and automatically loaded into a new instance of RGA for analysis
+2) Rows in Wavefront occupancy pane can now be resized, allowing for additional user customization
+3) New "Color by limiting factor" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events whose theoretical occupancy is limited by VGPR usage, LDS usage or thread group dimensions
+4) New "Color by context rolls" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events where a context roll occurred since the previous event
+5) Latency visualization in the Instruction timing pane will now show which part of the total latency represents a "pre-issue" stall
+6) Fixed issue with incorrect LDS usage reported on RDNA™-based GPUs
+7) Bug/stability fixes
+
+Known Issues
+-------------------------------------
+
+* All platforms
+
+1)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
+2)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
+3)  OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
+4)  It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
+
+* Windows®
+
+1)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
+2)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
+3)  If a DirectX® 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
+
+* Linux®
+
+1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
+
+* RDNA
+
+1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
+
+* Radeon Developer Panel
+
+1) See RDP_RELEASE_NOTES.txt for additional items that may affect profiling.
+
+
+Release Notes History
 -------------------------------------
 
 V2.0 Changes
@@ -6,60 +51,18 @@ V2.0 Changes
 
 * Radeon GPU Profiler
 
-1)  Support for additional AMD RDNA™ 3 hardware
-2)  Redesigned Wavefront occupancy user interface, allowing for user customization and improved usage of available screen real estate
-3)  Dark mode user interface support, allowing the user to choose between a light and dark theme (or have RGP follow the OS theme setting)
-4)  The ray tracing shader table displayed in the Pipeline state pane can now display data on thread divergence for individual shader functions (DirectX® 12 only for now, requires AMD Software: Adrenalin Edition™ 23.12.1 or newer)
-5)  Allow opening .rgp files which contain a large number of events
-6)  HIP kernels that contain calls to other functions now support the Call Targets table in the Instruction timing pane's side panel
-7)  PIX3 marker support updated for latest version of WinPixEventRuntime
-8)  Bug/stability fixes
+1) Support for additional AMD RDNA 3 hardware
+2) Redesigned Wavefront occupancy user interface, allowing for user customization and improved usage of available screen real estate
+3) Dark mode user interface support, allowing the user to choose between a light and dark theme (or have RGP follow the OS theme setting)
+4) The ray tracing shader table displayed in the Pipeline state pane can now display data on thread divergence for individual shader functions (DirectX 12 only for now, requires AMD Software: Adrenalin Edition™ 23.12.1 or newer)
+5) Allow opening .rgp files which contain a large number of events
+6) HIP kernels that contain calls to other functions now support the Call Targets table in the Instruction timing pane's side panel
+7) PIX3 marker support updated for latest version of WinPixEventRuntime
+8) Bug/stability fixes
 
 * Radeon Developer Panel
 
-1) To support collecting data for thread divergence in the ray tracing shader table, the Profiling workflow user interface has a new "Enable shader instrumentation" checkbox (affects DirectX 12 only for now, requires AMD Software: Adrenalin Edition™ 23.12.1 or newer)
-
-Known Issues
--------------------------------------
-
-* All platforms
-
-1)  Radeon Developer Panel can only capture a profile on a single AMD GPU at a time.
-2)  Radeon Developer Panel cannot capture profiles from non-AMD GPUs.
-3)  Applications that call Present() from the async compute queue are not supported on pre-RDNA hardware. Incomplete profile data may result on RDNA-based hardware.
-4)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
-5)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-6)  OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
-7)  In some rare cases on RDNA 2 hardware, all counter data may be missing from a captured RGP profile. When this happens, Radeon Developer Panel will prompt the user to recapture.
-8)  In some rare cases, data for one or more cache counters may be missing. Usually, recapturing will allow the missing data to show up.
-9)  It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
-10) Cache and ray tracing counter data collection is not currently supported on RDNA based APUs.
-11) For systems consisting of an AMD APU and an AMD discrete GPU, capturing profiles should work, but an error may be logged in the Radeon Developer Panel regarding not being able to set peak clock mode. It is recommended that the GPU in the APU be disabled in the BIOS.
-
-* Windows®
-
-1)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
-2)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
-3)  If a DirectX® 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
-4)  Current versions of the Radeon Developer Panel cannot profile Universal Windows Platform (UWP) applications. Please use Radeon Developer Panel v2.8 to profile a UWP application.
-
-* Linux®
-
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
-2)  After launching RGP from the Developer Panel to view a captured profile, the panel may fail to connect the next time it is launched. The workaround is to close RGP before relaunching the panel.
-3)  If the Developer Panel or the Developer Service crash while running with the root account, it may be necessary to restart/exit them again with the root account in order to cleanup shared memory.
-4)  When running with the root account, the Developer Panel may output error or warning messages to the terminal. These should not prevent the panel from functioning properly.
-5)  If the RadeonDeveloperServiceCLI application crashes, shared memory may need to be cleaned up by running the remove_shared_memory.sh script located in the script folder of the RGP release kit. Run the script with elevated privileges using sudo.
-6)  The Radeon Developer Panel may fail to start the Radeon Developer Service when the Connect button is clicked. If this occurs, manually start the Radeon Developer Service, select localhost from the the Recent connections list and click the Connect button again.
-7)  On some RDNA 3 hardware, detailed instruction timing data will not be available even when the user asks Radeon Developer Panel to collect it.
-
-* RDNA
-
-1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
-
-
-Release Notes History
--------------------------------------
+1) To support collecting data for thread divergence in the ray tracing shader table, the Profiling workflow user interface has a new "Enable shader instrumentation" checkbox (affects DirectX 12 only for now, requires AMD Software: Adrenalin Edition 23.12.1 or newer)
 
 V1.16 Changes
 -------------------------------------
@@ -95,20 +98,21 @@ V1.15 Changes
 
 * Radeon GPU Profiler
 
-1) Support for additional AMD RDNA 3 hardware
-2) Newly redesigned ISA disassembly views in the Pipeline state and Instruction timing panes
+1)  Support for additional AMD RDNA 3 hardware
+2)  Newly redesigned ISA disassembly views in the Pipeline state and Instruction timing panes
   - Code blocks can now be collapsed/expanded
   - Selected token highlighting allows you to quickly see other instances of the selected token (instruction opcodes, registers and constants)
   - One-click navigation between branch instructions and their targets, along with tracked navigation history
   - Customize the displayed columns
   - Improved search result highlighting
-3) Improved performance in the System activity timeline in the Frame summary pane when opening large profiles
-4) Instruction timing side panel will now report the total number of WMMA (wave matrix multiply accumulate) instructions executed by a shader when running on RDNA 3 or newer hardware
-5) Pipeline state pane will now report when conservative rasterization is enabled
-6) Fixed issues with keyboard selection in the tree view in the Event timing and Pipeline state panes
-7) DirectX 12 Mesh shader functions and Vulkan Mesh shader extension functions now are identified properly in RGP's event lists
-8) Fixed incorrect tree hierarchy in the Event timing and Pipeline state pane when events are grouped by user events and event filtering is used
-9) Bug/stability fixes
+3)  Improved performance in the System activity timeline in the Frame summary pane when opening large profiles
+4)  Instruction timing side panel will now report the total number of WMMA (wave matrix multiply accumulate) instructions executed by a shader when running on RDNA 3 or newer hardware
+5)  Pipeline state pane will now report when conservative rasterization is enabled
+6)  Fixed issues with keyboard selection in the tree view in the Event timing and Pipeline state panes
+7)  DirectX 12 Mesh shader functions and Vulkan Mesh shader extension functions now are identified properly in RGP's event lists
+8)  Fixed incorrect tree hierarchy in the Event timing and Pipeline state pane when events are grouped by user events and event filtering is used
+9)  Initial support for DirectX 12 Work Graphs
+10) Bug/stability fixes
 
 V1.14.1 Changes
 -------------------------------------

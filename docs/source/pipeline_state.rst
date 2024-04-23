@@ -98,7 +98,10 @@ the table by Export name using the **Filter shaders...** field. If you click on
 any hyperlinked text in the shader table, it will navigate to the ISA tab and
 show the ISA for the selected shader function. You can also use the right-click
 context menu to navigate to either the ISA tab or to the Instruction timing
-view.
+view. The context menu also allows you to analyze the pipeline binary for that
+shader function in the Radeon GPU Analyzer.
+
+.. image:: media_rgp/rgp_pipeline_state_raytracing_5.png
 
 If the **Enable shader instrumentation** checkbox was checked in Radeon
 Developer Panel when the profile was captured, the table will also include

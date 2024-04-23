@@ -65,23 +65,32 @@ be seen in the image below.
 
 Solid green indicates how much of a given instruction's latency was hidden by VALU work. Solid yellow
 indicates how much latency was hidden by SALU or SMEM work. A diagonal hatch pattern made up of both
-green and yellow indicates how much latency was hidden by both VALU and SALU work. Finally, red indicates
-how much latency was not hidden by other work being done on the GPU. It is likely that bars
-with large red segments indicate a stall occurring while the shader is executing. When the mouse
-hovers over a row in the Latency column, a tooltip appears showing the exact breakdown of that
+green and yellow indicates how much latency was hidden by both VALU and SALU work.
+Sections with a black diagonal hatch pattern are the portion of the stall that is the pre-issue stall.
+Finally, solid red indicates how much latency was not hidden by other work being done on the GPU.
+It is likely that bars with large red segments indicate a stall occurring while the shader is executing.
+When the mouse hovers over a row in the Latency column, a tooltip appears showing the exact breakdown of that
 instruction's latency.
 
-In the image above, the total latency of the instruction is 853 clocks. Of those 853 clocks, 209 clocks
-worth of latency are hidden by SALU work on other slots and 554 clocks worth of latency are hidden by
-VALU work. The 209 clocks where both SALU and VALU work was being done is shown using the hatch pattern.
-The segment between 209 and 554 clocks is shown as green since only VALU work is being done. The segment
-between 554 and 853 clocks is shown as red since there is no other work being done. Since there is more
+In the image above, the total latency of the instruction is 845 clocks. Of those 845 clocks, 197 clocks
+worth of latency are hidden by SALU work on other slots and 453 clocks worth of latency are hidden by
+VALU work. The 197 clocks where both SALU and VALU work was being done is shown using the hatch pattern.
+The segment between 197 and 453 clocks is shown as green since only VALU work is being done. The segment
+between 453 and 845 clocks is shown as red since there is no other work being done. Since there is more
 VALU work being done at the same time, green is more prevalent than yellow in this bar.
 
 Contrast this with the image below, where an instruction is shown where more latency is hidden by SALU
 work. In this case, yellow is more prevalent than green.
 
 .. image:: media_rgp/rgp_instruction_timing_latency_bars_2.png
+
+When the amount of latency hidden by SALU and VALU work is greater than the the pre-issue
+stall, no black diagonal hatch pattern will be displayed, and the tooltip will display that the pre-issue
+stall is completely hidden. If the amount of latency hidden by SALU and VALU work is less than the 
+pre-issue stall, the duration after the VALU and SALU work will have the black diagonal hatch pattern,
+as shown in the image below.
+
+.. image:: media_rgp/rgp_instruction_timing_latency_bars_3.png
 
 A red indicator will be shown in the vertical scroll bar corresponding to the location of the
 instruction with the highest latency. This allows you to quickly find the hotspot within the shader.
@@ -229,6 +238,13 @@ events using the selected kernel (Shift + Left and Shift + Right). The navigatio
 Compute profile are shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_3.png
+
+The pipeline binary of an event can also be exported for analysis in the Radeon GPU Aanalyzer from the 
+instruction timing pane. Select the hamburger drop down as shown in the image below and select 
+"Analyze pipeline in Radeon GPU Analyzer". Selecting this option for indirect raytracing events will 
+save and open the pipeline binary for the currently selected export name.
+
+.. image:: media_rgp/rgp_instruction_timing_rga_interop.png
 
 More information on some of the features available in the Instruction timing pane can be found under
 the :ref:`ISA View <isa_view>` section.

@@ -58,6 +58,9 @@ legend to visualize wavefronts in different ways:
    wavefronts ran on. This can be useful to visualize the amount of
    context rolls that occurred.
 
+-  **Color by limiting factor.** Shows the limiting factor for the occupancy 
+   of that shader.
+
 -  **Color by shader engine.** Shows which shader engine the wavefronts
    ran on.
 
@@ -78,6 +81,10 @@ legend to visualize wavefronts in different ways:
    which perform ray tracing. Wavefronts from traditional ray tracing events as
    well as wavefronts from shaders with inlined ray tracing will be shown using
    the specified ray tracing color. All other waves will be shown as grey.
+
+-  **Color by indirect command** Shows which wavefronts correspond to which
+   indirect commands of the profile. Each indirect command is assigned a unique
+   color. All other waves will be shown as grey.
 
 Color modes can be synchronized across the Wavefront occupancy and Event timing
 panes. To do this, simply hold down the Ctrl key when selecting a mode from any
@@ -228,6 +235,12 @@ events in different ways:
    context. This can be useful to visualize the amount of context rolls
    that occurred.
 
+-  **Color by context rolls.** Shows which events had their context rolled 
+   since the previous event.
+
+-  **Color by limiting factor.** Shows the largest limiting factor for the 
+   occupancy for any shader in that event.
+
 -  **Color by event.** Will show each event in a unique color.
 
 -  **Color by pass.** Groups events into different passes depending on
@@ -252,6 +265,10 @@ events in different ways:
 
 -  **Color by ray tracing** will only colorize raytracing events. All other
    events will be greyed out.
+
+-  **Color by indirect command** Will colorize each event based on which 
+   indirect command the event came from. Events launched from the same
+   indirect command get the same unique color. All other events will be greyed out.
 
 Beneath the **Color by** combo-box is the **Event filter** combo-box.
 This allows the user to visualize only certain types of events on the timeline.
@@ -416,7 +433,7 @@ Below is a screenshot of what the right-click context menu looks like.
 .. rubric:: Wavefront occupancy customization
 
 The Wavefront occupancy section of RGP is customizable. Users can hide
-and reorder the vertical position of views.
+and reorder the vertical position of views. Users can also resize the height of the views.
 
 To hide a view, simply press the X button next to the view.
 
@@ -448,6 +465,10 @@ until you move it again. The Views combo box will be updated to
 reflect its new position.
 
 .. image:: media_rgp/rgp_occupancy_view_new_position.png
+
+The views can also be resized by clicking and dragging the bottom of the view.
+
+.. image:: media_rgp/rgp_resized_occupancy_views.png
 
 The customization of the Wavefront occupancy section is treated like a
 normal RGP setting and persists upon closing and reopening RGP.

@@ -308,6 +308,13 @@ right-click context menu to jump between panes, the option to "View in
 context rolls" will only be available if the selected event is currently
 present in the events table on the context rolls pane.
 
+In the events panes selecting the "context rolls" option from the "Color 
+By" drop down box in the Wavefront occupancy event timeline or the Event 
+timing pane shows all events that have had their context rolled from the
+previous event.
+
+.. image:: media_rgp/rgp_context_rolls_4.png
+
 Most expensive events
 ---------------------
 
@@ -566,8 +573,8 @@ supports zooming:
 .. |ZoomInRef| image:: media_rgp/rgp_zoom_in.png
 .. |ZoomOutRef| image:: media_rgp/rgp_zoom_out.png
 
-|ZoomSelectionRef| **Zoom to selection**
-----------------------------------------
+|ZoomSelectionRef| Zoom to selection
+------------------------------------
 When **Zoom to selection** is clicked, the zoom level is increased to a selected
 region or selected event. A selection region is set by holding down the
 left mouse button while the mouse is on the graph and dragging the mouse
@@ -580,14 +587,14 @@ to a selected event can be accomplished by simply double clicking the event.
 Pressing the **Z** shortcut key while holding down the **CTRL** key activates
 **Zoom to selection** as well.
 
-|ZoomResetRef| **Zoom reset**
------------------------------
+|ZoomResetRef| Zoom reset
+-------------------------
 When **Zoom reset** is clicked, the zoom level is returned to the original level
 to reveal the entire time span on the graph. The zoom level can also be reset
 using the **H** shortcut key.
 
-|ZoomInRef| **Zoom in**
------------------------
+|ZoomInRef| Zoom in
+-------------------
 Increases the zoom level incrementally to display a shorter time span on the
 graph. The zoom level is increased each time this icon is clicked until the
 maximum zoom level is reached. Alternatively, holding down the **CTRL** key
@@ -596,8 +603,8 @@ will also zoom in for a more detailed view. Zooming in can be activated with
 the **A** shortcut key. To zoom in quickly at a 10x rate, press the **S**
 shortcut key.
 
-|ZoomOutRef| **Zoom out**
--------------------------
+|ZoomOutRef| Zoom out
+---------------------
 Decreases the zoom level incrementally to display a longer time span on the
 graph. The zoom level is decreased each time this icon is clicked until the
 minimum zoom level is reached (i.e. the full available time region).
@@ -1046,6 +1053,55 @@ contain a user event hierarchy, nothing will be shown.
 Events enclosed by user markers are colored in the wavefront occupancy
 view. They are also visible in the side panel.
 
+.. _rga_rgp_interop:
+
+Radeon GPU Analyzer and Radeon GPU Profiler interop
+===================================================
+
+The Radeon GPU Analyzer now supports opening pipeline binary files in its binary analysis mode. 
+Users can create and open these binary files directly from RGP and view them in RGA. To export 
+a pipeline binary for analysis in RGA right-click an event in any RGP pane that contains events 
+and select "Analyze pipeline in Radeon GPU Analyzer" in the context menu options.
+
+.. image:: media_rgp/rgp_analyze_pipeline_in_rga.png
+
+Some events such as indirect raytracing events can have multiple pipeline binaries. To select 
+which pipeline binary to analyze in RGA right-click a specific binary in the pipeline state 
+shader table for ray tracing events and select the context menu option to analyze that pipeline 
+binary. Alternatively, right-click the event anywhere in RGP and select "Analyze pipeline in 
+Radeon GPU Analyzer" to open a window to pick from the full list of pipeline binaries in that event.
+Pushing the "Analyze selected binaries" button will save and open all binaries that were checked in
+the list in RGA. Keep in mind opening a large number of pipeline binaries in RGA may take some time.
+
+.. image:: media_rgp/rgp_select_multiple_pipeline_binaries_for_rga_export.png
+
+The location of the Radeon GPU Analyzer executable file as well as the location where pipeline 
+binaries are saved can be changed in the Radeon GPU Analyzer interop section of the general settings.
+
+.. image:: media_rgp/rgp_rga_interop_settings.png
+
+If either the executable file or pipeline binary file path cannot be found an error message will 
+be displayed next to the corresponding setting.
+
+.. image:: media_rgp/rgp_rga_interop_settings_invalid.png
+
+Selecting a pipeline binary for analysis while either of these file paths are invalid will open up 
+a message prompt to select a valid file path.
+
+.. image:: media_rgp/rgp_rga_executable_not_found.png
+
+If the pipeline binary being exported already exists on disk a message prompt will appear asking 
+if the file should be overwritten or directly opened in RGA without being overwritten. Select the 
+checkbox in the message prompt to save the selected option for the future and not see this message 
+again.
+
+.. image:: media_rgp/rgp_pipeline_binary_file_already_exists.png
+
+This setting can be changed at any time from the Radeon GPU Analyzer interop section of the 
+general settings.
+
+.. image:: media_rgp/rgp_overwrite_existing_pipeline_binaries_options.png
+
 RenderDoc & Radeon GPU Profiler interop BETA
 ============================================
 
@@ -1225,4 +1281,4 @@ Microsoft is a registered trademark of Microsoft Corporation in the US and other
 
 Windows is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
 
-© 2016-2023 Advanced Micro Devices, Inc. All rights reserved.
+© 2016-2024 Advanced Micro Devices, Inc. All rights reserved.

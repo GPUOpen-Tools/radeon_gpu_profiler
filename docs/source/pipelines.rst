@@ -62,6 +62,14 @@ Each entry in the table displays the following information:
 The **Filter pipelines...** field can be used to filter items in the list by the API PSO hash.
 The Pipelines table can be sorted by clicking on a column header.
 
+Right-clicking a pipeline in the pipeline summary section displays a context menu giving the 
+option to "Analyze pipeline in Radeon GPU Analyzer." Selecting the option saves the pipeline
+in a binary format and opens the binary file in the Radeon GPU Analyzer. See the section 
+:ref:`Radeon GPU Analyzer and Radeon GPU Profiler interop<rga_rgp_interop>` for more 
+information.
+
+.. image:: media_rgp/rgp_pipeline_summary_6.png
+
 Below the table, the Bucket ID, API PSO hash and Driver internal pipeline
 hash for the currently-selected pipeline is displayed. There is also a quick link to
 view the selected pipeline in the Pipeline state view. This will navigate to the
