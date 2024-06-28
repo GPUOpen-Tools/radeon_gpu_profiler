@@ -1,18 +1,14 @@
-Radeon™ GPU Profiler V2.1 04-24-2024
+Radeon™ GPU Profiler V2.2 07-01-2024
 -------------------------------------
 
-V2.1 Changes
+V2.2 Changes
 -------------------------------------
 
-* Radeon GPU Profiler
-
-1) Interoperability with the Radeon GPU Analyzer: binary pipelines can now be extracted from a loaded profile data set in RGP and automatically loaded into a new instance of RGA for analysis
-2) Rows in Wavefront occupancy pane can now be resized, allowing for additional user customization
-3) New "Color by limiting factor" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events whose theoretical occupancy is limited by VGPR usage, LDS usage or thread group dimensions
-4) New "Color by context rolls" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events where a context roll occurred since the previous event
-5) Latency visualization in the Instruction timing pane will now show which part of the total latency represents a "pre-issue" stall
-6) Fixed issue with incorrect LDS usage reported on RDNA™-based GPUs
-7) Bug/stability fixes
+1) Updated to use Qt 6.7.0
+2) Fix a crash when loading a RADV-exported profile (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/98)
+3) Enabling shader instrumentation (to support showing thread divergence in the ray tracing shader table UI) for Vulkan® is now supported starting with 24.10-based drivers
+4) Reduced profile load time for certain profiles, especially for those captured on RDNA™ 3 hardware
+5) Bug/stability fixes
 
 Known Issues
 -------------------------------------
@@ -45,6 +41,19 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V2.1 Changes
+-------------------------------------
+
+* Radeon GPU Profiler
+
+1) Interoperability with the Radeon GPU Analyzer: binary pipelines can now be extracted from a loaded profile data set in RGP and automatically loaded into a new instance of RGA for analysis
+2) Rows in Wavefront occupancy pane can now be resized, allowing for additional user customization
+3) New "Color by limiting factor" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events whose theoretical occupancy is limited by VGPR usage, LDS usage or thread group dimensions
+4) New "Color by context rolls" coloring mode in the Wavefront occupancy and Event timing panes. This will highlight events where a context roll occurred since the previous event
+5) Latency visualization in the Instruction timing pane will now show which part of the total latency represents a "pre-issue" stall
+6) Fixed issue with incorrect LDS usage reported on RDNA-based GPUs
+7) Bug/stability fixes
 
 V2.0 Changes
 -------------------------------------

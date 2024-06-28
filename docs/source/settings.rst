@@ -1,3 +1,6 @@
+Settings
+========
+
 General
 -------
 **Check for updates on startup:** Radeon GPU Profiler will check for an available update
@@ -21,6 +24,11 @@ RGP at which point to consider an application as being GPU bound or CPU bound.
 the Wavefront occupancy pane. This allows users to see a more accurate
 representation of GPU occupancy at the expense of some profiler performance.
 
+**Radeon GPU Analyzer interop:** Configure behavior and settings used when
+exporting pipeline binaries from Radeon GPU Profiler for analysis in Radeon
+GPU Analyzer. See the section 
+:ref:`Radeon GPU Analyzer and Radeon GPU Profiler interop<rga_rgp_interop>`
+for more information.
 
 Themes and colors
 -----------------
