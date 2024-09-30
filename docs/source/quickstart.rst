@@ -10,7 +10,7 @@ provided with this distribution for information on how to capture a profile.
 This can be obtained from within the Radeon Developer Panel or from the
 link on the Radeon GPU Profiler "Welcome" view. The Radeon Developer Panel
 documentation can also be viewed online at:
-https://radeon-developer-panel.readthedocs.io/en/latest/
+https://gpuopen.com/manuals/rdp_manual/rdp_manual-index/
 
 Starting the Radeon GPU Profiler
 --------------------------------
@@ -96,7 +96,7 @@ the profile data are within the **Overview** and **Events** sections.
 
    g. **Pipelines** - Details of the pipeline usage in the profile.
 
-   h. **Device configuration** - Information about the GPU the profile
+   h. **System information** - Information about the GPU the profile
       was generated on.
 
 3. **Events**
@@ -122,3 +122,25 @@ the profile data are within the **Overview** and **Events** sections.
       hardware data.
 
    c. **Keyboard shortcuts** - Shortcuts for navigating various parts of the UI.
+
+Driver experiments
+------------------
+
+Driver experiments can be configured when capturing a profile and allow the
+behavior of certain driver operations to be adjusted.  Please see the Radeon
+Developer Panel documentation for more details on configuring Driver experiments.
+Modified Driver experiments included in a profile will be listed on the System
+information pane under the section labeled **Driver experiments**. 
+
+.. image:: media_rgp/rgp_system_information.png
+
+When a profile that includes Driver experiments is loaded, a notification
+banner is displayed below the main drop down menu. 
+
+.. image:: media_rgp/rgp_driver_experiments_notification.png
+
+The notification banner includes a "See details" shortcut link that navigates
+to the System information pane. The banner can be dismissed by clicking the "X"
+button. Clicking the "Do not show again" link prevents the banner from being
+shown for subsequently loaded trace files. The notification banner can be
+re-enabled from the Settings pane.

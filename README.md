@@ -20,8 +20,8 @@ In order to use the latest features of RGP, it is strongly recommended that user
    * Help web pages can be accessed from the **Help** button in the Radeon Developer Panel
    * Help web pages can be accessed from the Welcome screen in the Radeon GPU Profiler, or from the **Help** menu
    * The documentation is hosted publicly at:
-     * https://radeon-developer-panel.readthedocs.io/en/latest/
-     * https://radeon-gpuprofiler.readthedocs.io/en/latest/
+     * https://gpuopen.com/manuals/rdp_manual/rdp_manual-index/
+     * https://gpuopen.com/manuals/rgp_manual/rgp_manual-index/
 
 ## Graphics APIs, RDNA™ hardware, and operating systems
 ### Supported APIs
@@ -38,6 +38,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * Windows® 10
 * Windows® 11
 * Ubuntu 22.04 LTS (Vulkan only)
+* Ubuntu 24.04 LTS (Vulkan only)
 
 
 ## Compute APIs, RDNA hardware, and operating systems

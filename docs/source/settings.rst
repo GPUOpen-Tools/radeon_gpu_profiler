@@ -30,6 +30,10 @@ GPU Analyzer. See the section
 :ref:`Radeon GPU Analyzer and Radeon GPU Profiler interop<rga_rgp_interop>`
 for more information.
 
+**Driver experiment notification** Radeon GPU Profiler will display a
+notification banner under the main drop down menu of the user interface
+indicating when a loaded profile contains modified driver experiments.
+
 Themes and colors
 -----------------
 The profiler makes heavy use of coloring to display its information.

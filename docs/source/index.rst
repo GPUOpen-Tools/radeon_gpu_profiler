@@ -79,6 +79,8 @@ Graphics APIs, RDNA hardware, and operating systems
 
 -  Ubuntu 22.04 LTS (Vulkan only)
 
+-  Ubuntu 24.04 LTS (Vulkan only)
+
 Compute APIs, RDNA hardware, and operating systems
 --------------------------------------------------
 

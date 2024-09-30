@@ -1,14 +1,15 @@
-Radeon™ GPU Profiler V2.2 07-01-2024
+Radeon™ GPU Profiler V2.3 10-01-2024
 -------------------------------------
 
-V2.2 Changes
+V2.3 Changes
 -------------------------------------
 
-1) Updated to use Qt 6.7.0
-2) Fix a crash when loading a RADV-exported profile (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/98)
-3) Enabling shader instrumentation (to support showing thread divergence in the ray tracing shader table UI) for Vulkan® is now supported starting with 24.10-based drivers
-4) Reduced profile load time for certain profiles, especially for those captured on RDNA™ 3 hardware
-5) Bug/stability fixes
+1) The System information pane (which has been renamed from "Device configuration") will now indicate if any driver experiments were enabled when the loaded profile data set was captured
+2) The event tree view in the Event timing and Pipeline state panes will show when multiple indirect draw calls or dispatches are launched from a single ExecuteIndirect call
+3) Adapt to changes in the way that ray tracing pipelines are compiled by the ray tracing runtime and the shader compiler. This results in minor changes in the display names of the individual shaders in the RGP UI. The UI elements affected are the ray tracing shader table in the Pipeline state pane and the "Export name" drop down and the "Call targets" table in the Instruction timing pane.
+4) Fix an issue when attempting to scroll horizontally using the input device when the mouse cursor is over select rows in the Wavefront occupancy pane (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/79)
+5) Fix an issue where the last column in the Barriers pane is not visible at lower resolutions (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/103)
+6) Bug/stability fixes
 
 Known Issues
 -------------------------------------
@@ -22,15 +23,14 @@ Known Issues
 
 * Windows®
 
-1)  D3D12 command list calls of ExecuteIndirect() may show in RGP as multiple compute events.
-2)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
-3)  If a DirectX® 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
+1)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
+2)  If a DirectX® 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
 
 * Linux®
 
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
+1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
 
-* RDNA
+* RDNA™
 
 1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
 
@@ -41,6 +41,15 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V2.2 Changes
+-------------------------------------
+
+1) Updated to use Qt 6.7.0
+2) Fix a crash when loading a RADV-exported profile (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/98)
+3) Enabling shader instrumentation (to support showing thread divergence in the ray tracing shader table UI) for Vulkan is now supported starting with 24.10-based drivers
+4) Reduced profile load time for certain profiles, especially for those captured on RDNA 3 hardware
+5) Bug/stability fixes
 
 V2.1 Changes
 -------------------------------------
@@ -79,7 +88,7 @@ V1.16 Changes
 * Radeon GPU Profiler
 
 1)  Support for additional AMD RDNA 3 hardware
-2)  The vertical scroll bars in the ISA disassembly view (in Instruction timing and Pipeline state panes) now indicate the location of search matches and instruction latency hotspot
+2)  The vertical scroll bars in the ISA disassembly view (in the Instruction timing and Pipeline state panes) now indicate the location of search matches and instruction latency hotspot
 3)  Added support for showing the ray tracing pipeline in the Pipeline state pane for profiles generated by the RADV driver (the bulk of this work was implemented by the RADV team, but this RGP release contains some corresponding changes to support this)
 4)  The Output Merger (OM) Pipeline state pane now shows the Stencil reference value as part of the Depth/Stencil state
 5)  The Output Merger (OM) Pipeline state pane now shows the correct value for "Alpha to coverage enable" on recent hardware
@@ -541,5 +550,3 @@ V1.01 Changes
 * Radeon GPU Profiler
 
 1) Fixed crash when loading certain profiles
-
-

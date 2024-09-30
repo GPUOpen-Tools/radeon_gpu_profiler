@@ -163,7 +163,7 @@ The description of each counter can be viewed by hovering the mouse over the
 counter name in the legend left of the counter graph.
 
 The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
-reported in the Device configuration pane in the Overview tab.
+reported in the System information pane in the Overview tab.
 
 Users may use the legend on the left to choose which counters to
 include in the graph.
@@ -581,6 +581,14 @@ from. Grouping by state bucket just shows events in the graphics queue.
 Grouping by hardware context is shown below:
 
 .. image:: media_rgp/rgp_event_timing_2.png
+
+Note that when profiling an application that uses indirect drawing via the
+**ExecuteIndirect** D3D12 call, the event tree view will logically group the
+individual draw calls under the same parent node. This can be seen below where
+the individidual **DrawInstanced** events are grouped under a parent node with
+the same name:
+
+.. image:: media_rgp/rgp_event_treeview_multidraw.png
 
 **Color modes**
 

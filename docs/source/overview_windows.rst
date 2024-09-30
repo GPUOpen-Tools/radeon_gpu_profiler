@@ -503,8 +503,8 @@ The screen is split into two sections, a timeline view and a tree view listing:
 .. image:: media_rgp/rgp_render_targets_overview_2.png
 
 The graphical timeline view illustrates the usage of render targets over
-the duration of the frame. Other events like dispatches, copies, clears
-and barriers are shown at the bottom of this view.
+the duration of the frame. Other events like dispatches, ray trace dispatches,
+copies, clears and barriers are shown at the bottom of this view.
 
 Zoom controls can be used to focus in on a section of the timeline. More
 information on zoom controls can be found under the
@@ -648,15 +648,20 @@ to quickly navigate to the event in other panes.
 .. image:: media_rgp/rgp_pipeline_summary_5.png
 
 
-Device configuration
---------------------
+System information
+------------------
 
-This UI reports the GPU configuration of the system that was used to
-generate the profile. The Radeon Developer Panel can retrieve profiles
-from remote systems so the GPU details can be different from the system
-that you are using to view the data. The clock frequencies refer to the
+This UI reports the configuration of the system that was used to
+generate the profile. The Radeon Developer Panel can capture profiles
+on remote systems so the system details can be different from the system
+that you are using to view the data. The GPU clock frequencies refer to the
 clock frequency running when the capture was taken. The number in
 parentheses represents the peak clock frequency the graphics hardware
 can run at.
 
-.. image:: media_rgp/rgp_device_configuration.png
+In addition, if any driver experiments were enabled when the profile was captured
+they will be displayed here under the section labeled **Driver experiments**.
+Hovering over a driver experiment name or value with the mouse pointer displays a
+tooltip describing that item.
+
+.. image:: media_rgp/rgp_system_information.png
