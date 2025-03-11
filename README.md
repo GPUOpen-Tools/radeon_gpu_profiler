@@ -29,6 +29,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
  * Vulkan
 
 ### Supported RDNA hardware
+* AMD Radeon RX 9000 series
 * AMD Radeon RX 7000 series
 * AMD Radeon RX 6000 series
 * AMD Radeon RX 5000 series
@@ -47,6 +48,7 @@ In order to use the latest features of RGP, it is strongly recommended that user
 * HIP
 
 ### Supported RDNA hardware
+* AMD Radeon RX 9000 series
 * AMD Radeon RX 7000 series
 * AMD Radeon RX 6000 series
 * AMD Radeon RX 5000 series

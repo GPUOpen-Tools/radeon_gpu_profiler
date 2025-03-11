@@ -63,6 +63,8 @@ Graphics APIs, RDNA hardware, and operating systems
 
 .. rubric:: Supported RDNA hardware
 
+-  AMD Radeon RX 9000 series
+
 -  AMD Radeon RX 7000 series
 
 -  AMD Radeon RX 6000 series
@@ -91,6 +93,8 @@ Compute APIs, RDNA hardware, and operating systems
 -  HIP
 
 .. rubric:: Supported RDNA hardware
+
+-  AMD Radeon RX 9000 series
 
 -  AMD Radeon RX 7000 series
 
@@ -132,6 +136,6 @@ Microsoft is a registered trademark of Microsoft Corporation in the US and other
 
 Windows is a registered trademark of Microsoft Corporation in the US and other jurisdictions.
 
-© 2016-2024 Advanced Micro Devices, Inc. All rights reserved.
+© 2016-2025 Advanced Micro Devices, Inc. All rights reserved.
 
 

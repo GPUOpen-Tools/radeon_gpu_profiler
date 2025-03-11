@@ -1,11 +1,12 @@
 Overview Windows
 ================
 
-Frame summary (DX12 and Vulkan)
--------------------------------
+Frame summary (Frame-based profiles)
+------------------------------------
 
 This window describes the structure of a profile from a number of
-different perspectives.
+different perspectives. Frame-based profiles refers to profiles captured from
+DirectX12 and Vulkan graphics applications that call Present.
 
 .. image:: media_rgp/rgp_frame_summary_1.png
 
@@ -30,7 +31,7 @@ Along the top, we find a series of controls:
    -  **CPU-based frames:** Interprets frame boundaries to begin when
       a present was submitted on the CPU.
 
--  **Workload views:** Provide twelve different ways to view the same data:
+-  **Workload views:** Provide different ways to view the same data:
 
    -  **Command buffers:** Shows a list of all command buffers in a
       submission. Disabling this will condense all command buffers into
@@ -133,17 +134,22 @@ instances.
 shaded primitives, shaded pixels, and instanced primitives. In the
 above example we can see that the GS is being used to expand the
 number of shaded primitives. Also, looking at the **Rendered
-Primitives** histogram we can see that one draw uses between 0 and 1K
+primitives** histogram we can see that one draw uses between 0 and 1K
 primitives, and the other draw call uses 11k or more primitives. This
 makes sense given that the profile is from the D3D12nBodyGravity SDK
 sample.
 
+**NOTE**: The **Geometry breakdown** table and the **Rendered primitives**
+histogram are hidden if there are no rendered primitives in the profile,
+and the **Instanced primitives** histogram is hidden if there are no
+instanced primitives in the profile.
 
-Profile summary (OpenCL or HIP)
--------------------------------
+Profile summary (Non frame-based profiles)
+------------------------------------------
 
 This window describes the structure of a profile from a number of
-different perspectives.
+different perspectives. Non frame-based profiles refers to profiles captured from OpenCL,
+HIP or pure-compute DirectX and Vulkan applications.
 
 .. image:: media_rgp/rgp_profile_summary_1.png
 
@@ -156,7 +162,13 @@ This grouping reduces submission overhead.
 
 Along the top, we find a series of controls:
 
--  **Workload views:** Provide twelve different ways to view the same data:
+-  **Workload views:** Provide different ways to view the same data:
+
+    -  **Command buffers:**: Only for pure-compute DirectX and Vulkan profiles. See description in
+       the **Frame summary** section.
+
+   -  **Sync objects**: Only for pure-compute DirectX and Vulkan profiles. See description in
+       the **Frame summary** section.
 
    -  **Sequential**: An alternate view which shows data linearly as
       opposed to stacked. The dark right-most portion of command buffers
@@ -172,7 +184,7 @@ Along the top, we find a series of controls:
    users to drill down into points of interest. See the section entitled
    :ref:`Zoom Controls<zoom_controls>` for more information.
 
-In the middle, we find the actual view. Each queue applicable to OpenCL or HIP (Compute, Copy)
+In the middle, we find the actual view. Each queue applicable to non frame-based profiles (Compute, Copy)
 gets its own section. Note that command buffers are visualized using two shades of the
 same color. The lighter shade represents time spent prior to reaching the GPU, and
 the darker shade represents actual execution.
@@ -211,9 +223,13 @@ to video memory by the hardware while gathering the RGP profile. The
 profiling overhead is also expressed in terms of memory bandwidth used
 to write the SQTT data.
 
+For pure-compute DirectX and Vulkan applications, the **Queue submissions**, **Command buffers**,
+and **Sync Primitives** pie charts are visible. See the **Frame summary** section for more information.
+
 The **Event statistics** pie chart and table show the event counts. For OpenCL, 
 the items are colored by OpenCL API type. For HIP, the items are colored by
-either kernel name (for dispatches) or HIP API type (for other events).
+either kernel name (for dispatches) or HIP API type (for other events). Events for pure-compute DirectX
+and Vulkan applications are colored by type similar to frame-based applications.
 In the example below, there are 89 clEnqueueNDRangeKernel calls and 7
 clEnqueueFillBuffer calls. The meaning of CmdBarrier() is explained in the
 Barriers section.

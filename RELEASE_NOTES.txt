@@ -1,4 +1,50 @@
-Radeon™ GPU Profiler V2.3 10-01-2024
+Radeon™ GPU Profiler V2.4 03-11-2025
+-------------------------------------
+
+V2.4 Changes
+-------------------------------------
+
+1) Support for AMD RDNA™ 4 hardware (AMD Radeon RX 9000 Series)
+2) Support for additional AMD RDNA 3-based APUs
+3) Support for profiling non-frame-based pure compute DirectX® 12 and Vulkan® applications (requires a 24.30-based driver or newer)
+4) Support for profiling DirectML applications, including displaying driver-added user markers to show the category of any meta commands executed via the DirectML runtime (requires a 24.30-based driver or newer)
+5) Support for viewing ISA and Instruction timing data for sub-dispatches in Work Graphs applications (requires a 24.30-based driver or newer)
+6) The ISA views in the Pipeline state pane and in the Instruction timing pane will now show additional information in a tooltip when you hover the mouse over an instruction opcode
+7) The System information page will now display information about the installed driver (requires a 24.30-based driver or newer)
+8) Bug/stability fixes
+
+Known Issues
+-------------------------------------
+
+* All platforms
+
+1) When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc.
+2) If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
+3) OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
+4) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
+
+* Windows®
+
+1) Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
+2) If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
+3) The Driver information will not be displayed in the System information page for profiles from HIP or OpenCL applications.
+4) When using a 24.30-based driver, the L2 cache size reported in the System information page on RX 9000 Series GPUs will be incorrect for profiles from HIP or OpenCL applications.
+5) Some DirectX ray tracing profiles may show "Unknown" events for profiles captured on Radeon RX 9000 Series GPUs.
+
+* Linux®
+
+1) Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json.
+
+* RDNA
+
+1) The Device configuration does not show the correct Work group processor per Shader engine for certain parts with disabled CUs.
+
+* Radeon Developer Panel
+
+1) See RDP_RELEASE_NOTES.txt for additional items that may affect profiling.
+
+
+Release Notes History
 -------------------------------------
 
 V2.3 Changes
@@ -10,37 +56,6 @@ V2.3 Changes
 4) Fix an issue when attempting to scroll horizontally using the input device when the mouse cursor is over select rows in the Wavefront occupancy pane (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/79)
 5) Fix an issue where the last column in the Barriers pane is not visible at lower resolutions (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/103)
 6) Bug/stability fixes
-
-Known Issues
--------------------------------------
-
-* All platforms
-
-1)  When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc
-2)  If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-3)  OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
-4)  It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
-
-* Windows®
-
-1)  Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
-2)  If a DirectX® 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
-
-* Linux®
-
-1)  Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json
-
-* RDNA™
-
-1)  The Device configuration does not show the correct Work group processor per Shader engine for certain parts with harvested CUs.
-
-* Radeon Developer Panel
-
-1) See RDP_RELEASE_NOTES.txt for additional items that may affect profiling.
-
-
-Release Notes History
--------------------------------------
 
 V2.2 Changes
 -------------------------------------

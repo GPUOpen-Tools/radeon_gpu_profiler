@@ -80,19 +80,19 @@ the profile data are within the **Overview** and **Events** sections.
 2. **Overview**
 
    a. **Frame Summary** - Contains a summary of the structure of the
-      graphics frame. This overview section is not available for OpenCL or HIP profiles.
+      graphics frame. This overview section is not available for OpenCL or HIP profiles, or other non frame-based profiles.
 
-   b. **Profile Summary** - Contains a summary of the structure of the OpenCL of HIP profile.
+   b. **Profile Summary** - Contains a summary of the structure of the OpenCL, HIP, or other non frame-based profiles.
 
    c. **Barriers** - Details of the barrier usage in the profile.
 
    d. **Context rolls** - Details of the hardware context register usage.
-      This overview section is not available for OpenCL or HIP profiles.
+      This overview section is not available for OpenCL or HIP profiles or pure-compute DirectX and Vulkan profiles.
 
    e. **Most expensive events** - List of the most expensive events.
 
    f. **Render/depth targets** - Overview of render targets used throughout
-      the graphics frame. This overview section is not available for OpenCL or HIP profiles.
+      the graphics frame. This overview section is not available for OpenCL or HIP profiles or pure-compute DirectX and Vulkan profiles.
 
    g. **Pipelines** - Details of the pipeline usage in the profile.
 

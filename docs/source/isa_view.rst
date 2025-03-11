@@ -40,10 +40,14 @@ line using the controls displayed below.
 
 Both the Search command (Ctrl + F) and the Go to line command (Ctrl + G) can be invoked using keystrokes.
 
-Instruction lines that match the search results are highlighted. The vertical
+Text in the isa viewer that matches the current search text is highlighted. The vertical
 scroll bar will also indicate the location of all matches, giving you a visual
 indicator of where in the shader the various matches can be found.
 
 .. image:: media_rgp/rgp_isa_view_search_results.png
+
+Hovering the mouse over opcodes will show a tooltip with the opcode's explanation, after a short delay.
+
+.. image:: media_rgp/rgp_isa_view_tooltip.png
 
 The display of line numbers can be toggled using a keyboard shortcut (Ctrl + Alt + L).

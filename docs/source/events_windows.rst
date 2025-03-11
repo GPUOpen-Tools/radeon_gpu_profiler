@@ -111,10 +111,10 @@ the occupancy of certain RDNA or GCN pipeline stages. Beneath the pipeline stage
 a color coded legend which serve as color reminders. Note these
 colors can be customized within Settings.
 
-The RGP wavefront occupancy for OpenCL or HIP has only compute in the wavefront occupancy.
-This is because compute APIs such as OpenCL or HIP only dispatch compute shader waves.
-For this same reason, a number of the coloring options such as hardware context
-and RDNA/GCN stages are not applicable for OpenCL or HIP.
+The RGP wavefront occupancy for OpenCL, HIP, or pure-compute DirectX and Vulkan has only compute 
+in the wavefront occupancy. This is because compute APIs such as OpenCL or HIP only dispatch 
+compute shader waves. For this same reason, a number of the coloring options such as hardware 
+context and RDNA/GCN stages are not applicable for pure-compute profiles.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_opencl.png
 
@@ -164,6 +164,9 @@ counter name in the legend left of the counter graph.
 
 The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
 reported in the System information pane in the Overview tab.
+
+The L1 cache does not perform any actual caching on Radeon RX 9000 series GPUs,
+so the L1 cache counter is not displayed for profiles captured on this hardware.
 
 Users may use the legend on the left to choose which counters to
 include in the graph.
@@ -828,7 +831,7 @@ instruction is issued at an interval of 1 clock.
 .. image:: media_rgp/rgp_instruction_timing_example_1.png
 
 **Delays in Instruction Issue:** In the below image, we see four export instructions. The
-first *exp* instruction has a rather long interval of 4,162 clocks. This can be expected since the
+first *exp* instruction has a rather long interval of 4,173 clocks. This can be expected since the
 export instruction's issue can be delayed for reasons such as unavailable memory resources
 which may be in use by other wavefronts. As a result, there is a long duration in the instruction.
 Since the latency waiting for memory resources was seen for the first export instruction,
@@ -836,14 +839,14 @@ the subsequent exports, have a much shorter duration.
 
 .. image:: media_rgp/rgp_instruction_timing_example_2.png
 
-**Waitcounts and Instruction Issue:** In the below image, we see seven instructions. There are
-two scalar buffer loads and three scalar ALU instructions, all of which issue with little latency.
-We then see a *s_waitcnt* instruction. The *s_waitcnt* has a longer issue interval of 2,088 clocks.
-The short latencies of the previous *s_buffer_load_dword* instructions may seem counter intuitive
-since those are memory load instructions. However, this is expected as *s_waitcnt* is a shader
+**Waitcounts and Instruction Issue:** In the below image, we see eight instructions. There is
+a vector buffer load followed by five vector ALU instructions, all of which issue with little latency.
+We then see a *s_waitcnt* instruction. The *s_waitcnt* has a longer issue interval of 885 clocks.
+The short latency of the previous *tbuffer_load_format_x* instruction may seem counter intuitive
+since it is a memory load instruction. However, this is expected as *s_waitcnt* is a shader
 instruction used for synchronization to wait for previous instructions, such as the previous buffer
-loads, to finish. The *s_waitcnt* instruction will issue and then wait (in this
-case 2,088 clocks) until the next instruction which is the *v_add_f32_e64* can be issued.
+load, to finish. The *s_waitcnt* instruction will issue and then wait (in this
+case 885 clocks) until the next instruction which is the *v_and_b32_e32* can be issued.
 
 .. image:: media_rgp/rgp_instruction_timing_example_3.png
 
