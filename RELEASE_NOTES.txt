@@ -1,16 +1,16 @@
-Radeon™ GPU Profiler V2.4 03-11-2025
+Radeon™ GPU Profiler V2.5 06-17-2025
 -------------------------------------
 
-V2.4 Changes
+V2.5 Changes
 -------------------------------------
 
-1) Support for AMD RDNA™ 4 hardware (AMD Radeon RX 9000 Series)
-2) Support for additional AMD RDNA 3-based APUs
-3) Support for profiling non-frame-based pure compute DirectX® 12 and Vulkan® applications (requires a 24.30-based driver or newer)
-4) Support for profiling DirectML applications, including displaying driver-added user markers to show the category of any meta commands executed via the DirectML runtime (requires a 24.30-based driver or newer)
-5) Support for viewing ISA and Instruction timing data for sub-dispatches in Work Graphs applications (requires a 24.30-based driver or newer)
-6) The ISA views in the Pipeline state pane and in the Instruction timing pane will now show additional information in a tooltip when you hover the mouse over an instruction opcode
-7) The System information page will now display information about the installed driver (requires a 24.30-based driver or newer)
+1) Support for additional AMD RDNA™ 4 hardware
+2) Counter collection is now supported on AMD RDNA 3.5-based APUs (requires a 25.10-based driver or newer)
+3) Support for showing pipeline data in the Pipelines Overview pane for Work Graph pipelines (requires a 25.10-based driver or newer)
+4) Improved interoperability between Radeon GPU Profiler and Radeon GPU Analyzer for pipelines that contain multiple shaders (like some ray tracing and compute pipelines)
+5) Improved instruction latency tooltip in the Instruction timing pane
+6) Improved annotations on event names for DirectX® 12 events launched from ExecuteIndirect
+7) Improved loading performance for profiles with large number of events
 8) Bug/stability fixes
 
 Known Issues
@@ -29,11 +29,10 @@ Known Issues
 2) If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
 3) The Driver information will not be displayed in the System information page for profiles from HIP or OpenCL applications.
 4) When using a 24.30-based driver, the L2 cache size reported in the System information page on RX 9000 Series GPUs will be incorrect for profiles from HIP or OpenCL applications.
-5) Some DirectX ray tracing profiles may show "Unknown" events for profiles captured on Radeon RX 9000 Series GPUs.
 
 * Linux®
 
-1) Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json.
+1) Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json.
 
 * RDNA
 
@@ -46,6 +45,18 @@ Known Issues
 
 Release Notes History
 -------------------------------------
+
+V2.4 Changes
+-------------------------------------
+
+1) Support for AMD RDNA 4 hardware (AMD Radeon RX 9000 Series)
+2) Support for additional AMD RDNA 3-based APUs
+3) Support for profiling non-frame-based pure compute DirectX 12 and Vulkan applications (requires a 24.30-based driver or newer)
+4) Support for profiling DirectML applications, including displaying driver-added user markers to show the category of any meta commands executed via the DirectML runtime (requires a 24.30-based driver or newer)
+5) Support for viewing ISA and Instruction timing data for sub-dispatches in Work Graphs applications (requires a 24.30-based driver or newer)
+6) The ISA views in the Pipeline state pane and in the Instruction timing pane will now show additional information in a tooltip when you hover the mouse over an instruction opcode
+7) The System information page will now display information about the installed driver (requires a 24.30-based driver or newer)
+8) Bug/stability fixes
 
 V2.3 Changes
 -------------------------------------
