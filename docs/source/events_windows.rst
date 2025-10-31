@@ -121,8 +121,8 @@ context and RDNA/GCN stages are not applicable for pure-compute profiles.
 \ **Cache counters**
 
 This section visualizes the cache counter data collected while profiling.
-Cache counter data is only available on Radeon RX 5000 series and newer
-GPUs. While profiling, counter data is sampled at a fixed rate, roughly
+Cache counter data is only available on RDNA 1-based GPUs and newer.
+While profiling, counter data is sampled at a fixed rate, roughly
 one sample every 4096 clock cycles.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_1.png
@@ -165,11 +165,14 @@ counter name in the legend left of the counter graph.
 The sizes of the L0, L1 and L2 caches, which may vary depending on the GPU, are
 reported in the System information pane in the Overview tab.
 
-The L1 cache does not perform any actual caching on Radeon RX 9000 series GPUs,
+The L1 cache does not perform any actual caching on RDNA 4-based GPUs,
 so the L1 cache counter is not displayed for profiles captured on this hardware.
 
 Users may use the legend on the left to choose which counters to
 include in the graph.
+
+The user interaction for all other counters is identical to the user interaction
+for the cache counters.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_2.png
 
@@ -178,13 +181,13 @@ through 3 states: visible, visible and selected, and not visible.
 
 Selecting a counter will cause the area under the line for the selected counter to be filled in. 
 This can be done for one or more counters simultaneously. In this image, the user has clicked the color boxes
-for both the L1 and L2 cache hit counters.
+for both the L0 and L2 cache hit counters.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_4.png
 
-A tooltip will be shown when the mouse hovers over the counter graphs. This tooltip
-shows the counter value of the closest point to the cursor, as well as the number
-of **Requests**, **Hits**, and **Misses** associated with that point. When a region
+A tooltip will be shown when the mouse hovers over any counter graph. The tooltip
+shows the counter value of the closest point to the cursor. For the cache counter graph, the tooltip also
+displays the number of **Requests**, **Hits**, and **Misses** associated with that point. When a region
 is selected in the wavefront occupancy view, the tooltip will show aggregated data
 representing the selected region. Pressing the Ctrl key on the keyboard will
 temporarily hide the tooltip.
@@ -202,9 +205,8 @@ presentation found on gpuopen.com.
 
 \ **Ray tracing counters**
 
-When profiling a game that uses ray tracing, a second row of counter data will show
-ray tracing counter values. These counters are only available on Radeon RX 6000
-series and newer GPUs.
+When profiling a game that uses ray tracing, an additional row of counter data will show
+ray tracing counter values. These counters are only available on RDNA 2-based GPUs and newer.
 
 .. image:: media_rgp/rgp_wavefront_occupancy_counters_5.png
 
@@ -215,8 +217,58 @@ provide information on the number of ray tests performed by the frame.
 
 - **Ray triangle tests** The number of ray triangle intersection tests.
 
-The user interaction for the ray tracing counters is identical to the user interaction
-for the cache counters.
+\ **LDS counters**
+
+When profiling an application that has local data store (LDS) bank conflicts, an additional row of counter data
+will show LDS bank conflict counter values. These counters are only available on RDNA 3-based GPUs and newer.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_6.png
+
+- **LDS bank conflict** The percentage of GPUTime LDS is stalled by bank conflicts.
+
+When the mouse is over the LDS counter graph, the tooltip will show additional columns for **GPU Busy Cycles**
+and **LDS Busy Cycles** associated with that point.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_9.png
+
+\ **Memory (bytes) counters**
+
+This section visualizes value based memory counter data collected while profiling.
+Memory counter data is only available on RDNA 3-based GPUs and newer.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_7.png
+
+- **Fetch size** The total bytes fetched from the video memory.
+  This is measured with all extra fetches and any cache or memory effects taken into account.
+
+- **Write size** The total bytes written to the video memory.
+  This is measured with all extra fetches and any cache or memory effects taken into account.
+
+- **Local video memory bytes** Number of bytes read from or written to the Infinity Cache (if available) or local video memory.
+
+- **PCIe bytes** Number of bytes sent and received over the PCIe bus.
+
+\ **Memory (%) counters**
+
+This section visualizes percentage based memory counter data collected while profiling.
+Memory counter data is only available on RDNA 3-based GPUs and newer.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_8.png
+
+- **Memory unit busy** The percentage of GPUTime the memory unit is active. The result includes the stall time (MemUnitStalled).
+  This is measured with all extra fetches and writes and any cache or memory effects taken into account.
+
+- **Memory unit stalled** The percentage of GPUTime the memory unit is stalled.
+  Try reducing the number or size of fetches and writes if possible.
+
+- **Write unit stalled** The percentage of GPUTime the Write unit is stalled.
+
+The Write unit stalled counter is not available in RGP profiles on RDNA 3-based GPUs.
+
+When the mouse is over the Memory (%) graph, the tooltip will show additional columns for **GPU Busy Cycles**
+and **Mem Unit Busy Cycles** associated with that point.
+
+.. image:: media_rgp/rgp_wavefront_occupancy_counters_10.png
 
 \ **Events timeline view**
 

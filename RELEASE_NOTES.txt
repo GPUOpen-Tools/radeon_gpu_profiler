@@ -1,20 +1,19 @@
-Radeon™ GPU Profiler V2.5 06-17-2025
--------------------------------------
+Radeon™ GPU Profiler V2.6
+---------------------------
 
-V2.5 Changes
--------------------------------------
+V2.6 Changes
+---------------------------
 
 1) Support for additional AMD RDNA™ 4 hardware
-2) Counter collection is now supported on AMD RDNA 3.5-based APUs (requires a 25.10-based driver or newer)
-3) Support for showing pipeline data in the Pipelines Overview pane for Work Graph pipelines (requires a 25.10-based driver or newer)
-4) Improved interoperability between Radeon GPU Profiler and Radeon GPU Analyzer for pipelines that contain multiple shaders (like some ray tracing and compute pipelines)
-5) Improved instruction latency tooltip in the Instruction timing pane
-6) Improved annotations on event names for DirectX® 12 events launched from ExecuteIndirect
-7) Improved loading performance for profiles with large number of events
-8) Bug/stability fixes
+2) Support for additional AMD RDNA 3.5-based APUs
+3) Profiles captured on RDNA 3-based or RDNA 4-based hardware will now include additional memory-related counters
+4) The pipeline state pane will now indicate if dynamic VGPR allocation is used in a shader (for profiles captured on RDNA 4-based hardware)
+5) Fixed a crash when loading some .rgp files with ExecuteIndirect events
+6) Fix missing instruction timing for some events
+7) Bug/stability fixes
 
 Known Issues
--------------------------------------
+---------------------------
 
 * All platforms
 
@@ -32,7 +31,8 @@ Known Issues
 
 * Linux®
 
-1) Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan® driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json.
+1) With the introduction of 25.20-based Linux drivers, the AMDVLK driver is no longer included in the amdgpu-pro driver package. This is a result of the AMDVLK open-source project being discontinued as mentioned here (https://github.com/GPUOpen-Drivers/AMDVLK/discussions/416). Instead, the RADV open-source Vulkan® driver is installed by default. Consequently, the Radeon Developer Panel does not support capturing data from Vulkan applications when using these newer driver releases. To analyze Linux Vulkan workloads with Radeon GPU Profiler (RGP), Radeon Raytracing Analyzer (RRA), or Radeon Memory Visualizer (RMV), users can opt for a 25.10-based driver. Alternatively, analysis can be performed using the data capture mechanism integrated within the RADV driver, although this method is not supported by the Radeon Developer Panel. For more information on configuring RADV, refer to the environment variable documentation, specifically the MESA_VK_TRACE_* environment variables (https://docs.mesa3d.org/envvars.html#envvar-MESA_VK_TRACE) which can be utilized for enabling and configuring tracing.
+2) When using a 25.10-based driver or older: Installations of Ubuntu 20.04 or newer may have the RADV open source Vulkan driver installed by default on the system. As a result, after an amdgpu-pro driver install, the default Vulkan ICD may be the RADV ICD. In order to capture a profile, Vulkan applications must be using the amdgpu-pro Vulkan ICD. The default Vulkan ICD can be overridden by setting the following environment variable before launching a Vulkan application: VK_ICD_FILENAMES=/etc/vulkan/icd.d/amd_icd64.json.
 
 * RDNA
 
@@ -44,10 +44,22 @@ Known Issues
 
 
 Release Notes History
--------------------------------------
+---------------------------
+
+V2.5 Changes
+---------------------------
+
+1) Support for additional AMD RDNA 4 hardware
+2) Counter collection is now supported on AMD RDNA 3.5-based APUs (requires a 25.10-based driver or newer)
+3) Support for showing pipeline data in the Pipelines Overview pane for Work Graph pipelines (requires a 25.10-based driver or newer)
+4) Improved interoperability between Radeon GPU Profiler and Radeon GPU Analyzer for pipelines that contain multiple shaders (like some ray tracing and compute pipelines)
+5) Improved instruction latency tooltip in the Instruction timing pane
+6) Improved annotations on event names for DirectX® 12 events launched from ExecuteIndirect
+7) Improved loading performance for profiles with large number of events
+8) Bug/stability fixes
 
 V2.4 Changes
--------------------------------------
+---------------------------
 
 1) Support for AMD RDNA 4 hardware (AMD Radeon RX 9000 Series)
 2) Support for additional AMD RDNA 3-based APUs
@@ -59,7 +71,7 @@ V2.4 Changes
 8) Bug/stability fixes
 
 V2.3 Changes
--------------------------------------
+---------------------------
 
 1) The System information pane (which has been renamed from "Device configuration") will now indicate if any driver experiments were enabled when the loaded profile data set was captured
 2) The event tree view in the Event timing and Pipeline state panes will show when multiple indirect draw calls or dispatches are launched from a single ExecuteIndirect call
@@ -69,7 +81,7 @@ V2.3 Changes
 6) Bug/stability fixes
 
 V2.2 Changes
--------------------------------------
+---------------------------
 
 1) Updated to use Qt 6.7.0
 2) Fix a crash when loading a RADV-exported profile (https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/98)
@@ -78,7 +90,7 @@ V2.2 Changes
 5) Bug/stability fixes
 
 V2.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -91,7 +103,7 @@ V2.1 Changes
 7) Bug/stability fixes
 
 V2.0 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -109,7 +121,7 @@ V2.0 Changes
 1) To support collecting data for thread divergence in the ray tracing shader table, the Profiling workflow user interface has a new "Enable shader instrumentation" checkbox (affects DirectX 12 only for now, requires AMD Software: Adrenalin Edition 23.12.1 or newer)
 
 V1.16 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -126,7 +138,7 @@ V1.16 Changes
 11) Bug/stability fixes
 
 V1.15.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -138,7 +150,7 @@ V1.15.1 Changes
 6) Fix a few minor visual glitches in the ISA display in the Instruction timing or Pipeline state pane
 
 V1.15 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -159,7 +171,7 @@ V1.15 Changes
 10) Bug/stability fixes
 
 V1.14.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -175,7 +187,7 @@ V1.14.1 Changes
   - Fix issue with incorrect VALU/SALU latency breakdown when total latency is relatively low
 
 V1.14 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -196,7 +208,7 @@ V1.14 Changes
 2) Support for a new timer-based automatic capture mechanism for OpenCL and HIP applications (in addition to the existing dispatch range mechanism)
 
 V1.13.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -209,7 +221,7 @@ V1.13.1 Changes
 7) RGP can now open profile files saved in paths containing non-ASCII characters
 
 V1.13 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -231,7 +243,7 @@ V1.13 Changes
 5) Fixed capture issue which caused each command buffer to be submitted individually when using a Workflow that includes both Profiling and Memory Tracing
 
 V1.12 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -255,7 +267,7 @@ V1.12 Changes
   - On Linux, in the remote profiling case, a warning will be shown if the current user does not have proper permissions required to set stable GPU clock frequencies
 
 V1.11 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -274,7 +286,7 @@ V1.11 Changes
 
 
 V1.10 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -292,7 +304,7 @@ V1.10 Changes
 1) New "Collect cache counters" checkbox on Profiling tab to enable cache counter collection with an RGP profile.
 
 V1.9 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -308,7 +320,7 @@ V1.9 Changes
 4) Bug/stability fixes
 
 V1.8 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -338,7 +350,7 @@ V1.8 Changes
 2) Customizable workflows to better support Profiling and Memory Tracing
 
 V1.7 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -364,7 +376,7 @@ V1.7 Changes
 
 
 V1.6 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -381,7 +393,7 @@ V1.6 Changes
 
 
 V1.5.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -405,7 +417,7 @@ V1.5.1 Changes
 
 
 V1.4 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -433,7 +445,7 @@ AMD RX Vega 64, AMD RX Vega 56, AMD Ryzen™ 5 2400G and Ryzen 3 2200G Processor
 
 
 V1.3.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon Developer Panel
 
@@ -441,7 +453,7 @@ V1.3.1 Changes
 
 
 V1.3 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -461,7 +473,7 @@ V1.3 Changes
 
 
 V1.2 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -476,7 +488,7 @@ V1.2 Changes
 
 
 V1.1.1 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -489,7 +501,7 @@ V1.1.1 Changes
 
 
 V1.1.0 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -516,7 +528,7 @@ V1.1.0 Changes
 
 
 V1.03 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -543,7 +555,7 @@ V1.03 Changes
 
 
 V1.02 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
@@ -571,7 +583,7 @@ V1.02 Changes
 
 
 V1.01 Changes
--------------------------------------
+---------------------------
 
 * Radeon GPU Profiler
 
