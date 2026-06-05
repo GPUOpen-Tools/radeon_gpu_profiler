@@ -48,7 +48,7 @@ Decreases the zoom level incrementally to display a longer time span on the
 graph. The zoom level is decreased each time this icon is clicked until the
 minimum zoom level is reached (i.e. the full available time region).
 Alternatively, holding down the **CTRL** key and scrolling the mouse wheel down
-while the mouse pointer is over the graph will also zoom out for more detailed
+while the mouse pointer is over the graph will also zoom out for a broader
 view. Zooming out can be activated with the **Z** shortcut key. To zoom out
 quickly at a 10x rate, press the **X** shortcut key.
 

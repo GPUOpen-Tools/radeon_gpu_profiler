@@ -30,7 +30,25 @@ GPU Analyzer. See the section
 :ref:`Radeon GPU Analyzer and Radeon GPU Profiler interop<rga_rgp_interop>`
 for more information.
 
-**Driver experiment notification** Radeon GPU Profiler will display a
+.. _shader_debug_search_paths:
+
+**Shader debug information search paths:** Control where Radeon GPU Profiler searches
+for shader debug information.
+
+Radeon GPU Profiler uses debug information from compiled shader binaries
+to display shader source code in a DX12 profile.
+The profiler will search for compiled shader binaries in the directories specified in this setting,
+with optional recursive searching.
+See the section :ref:`pipeline-state` for information on how source code is displayed.
+
+In order for shader binaries to be used for source code display,
+shaders must be compiled with debug information (via either the ``-Zi`` or ``-Zs`` DXC option)
+and source information (via the ``-Qsource_in_debug_module`` DXC option).
+If a shader is compiled with debug information in a separate PDB file (via the ``-Fd`` DXC option),
+the PDB file must be placed in the same directory as the compiled shader binary,
+and it must have its original filename as given by DXC.
+
+**Driver experiment notification:** Radeon GPU Profiler will display a
 notification banner under the main drop down menu of the user interface
 indicating when a loaded profile contains modified driver experiments.
 

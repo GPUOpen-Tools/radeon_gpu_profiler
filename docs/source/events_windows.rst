@@ -10,6 +10,8 @@ consists of the event index, the API call and parameters. Only events
 containing the filter string will be displayed. This works for the whole
 event string, not just the event index. For example, if the filter string
 is '8', event 31 may be displayed if any of its parameters contain '8'.
+In addition, events can be filtered by hash value. The supported hash
+types are the API PSO hash, the API shader hash, and the internal pipeline hash.
 
 
 Wavefront occupancy
@@ -108,7 +110,7 @@ the Event timing pane.
 
 Beneath the Color by combo-box there is another combo-box to help visualize
 the occupancy of certain RDNA or GCN pipeline stages. Beneath the pipeline stage combo-box is
-a color coded legend which serve as color reminders. Note these
+a color coded legend which serves as a color reminder. Note these
 colors can be customized within Settings.
 
 The RGP wavefront occupancy for OpenCL, HIP, or pure-compute DirectX and Vulkan has only compute 
@@ -320,11 +322,12 @@ events in different ways:
    different portions of a scene.
 
 -  **Color by command buffer.** Shows each event in a color associated
-   with its command buffer, so making it easy to see events are in the same
+   with its command buffer, making it easy to see which events are in the same
    command buffer.
 
--  **Color by user events.** Will colorize each event depending on which
-   user event it is surrounded by.
+-  **Color by user events.** Assigns each event the same color as the user event it is surrounded by,
+   allowing visual correlation between events and the application's user event regions.
+   Events not associated with a user event are shown in grey.
 
 -  **Color by API PSO** will color events by their API PSO hash values.
 
@@ -381,7 +384,7 @@ the rightmost-region of the slider will highlight the most expensive
 events. When using the slider buttons on the duration percentile filter,
 a tooltip will display the time duration range that corresponds to the
 selected percentiles. One will also find a textbox to filter the timeline
-by event name.
+by event name or hash value (API PSO hash, API shader hash, or internal pipeline hash).
 
 .. image:: media_rgp/rgp_wavefront_occupancy_7.png
 
@@ -640,7 +643,7 @@ Grouping by hardware context is shown below:
 Note that when profiling an application that uses indirect drawing via the
 **ExecuteIndirect** D3D12 call, the event tree view will logically group the
 individual draw calls under the same parent node. This can be seen below where
-the individidual **DrawInstanced** events are grouped under a parent node with
+the individual **DrawInstanced** events are grouped under a parent node with
 the same name:
 
 .. image:: media_rgp/rgp_event_treeview_multidraw.png
@@ -698,6 +701,8 @@ In a compute event, only compute shader waves are launched.
 Also, compute dispatches do not have any fixed function work after the shader
 work is finished.
 
+.. _pipeline-state:
+
 Pipeline state
 --------------
 
@@ -708,9 +713,10 @@ rendered in black and can be selected, grey stages are inactive on this
 draw and cannot be selected.
 
 The user has selected the PS stage for viewing and it is rendered in
-blue to indicate this. Below is a tabbed display to allow switching between
+blue to indicate this. Below is a tabbed display: The Information tab shows
 a summary of the wavefront activity for this draw and the per-wavefront
-register resources used by the shader, and the shader ISA disassembly.
+register resources used by the shader. The Shader tab shows
+the shader ISA disassembly and source code, if available.
 
 The register values indicate the number of registers that the shader is
 using. The value in parentheses is the number of registers that have
@@ -723,13 +729,30 @@ theoretically possible, but may be limited by other factors.
 
 .. image:: media_rgp/rgp_pipeline_state_1.png
 
-Switching to the ISA tab will show the shader code at the ISA level. At the
-top, some general information will be given, such as the number of registers
-used and allocated and the various hash values for this event.
+Switching to the Shader tab will show the shader code at the ISA level,
+and HLSL source code for DX12 shaders if available.
+
+HLSL source code is loaded from compiled shader debug information,
+which RGP must be configured to load.
+See the :ref:`Shader debug information settings <shader_debug_search_paths>` section for details.
+If the shader debug information is available,
+then the HLSL source code will be shown alongside the ISA disassembly.
+
+.. image:: media_rgp/rgp_pipeline_state_shader_source.png
+
+A drop down menu is used to select which source file to view
+in the case where the shader was built from multiple source files.
+
+.. image:: media_rgp/rgp_pipeline_state_shader_source_files_menu.png
+
+At the top of the ISA disassembly, some general information will be given,
+such as the number of registers used and allocated
+and the various hash values for this event.
 
 .. image:: media_rgp/rgp_pipeline_state_3.png
 
-More information on the ISA tab can be found under the :ref:`ISA View <isa_view>` section.
+More information on viewing and navigating ISA disassembly
+can be found under the :ref:`ISA View <isa_view>` section.
 
 **Grouping modes**
 
@@ -784,20 +807,20 @@ the Pipeline state pane will look a bit different.
 
 .. image:: media_rgp/rgp_pipeline_state_raytracing_1.png
 
-There are three tabs available: **Shader table**, **ISA**, and **Information**.
+There are three tabs available: **Shader table**, **Shader**, and **Information**.
 
 The Shader table tab contains two main parts: an interactive flowchart
 representing the raytracing pipeline and a table containing the list of
 shader functions. Each shader function has an associated type. This type can be
-**Ray generation**, **Traversal**, **Intersection**, **Any hit**,
+**Launch kernel**, **Ray generation**, **Traversal**, **Intersection**, **Any hit**,
 **Closest hit**, **Miss** or **Callable**. The shader table lists each shader
 function, its type, resource usage statistics, instruction timing statistics,
 and both the API shader hash and the Internal pipeline hash. You can filter the
 table by shader type using the **Shader types** combo box. You can also filter
 the table by Export name using the **Filter shaders...** field. If you click on
-any hyperlinked text in the shader table, it will navigate to the ISA tab and
+any hyperlinked text in the shader table, it will navigate to the Shader tab and
 show the ISA for the selected shader function. You can also use the right-click
-context menu to navigate to either the ISA tab or to the Instruction timing
+context menu to navigate to either the Shader tab or to the Instruction timing
 view. The context menu also allows you to analyze the pipeline binary for that
 shader function in the Radeon GPU Analyzer.
 
@@ -843,7 +866,7 @@ is not available.
 
 .. image:: media_rgp/rgp_pipeline_state_raytracing_2.png
 
-The ISA tab will also look different for raytracing events that use the indirect
+The Shader tab will also look different for raytracing events that use the indirect
 compilation mode. In addition to the normal ISA listing, there is also a drop down
 combo box that allows for viewing the ISA from a different shader function. For the
 selected shader function, the corresponding row from the shader table is also
@@ -937,7 +960,7 @@ work. In this case, yellow is more prevalent than green.
 
 .. image:: media_rgp/rgp_instruction_timing_latency_bars_2.png
 
-When the amount of latency hidden by SALU and VALU work is greater than the the pre-issue
+When the amount of latency hidden by SALU and VALU work is greater than the pre-issue
 stall, no black diagonal hatch pattern will be displayed, and the tooltip will display that the pre-issue
 stall is completely hidden. If the amount of latency hidden by SALU and VALU work is less than the 
 pre-issue stall, the duration after the VALU and SALU work will have the black diagonal hatch pattern,
@@ -972,6 +995,17 @@ The Instruction Cost for an ISA instruction is calculated as follows:
 
 *Instruction Cost = 100 * (Sum of All Latencies for ISA Instruction) / (Sum of All Latencies for
 the shader)*
+
+.. rubric:: Average active lanes
+
+Starting with the AMD Radeon RX 9000 Series of GPUs, thread divergence information can now be shown on a per-instruction level for
+events with instruction timing data. Like the thread divergence information in the Pipeline state pane's shader table, this
+feature requires the **Enable shader instrumentation** checkbox to have been checked in Radeon Developer Panel when the
+profile was captured. When the thread divergence data is present, the Instruction timing pane includes a column showing the
+average number of active lanes for that instruction. Hovering over a cell in this column shows a tooltip with the
+distribution of active lanes across all hits.
+
+.. image:: media_rgp/rgp_instruction_timing_active_lanes.png
 
 .. rubric:: Filtering wavefronts
 
@@ -1092,9 +1126,9 @@ Compute profile are shown below.
 
 .. image:: media_rgp/rgp_instruction_timing_3.png
 
-The pipeline binary of an event can also be exported for analysis in the Radeon GPU Aanalyzer from the 
-instruction timing pane. Select the hamburger drop down as shown in the image below and select 
-"Analyze pipeline in Radeon GPU Analyzer". Selecting this option for indirect raytracing events will 
+The pipeline binary of an event can also be exported for analysis in the Radeon GPU Analyzer from the
+instruction timing pane. Select the hamburger drop down as shown in the image below and select
+"Analyze pipeline in Radeon GPU Analyzer". Selecting this option for indirect raytracing events will
 save and open the pipeline binary for the currently selected export name.
 
 .. image:: media_rgp/rgp_instruction_timing_rga_interop.png

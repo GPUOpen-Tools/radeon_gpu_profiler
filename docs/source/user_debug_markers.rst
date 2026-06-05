@@ -8,25 +8,56 @@ not supported for OpenCL or HIP.
 DirectX12 User Markers
 ----------------------
 
-For DirectX12, there are two recommended ways to instrument your application
+For DirectX12, there are three recommended ways to instrument your application
 with user markers that can be viewed within RGP:
 
-1. using Microsoft® PIX3 event instrumentation, or
-2. using the debug marker support in AMD GPU Services (AGS) Library.
+1. using native Microsoft® PIX3 event instrumentation (recommended),
+2. using PIX3 event instrumentation with modified AMD headers, or
+3. using the debug marker support in AMD GPU Services (AGS) Library.
 
-.. rubric:: Using PIX3 event instrumentation for DirectX12 user debug markers
+.. rubric:: Using native PIX3 event instrumentation for DirectX12 user debug markers
 
-If your application has been instrumented with PIX3 user markers, then
-to view the markers within RGP is a simple matter of recompiling the source code
-of the application with a slightly modified PIX header file. The steps described here
-require a WinPixEventRuntime version of at least 1.0.200127001.
-
-The PIX3 event instrumentation functions supported by RGP are:
+To view PIX3 markers natively in RGP, your application must use a DirectX12 Agility SDK
+with ``D3D12SDKVersion`` of 721 or newer. The PIX3 event instrumentation functions supported
+by RGP are:
 ::
 
   void PIXBeginEvent(ID3D12GraphicsCommandList* commandList, ...)
   void PIXEndEvent(ID3D12GraphicsCommandList* commandList)
   void PIXSetMarker(ID3D12GraphicsCommandList* commandList, ...)
+
+Your application will need to call ``ID3D12DeviceTools2::SetUserDefinedAnnotationMode``,
+passing in ``D3D12_USER_DEFINED_ANNOTATION_MODE_DRIVER_RETAIL``. Given an ``ID3D12Device`` pointer called ``device``,
+sample code to do this might look like:
+::
+
+  D3D12_FEATURE_DATA_USER_DEFINED_ANNOTATION annotationSupport = {};
+  HRESULT hr = device->CheckFeatureSupport(D3D12_FEATURE_USER_DEFINED_ANNOTATION, &annotationSupport, sizeof(annotationSupport));
+  if (FAILED(hr) || !annotationSupport.Supported)
+  {
+    return;
+  }
+
+  ID3D12DeviceTools2* deviceTools2 = nullptr;
+  hr = device->QueryInterface(__uuidof(ID3D12DeviceTools2), (void**)&deviceTools2);
+  if (SUCCEEDED(hr) && deviceTools2)
+  {
+    deviceTools2->SetUserDefinedAnnotationMode(D3D12_USER_DEFINED_ANNOTATION_MODE_DRIVER_RETAIL);
+    deviceTools2->Release();
+  }
+
+No additional header modifications or AMD-specific changes are needed. The markers will appear
+in RGP just as they do in the `Microsoft PIX tool`_. If an RGB color is supplied via the
+``PIX_COLOR(r, g, b)`` macro, RGP will use that color when displaying the markers.
+
+For more information on PIX event instrumentation, refer to the WinPixEventRuntime
+repository at https://github.com/microsoft/PixEvents.
+
+.. rubric:: Using PIX3 event instrumentation with modified AMD headers for DirectX12 user debug markers
+
+If you are not using a compatible DirectX12 Agility SDK, you can still view PIX markers in RGP by recompiling
+your application with a slightly modified PIX header file. The steps described here require a WinPixEventRuntime
+version of at least 1.0.200127001. The same PIX functions described above are used to instrument your application.
 
 The steps to update the PIX header file are:
 
@@ -58,7 +89,7 @@ When using WinPixEventRuntime version 1.0.200127001:
   #include "AmdDxExt\AmdPix3.h"
   #endif
 
-3. Update the ``PIXEvents.h`` file to add an ``Rgp`` prefix to the the existing calls to PIXBeginEventOnContextCpu,
+3. Update the ``PIXEvents.h`` file to add an ``Rgp`` prefix to the existing calls to PIXBeginEventOnContextCpu,
 PIXEndEventOnContextCpu and PIXSetMarkerOnContextCpu:
 
 When using WinPixEventRuntime version 1.0.231030001 or newer:
@@ -169,7 +200,7 @@ The PIX3 event instrumentation within the application continues to be usable for
 `Microsoft PIX tool`_ without additional side effects or overhead.
 
 To find a more complete description of how to use the PIX event instrumentation, refer to
-https://blogs.msdn.microsoft.com/pix/winpixeventruntime/.
+https://devblogs.microsoft.com/pix/winpixeventruntime/.
 
 See many examples of using PIX event instrumentation at https://github.com/Microsoft/DirectX-Graphics-Samples.
 
@@ -235,7 +266,7 @@ MD or MT static library, debug or release, or DLL).
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x64\_2017\_MD.lib   | NA                             | VS2017 Lib (multithreaded dll runtime library)            |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
-|              | amd\_ags\_x64\_2017\_MT.lib   | NA                             | VS2017 Lib (multithreaded static runtime library          |
+|              | amd\_ags\_x64\_2017\_MT.lib   | NA                             | VS2017 Lib (multithreaded static runtime library)         |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x64\_2017\_MDd.lib  | NA                             | VS2017 Lib (debug multithreaded dll runtime library)      |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
@@ -243,7 +274,7 @@ MD or MT static library, debug or release, or DLL).
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x64\_2019\_MD.lib   | NA                             | VS2019 Lib (multithreaded dll runtime library)            |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
-|              | amd\_ags\_x64\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library          |
+|              | amd\_ags\_x64\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library)         |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x64\_2019\_MDd.lib  | NA                             | VS2019 Lib (debug multithreaded dll runtime library)      |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
@@ -269,7 +300,7 @@ MD or MT static library, debug or release, or DLL).
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x86\_2019\_MD.lib   | NA                             | VS2019 Lib (multithreaded dll runtime library)            |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
-|              | amd\_ags\_x86\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library          |
+|              | amd\_ags\_x86\_2019\_MT.lib   | NA                             | VS2019 Lib (multithreaded static runtime library)         |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
 |              | amd\_ags\_x86\_2019\_MDd.lib  | NA                             | VS2019 Lib (debug multithreaded dll runtime library)      |
 +--------------+-------------------------------+--------------------------------+-----------------------------------------------------------+
@@ -391,16 +422,13 @@ as shown below.
 
 .. image:: media_rgp/rgp_user_markers_1.png
 
-"Draw Particles" User marker with the draw calls enclosed in the User
-Marker
-
 User markers can also be seen in the wavefront occupancy view when you
 color by user events. Coloring by user events is also possible in the
-event timing view. As seen below, any events enclosed by the same user
-marker will be shown with the same color. Any events not enclosed by user markers
-are shown in grey. The coloration is only affected by the Push/PopMarker
-combination; the SetMarker has no effect on the user event color since
-these markers simply mark a particular moment in time.
+event timing view. As seen below, user events are push and pop durations,
+and any RGP events that fall within a user event duration will be shown with
+the same color as that user event. SetMarker applies a unique color to the
+single RGP event immediately following the marker. Any events not enclosed by
+user events or preceded by a SetMarker are shown in grey.
 
 Additionally, the user event names are displayed in an Overlay at the top
 of the event timeline view.
@@ -413,7 +441,4 @@ contain a user event hierarchy, nothing will be shown.
 
 .. image:: media_rgp/rgp_user_markers_3.png
 
-Events enclosed by user markers are colored in the wavefront occupancy
-view. They are also visible in the side panel.
-
-.. _Microsoft PIX tool: https://blogs.msdn.microsoft.com/pix/introduction/
+.. _Microsoft PIX tool: https://devblogs.microsoft.com/pix/introduction/

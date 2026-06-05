@@ -74,7 +74,7 @@ inspect the event in question.
 
 Next, users may follow the same procedure to go back to RGP. This is achieved
 by right clicking an event in the Event Browser and selecting "Select RGP Event"
-as show below:
+as shown below:
 
 .. image:: media_rgp/rgp_rdc_interop_4.png
 

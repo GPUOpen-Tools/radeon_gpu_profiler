@@ -19,6 +19,10 @@ following software:
    developer to configure driver settings and generate profiler data
    from DirectX12, Vulkan, OpenCL and HIP applications.
 
+-  **Radeon Developer Panel CLI** - A headless, command-line version of
+   the Radeon Developer Panel for automated pipelines and scripted
+   capture workflows.
+
 -  **Radeon GPU Profiler (RGP)** - A GUI tool used to visualize and
    analyze the profile data.
 
@@ -75,8 +79,6 @@ Graphics APIs, RDNA hardware, and operating systems
 
 .. rubric:: Supported Operating Systems
 
--  Windows® 10
-
 -  Windows® 11
 
 -  Ubuntu® 24.04 LTS (Vulkan only)
@@ -105,8 +107,6 @@ Compute APIs, RDNA hardware, and operating systems
 -  AMD Ryzen Processors with Radeon Graphics
 
 .. rubric:: Supported Operating Systems
-
--  Windows 10
 
 -  Windows 11
 
@@ -138,6 +138,6 @@ Windows is a registered trademark of Microsoft Corporation in the US and other j
 
 Ubuntu and the Ubuntu logo are registered trademarks of Canonical Ltd.
 
-© 2016-2025 Advanced Micro Devices, Inc. All rights reserved.
+© 2016-2026 Advanced Micro Devices, Inc. All rights reserved.
 
 

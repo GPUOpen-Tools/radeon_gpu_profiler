@@ -1,14 +1,20 @@
-Radeon™ GPU Profiler V2.6.1
+Radeon™ GPU Profiler V2.7
 ---------------------------
 
-V2.6.1 Changes
+V2.7 Changes
 ---------------------------
 
-1) Fix several disassembler crashes when opening some profiles
- - https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/120
- - https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/121
-2) Fix an issue with unrecognized instructions in the ISA view for some RDNA 4 profiles with raytracing pipelines
-3) Fix an issue with incorrectly-reported HW Utilization in the Instruction timing pane for some profiles
+1) Support for additional AMD RDNA™ 4 hardware
+2) Support for additional AMD RDNA 3.5-based APUs
+3) Support for displaying DirectX® 12 shader source code via PDB/debug info
+4) Support for displaying data on thread divergence for non-ray tracing workloads in the Instruction timing pane
+5) Support for PIX native user markers in DirectX 12 profiles (requires the May Agility SDK)
+6) Support for filtering events by shader hash values in the UI
+7) Launch and Callable shaders are now shown in the Indirect ray tracing pipeline flow chart, including filtering support
+8) Driver information is now displayed in the System information page for profiles from HIP and OpenCL™ applications
+9) Improved "Color by user marker" mode in the Event timeline and Event timing panes so that events are assigned the same color as their correlated user marker
+10) Improved the Radeon GPU Analyzer interop window with support for multi-selection, search filtering, and a streamlined list view for events with a large number of binaries
+11) Bug/stability fixes
 
 Known Issues
 ---------------------------
@@ -17,15 +23,14 @@ Known Issues
 
 1) When using RGP with RenderDoc, please make sure that RenderDoc is terminated between RenderDoc capture sessions (generating a RenderDoc capture file or loading a RenderDoc capture file is considered a session for the purpose here). While it is possible to take multiple RGP profiles of a RenderDoc capture file, it is not possible to take RGP profiles between RenderDoc sessions. If this is attempted, RenderDoc will show an error dialog box indicating that an RGP profile can't be taken and to restart RenderDoc.
 2) If an instance of Radeon GPU Profiler is spawned from RenderDoc, it must be closed before restarting RenderDoc. The menu option to create new RGP profiles will not be enabled otherwise.
-3) OpenCL™ captures may include an extra DMA command buffer in the Profile summary.
+3) OpenCL captures may include an extra DMA command buffer in the Profile summary.
 4) It is recommended to use at least 1080p display resolution (1920 x 1080) with the RGP user interface. Some minor user interface issues may appear when using a lower resolution.
 
 * Windows®
 
 1) Some Radeon Software hotkeys may conflict with Radeon GPU Profiler shortcut keys. The Radeon Software hotkeys can be reconfigured by opening the Radeon Software panel (from the system tray), selecting the Hotkeys tab under Settings then changing or unbinding any conflicting hotkeys.
 2) If a DirectX 12 profile is missing GPU synchronization primitive data (i.e. signals and waits) on the Frame summary pane, please try running the included scripts\AddUserToGroup.bat batch file and then recapturing the profile. This batch file must be run as Administrator.
-3) The Driver information will not be displayed in the System information page for profiles from HIP or OpenCL applications.
-4) When using a 24.30-based driver, the L2 cache size reported in the System information page on RX 9000 Series GPUs will be incorrect for profiles from HIP or OpenCL applications.
+3) When using a 24.30-based driver, the L2 cache size reported in the System information page on RX 9000 Series GPUs will be incorrect for profiles from HIP or OpenCL applications.
 
 * Linux®
 
@@ -44,10 +49,19 @@ Known Issues
 Release Notes History
 ---------------------------
 
+V2.6.1 Changes
+---------------------------
+
+1) Fix several disassembler crashes when opening some profiles
+ - https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/120
+ - https://github.com/GPUOpen-Tools/radeon_gpu_profiler/issues/121
+2) Fix an issue with unrecognized instructions in the ISA view for some RDNA 4 profiles with raytracing pipelines
+3) Fix an issue with incorrectly-reported HW Utilization in the Instruction timing pane for some profiles
+
 V2.6 Changes
 ---------------------------
 
-1) Support for additional AMD RDNA™ 4 hardware
+1) Support for additional AMD RDNA 4 hardware
 2) Support for additional AMD RDNA 3.5-based APUs
 3) Profiles captured on RDNA 3-based or RDNA 4-based hardware will now include additional memory-related counters
 4) The pipeline state pane will now indicate if dynamic VGPR allocation is used in a shader (for profiles captured on RDNA 4-based hardware)
@@ -63,7 +77,7 @@ V2.5 Changes
 3) Support for showing pipeline data in the Pipelines Overview pane for Work Graph pipelines (requires a 25.10-based driver or newer)
 4) Improved interoperability between Radeon GPU Profiler and Radeon GPU Analyzer for pipelines that contain multiple shaders (like some ray tracing and compute pipelines)
 5) Improved instruction latency tooltip in the Instruction timing pane
-6) Improved annotations on event names for DirectX® 12 events launched from ExecuteIndirect
+6) Improved annotations on event names for DirectX 12 events launched from ExecuteIndirect
 7) Improved loading performance for profiles with large number of events
 8) Bug/stability fixes
 
@@ -282,7 +296,7 @@ V1.11 Changes
 
 1) Support for additional AMD RDNA 2 hardware
 2) Cache counter support for OpenCL applications (requires a 21.20-based driver)
-3) Indirect raytracing pipelines will now show a "Call targets" table in the Instruction timing pane for any s_swappc/s_setpc (call/return) instructions
+3) Indirect ray tracing pipelines will now show a "Call targets" table in the Instruction timing pane for any s_swappc/s_setpc (call/return) instructions
 4) The Cache counters tooltip in the Wavefront occupancy view will now show aggregated data when there is a selected region
 5) Performance improvement when loading profiles
 6) Updated to use Qt 5.15.2

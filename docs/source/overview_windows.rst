@@ -38,13 +38,13 @@ Along the top, we find a series of controls:
       a single submission block which also specifies the number of
       contained command buffers.
 
-   -  **Sync objects**: Toggles whether to display signals and waits.
+   -  **Sync objects:** Toggles whether to display signals and waits.
 
-   -  **Sequential**: An alternate view which shows data linearly as
+   -  **Sequential:** An alternate view which shows data linearly as
       opposed to stacked. The dark right-most portion of command buffers
       and submits indicates execution time on the GPU.
 
-   -  **GPU only**: A flat view of the data which represents solely GPU
+   -  **GPU only:** A flat view of the data which represents solely GPU
       work. This helps visualize parallelism among all GPU queues.
 
 -  **CPU submission markers:** Draw vertical lines to help visualize
@@ -164,17 +164,17 @@ Along the top, we find a series of controls:
 
 -  **Workload views:** Provide different ways to view the same data:
 
-    -  **Command buffers:**: Only for pure-compute DirectX and Vulkan profiles. See description in
-       the **Frame summary** section.
+   -  **Command buffers:** Only for pure-compute DirectX and Vulkan profiles. See description in
+      the **Frame summary** section.
 
-   -  **Sync objects**: Only for pure-compute DirectX and Vulkan profiles. See description in
-       the **Frame summary** section.
+   -  **Sync objects:** Only for pure-compute DirectX and Vulkan profiles. See description in
+      the **Frame summary** section.
 
-   -  **Sequential**: An alternate view which shows data linearly as
+   -  **Sequential:** An alternate view which shows data linearly as
       opposed to stacked. The dark right-most portion of command buffers
       and submits indicates execution time on the GPU.
 
-   -  **GPU only**: A flat view of the data which represents solely GPU
+   -  **GPU only:** A flat view of the data which represents solely GPU
       work. This helps visualize parallelism among all GPU queues.
 
 -  **CPU submission markers:** Draw vertical lines to help visualize
@@ -408,7 +408,7 @@ Context rolls pane.
 .. image:: media_rgp/rgp_context_rolls_1.png
 
 In the example above, a DirectX 12 application, we can see that there
-are 223 context rolls in the frame and none of them are redundant.
+are 422 context rolls in the frame and none of them are redundant.
 The Radeon GPU Profiler compares the context register values across state
 changes to calculate if the context roll was redundant. Redundant context
 rolls can be caused by the application and the driver. Ineffective draw
@@ -559,7 +559,7 @@ Here are the currently available columns:
 
 The rows in the table can be sorted by clicking on a column header.
 
-**NOTE:**
+**NOTE**:
 
 - Selecting any item in either the timeline view or the tree view will select the corresponding
   item in the other view.
