@@ -25,7 +25,7 @@ data).
 How to load a profile
 ---------------------
 
-There are a few ways to load a profile into RGP.
+There are a few ways to load a profile into the Radeon GPU Profiler (RGP).
 
 1) Use the "File/Open profile" pull down menu item, or the
    "File/Recent profiles" pull down menu item.
@@ -63,9 +63,22 @@ There are a few ways to load a profile into RGP.
 The Radeon GPU Profiler user interface
 --------------------------------------
 
-There are four main menus in the Radeon GPU Profiler and each has a
-number of sub-windows. The two main UIs that deal with the analysis of
-the profile data are within the **Overview** and **Events** sections.
+After a profile is loaded, the Radeon GPU Profiler title bar shows the profile
+filename, the graphics API used (D3D12, Vulkan, HIP, or OpenCL), the
+instruction tracing scope (if one was selected at capture time), and the RGP
+version number. For example::
+
+   sample_profile.rgp - D3D12 - Instruction tracing: Full frame, limited to Shader Engine 0 - Radeon GPU Profiler - V2.7.0.32
+
+Note that the instruction tracing scope shown in the title bar reflects the
+setting that was active when the profile was captured. It does not assert
+that instruction timing data is actually present in the profile. After
+loading, the **Instruction timing** tab in the **Events** section will be
+enabled if instruction timing data is available in the profile.
+
+There are four main menus in RGP and each has a number of sub-windows. The two
+main UIs that deal with the analysis of the profile data are within the
+**Overview** and **Events** sections.
 
 1. **Start**
 
@@ -144,3 +157,4 @@ to the System information pane. The banner can be dismissed by clicking the "X"
 button. Clicking the "Do not show again" link prevents the banner from being
 shown for subsequently loaded trace files. The notification banner can be
 re-enabled from the Settings pane.
+
